@@ -4,8 +4,6 @@
 session_start(); 
 
   include_once 'testarLogado.php';
-
-include_once './Auxiliares/Config.php';
 include_once 'view/ViewServico.php';
 
 include_once 'partes/header_tabelas.php'; 
@@ -17,9 +15,11 @@ include_once 'partes/header_tabelas.php';
     $view = new ViewServico();    
     $view->setTitulo("Serviço");
     $view->setSubTitulo("Lista de Serviços");
-    
-    
+        
+   
+
   
+    
   ?>
          
 

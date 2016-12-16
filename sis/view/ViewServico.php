@@ -8,6 +8,8 @@
 
 include_once './controllers/Servico.php';
 
+
+
 /**
  * Description of ViewServico
  *
@@ -65,8 +67,9 @@ class ViewServico {
                     </div>
                     <div class='panel-body'>                            
                         <div class='col-xs-4'>
-                            <label for='id_servico'>ID Servico</label>
-                            <input type='text' class='form-control' id='id_servico' name='id_servico' value='".$idServico."' disabled=''>                            
+                            <label for='id_servico_'>ID Servico</label>
+                            <input type='text' class='form-control' id='id_servico_' name='id_servico_' value='".$idServico."' disabled='' />                            
+                            <input type='hidden' id='id_servico' name='id_servico' value='".$idServico."' />
                         </div>                                            
                     </div>                    
                 </div>        
@@ -76,15 +79,16 @@ class ViewServico {
                     <div class='panel-heading'>
                         <h3 class='panel-title'>Informações Básicas</h3>
                     </div>
-                    <div class='panel-body'>                            
+                    <div class='panel-body'>     
+                    
                         <div class='col-xs-9'>
                            <label for='descricao'>Descrição *</label>
-                            <input type='text' class='form-control' id='descricao' maxlength='100' name='descricao' value='".$descricao."' required>
+                            <input type='text' class='form-control' id='descricao' maxlength='100' name='descricao' value='".$descricao."' required />
                         </div>
                         
                         <div class='col-xs-3'>
                             <label for='valor'>Valor R$</label>
-                            <input type='text' class='form-control' id='valor' name='valor' maxlength='7' value='".$valor."' required>
+                            <input type='text' class='form-control' id='valor' name='valor' maxlength='7' value='".$valor."' required/>
                         </div>     
                                                 
                     </div>                    
@@ -116,6 +120,7 @@ class ViewServico {
    
    
    public function imprimirListaServicos(){
+       
        $myLista = "<div class='col-md-12 col-sm-12 col-xs-12'>
                 <div class='x_panel'>
                   <div class='x_title'>

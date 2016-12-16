@@ -24,6 +24,10 @@ class Mensagem {
                     $texto = "Tem Certeza que Deseja Cancelar o Cadastro?";
                     $bt_confirmar = "<a href='".$paginaSeguinte."?btn-cancelar=true'><button type='button' class='btn btn-primary'>Cancelar Cadastro</button></a>";
                     break;
+                case 2:                    
+                    $texto = "Tem Certeza que Deseja Excluir o Cadastro?";
+                    $bt_confirmar = "<a href='".$paginaSeguinte."'><button type='button' class='btn btn-primary'>Excluir Cadastro</button></a>";
+                    break;
                 default :
                     $texto = "[ERRO] Ação não Identificada!";
                     $bt_confirmar = "";
@@ -41,6 +45,10 @@ class Mensagem {
                     break;
                 case 3:                    
                     $texto = "[ERRO] Erro ao Salvar Cadastro!";
+                    $bt_confirmar = "";
+                    break;
+                case 4:                    
+                    $texto = "[AVISO] Cadastro Excluído com Sucesso!";
                     $bt_confirmar = "";
                     break;
                 default :                   

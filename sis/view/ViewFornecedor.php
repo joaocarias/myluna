@@ -167,7 +167,6 @@ class ViewFornecedor {
                     <p>
                         <label>                            
                             <button type='button' class='btn btn btn-danger' data-toggle='modal' data-target='.bs-example-modal-lg'>Cancelar</button>                           
-
                         </label>
                         <label>
                             <input type='submit' id='btn-salvar' name='btn-salvar' value='Salvar' onsubmit='return salvar(this)' class='btn btn-success' />                                                                                           

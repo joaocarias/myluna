@@ -97,14 +97,14 @@ class Servico extends Conexao {
                     . "`descricao`, `valor`, `id_pai`, "
                     . "`data_cadastro`, `id_status`) "
                     . "VALUES "
-                    . "(?,?,?,?,?)"
+                    . "(?,?,?,NOW(),?)"
                     );        
 //                        
             $query->bindValue(1, $this->getDescricao());
             $query->bindValue(2, $this->getValor());
             $query->bindValue(3, $_SESSION['id_usuario']);
-            $query->bindValue(4, Auxiliar::dateToUS(Auxiliar::getDataAtualBR()));            
-            $query->bindValue(5, 1);        
+         //   $query->bindValue(4, Auxiliar::dateToUS(Auxiliar::getDataAtualBR()));            
+            $query->bindValue(4, 1);        
             
             
             $query->execute();    
@@ -117,6 +117,66 @@ class Servico extends Conexao {
         }
     }  
     
+    function editar(){                
+        try {
+            $pdo = parent::getDB();
+           
+            $query = $pdo->prepare("UPDATE `servico` "
+                    . "SET "
+                    . "`descricao`=?"
+                    . ",`valor`=?"
+                    . ",`data_modificacao`=NOW()"
+                    . ",`modificado_por`=?"
+                    . " WHERE "
+                    . "`id_servico` = ?;"
+                    );        
+//                        
+            $query->bindValue(1, $this->getDescricao());
+            $query->bindValue(2, $this->getValor());
+         //   $query->bindValue(3, Auxiliar::dateToUS(Auxiliar::getDataAtualBR()));            
+            $query->bindValue(3, $_SESSION['id_usuario']);            
+            $query->bindValue(4, $this->getId_servico());        
+            
+            
+            $query->execute();    
+            
+            
+            return true;
+       
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }  
+    
+    function excluir(){                
+        try {
+            $pdo = parent::getDB();
+           
+            $query = $pdo->prepare("UPDATE `servico` "
+                    . "SET "                    
+                    . "`data_modificacao`=NOW()"
+                    . ",`modificado_por`=?"
+                    . ",`id_status`=?"                    
+                    . " WHERE "
+                    . "`id_servico` = ?;"
+                );        
+                        
+           // $query->bindValue(1, $this->getDescricao());            
+         //   $query->bindValue(3, Auxiliar::dateToUS(Auxiliar::getDataAtualBR()));            
+            $query->bindValue(1, $_SESSION['id_usuario']);
+            $query->bindValue(2, 2);            
+            $query->bindValue(3, $this->getId_servico());        
+            
+            
+            $query->execute();    
+            
+            
+            return true;
+       
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }  
     
     public static function getLinhasTabela(){
         try{
@@ -133,9 +193,11 @@ class Servico extends Conexao {
                         . "<td>".$row->id_servico."</td>"
                         . "<td>".$row->descricao."</td>"
                         . "<td>".$row->valor."</td>"  
-                        . "<td><a class='btn btn-primary btn-sm' href='editar_servico.php?editar=true&id_servico=".$row->id_servico."' title='Editar'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> <a class='btn btn-danger btn-sm' href='processa_servico?excluir=true&id_servidor=".$row->id_servico."' title='Excluir' ><i class='fa fa-trash-o' aria-hidden='true'></i></td>"                      
+                        . "<td><a class='btn btn-primary btn-sm' href='editar_servico.php?editar=true&id_servico=".$row->id_servico."' title='Editar'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> <a class='btn btn-danger btn-sm' href='processa_servico.php?btn-excluir=true&id_servico=".$row->id_servico."' title='Excluir' ><i class='fa fa-trash-o' aria-hidden='true'></i></td>"                      
                         . "</tr> ";                
             }
+            
+            //'processa_servico?excluir=true&id_servico=".$row->id_servico."' title='Excluir' 
                
             return $linhas;                
         } catch (Exception $ex) {

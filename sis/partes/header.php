@@ -2,6 +2,8 @@
     include_once './Auxiliares/Config.php';
     include_once './controllers/Mensagem.php';
 
+    
+    date_default_timezone_set('America/Sao_Paulo');
 ?>
 
 <!DOCTYPE html>
