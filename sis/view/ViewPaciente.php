@@ -40,6 +40,7 @@ class ViewPaciente {
     
    
    function imprimirForm(){
+       Mensagem::getMensagem(1, 1, $this->getTitulo(), "processa_paciente.php");
        $myForm = "<div class='col-lg-12'>
             <form method='POST' action='processa_paciente.php' name='myform' id='myform' >                            
                 <div class='col-sm-12'>                        
@@ -180,7 +181,7 @@ class ViewPaciente {
                 <div>
                     <p>
                         <label>                            
-                            <a id='cancelar' href='processa_usuario.php?btn-cancelar=true' onclick=&ldquoreturn confirm('Tem Certeza que deseja Cancelar?');&ldquo><button type='button' class='btn btn-danger'>Cancelar</button></a> 
+                            <button type='button' class='btn btn btn-danger' data-toggle='modal' data-target='.bs-example-modal-lg'>Cancelar</button>                           
                         </label>
                         <label>
                             <input type='submit' id='btn-salvar' name='btn-salvar' value='Salvar' onsubmit='return salvar(this)' class='btn btn-success' />                                                                                           

@@ -8,8 +8,6 @@
 
 include_once './controllers/Servico.php';
 
-
-
 /**
  * Description of ViewServico
  *
@@ -37,6 +35,8 @@ class ViewServico {
    }
 
     function imprimirForm($acao, $idServico){
+        Mensagem::getMensagem(1, 1, $this->getTitulo(), "processa_servico.php");
+                
        $descricao = "";
        $valor = "";
         
@@ -99,7 +99,6 @@ class ViewServico {
                     <p>
                         <label>                            
                             <button type='button' class='btn btn btn-danger' data-toggle='modal' data-target='.bs-example-modal-lg'>Cancelar</button>                           
-
                         </label>
                         ".$btn_salvar."                         
                     </p>

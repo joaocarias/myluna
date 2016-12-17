@@ -11,8 +11,9 @@ include_once 'partes/profile.php';
     
 include_once 'partes/menu_lateral.php';
     
-//include_once 'partes/footer_buttons.php';
-    
+$acao = "";
+$idUsuario = "";
+
 include_once 'partes/menu_top.php';
     
     $view = new ViewUsuario();    
@@ -35,7 +36,7 @@ include_once 'partes/menu_top.php';
 
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   
-                    <?php $view->imprimirForm(); ?>
+                    <?php $view->imprimirForm($acao,$idUsuario); ?>
 
                 </div>
 

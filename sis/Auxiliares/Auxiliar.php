@@ -44,14 +44,22 @@ class Auxiliar {
 
     public static function dateToBR($dataAmericana){
         $d = explode('-', $dataAmericana);
-        $dOK = $d[2].'/'.$d[1].'/'.$d[0];
-        return $dOK;
+        if(isset($d[2]) && isset($d[1]) && isset($d[0])){
+            $dOK = $d[2].'/'.$d[1].'/'.$d[0];
+            return $dOK;
+        }else{
+            return "";
+        }
     }
     
     public static function dateToUS($dataBrasil){
         $d = explode('/', $dataBrasil);
-        $dOK = $d[2].'-'.$d[1].'-'.$d[0];
-        return $dOK;
+        if(isset($d[2]) && isset($d[1]) && isset($d[0])){
+            $dOK = $d[2].'-'.$d[1].'-'.$d[0];
+            return $dOK;
+        }else{
+            return "";
+        }
     }
 
 

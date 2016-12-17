@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-  include_once 'testarLogado.php';
-
-include_once 'view/ViewServico.php';
+include_once 'testarLogado.php';
+  
+include_once 'view/ViewUsuario.php';
 
 include_once 'partes/header.php';
 
@@ -14,21 +14,21 @@ include_once 'partes/menu_lateral.php';
 //include_once 'partes/footer_buttons.php';
     
 include_once 'partes/menu_top.php';
-
+    
 $acao = "";
 $idServico = "";
 
+
 if(isset($_GET['editar'])){
     $acao = "editar";
-    if(isset($_GET['id_servico'])){
-        $idServico = $_GET['id_servico'];
+    if(isset($_GET['id_usuario'])){
+        $idUsuario = $_GET['id_usuario'];
     }
 }
 
-    
-    $view = new ViewServico();    
-    $view->setTitulo("Serviço");
-    $view->setSubTitulo("Editar Cadastro de Serviço");
+    $view = new ViewUsuario();    
+    $view->setTitulo("Usuario");
+    $view->setSubTitulo("Editar Cadastro de Usuário");
     
     ?>
      <!-- page content -->
@@ -46,7 +46,7 @@ if(isset($_GET['editar'])){
 
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   
-                    <?php $view->imprimirForm($acao, $idServico); ?>
+                   <?php $view->imprimirForm($acao, $idUsuario); ?>
 
                 </div>
 

@@ -13,14 +13,13 @@
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Dados</a></li>
-                    <li><a href="javascript:;"> Meu Financeiro</a></li>
+                    <li><a href="page_usuario.php?id_usuario=<?=$_SESSION['id_usuario'];?>"><i class="fa fa-address-book-o pull-right"></i> Dados</a></li>
+                    <li><a href="javascript:;"> <i class="fa fa-bar-chart pull-right" ></i> Meu Financeiro</a></li>
                     <li>
-                      <a href="javascript:;">                        
-                        <span>Alterar Senha</span>
+                        <a href="javascript:;"> <i class="fa fa-key pull-right" ></i><span>Alterar Senha</span>
                       </a>
                     </li>
-                    <li><a href="javascript:;">Ajuda</a></li>
+                    <li><a href="javascript:;"><i class="fa fa-question-circle-o pull-right" ></i>Ajuda</a></li>
                     <li><a href="login.php"><i class="fa fa-sign-out pull-right"></i> Sair</a></li>
                   </ul>
                 </li>

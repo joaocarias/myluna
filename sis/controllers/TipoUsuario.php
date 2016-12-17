@@ -78,7 +78,7 @@ class TipoUsuario extends Conexao{
         $this->status = $status;
     }
 
-    public static function getOpcoesSelecao(){
+    public static function getOpcoesSelecao($idTipo){
         try{
              $pdo = parent::getDB();
 
@@ -91,8 +91,14 @@ class TipoUsuario extends Conexao{
                 
                 $option = "";
                 
-               while($row = $query->fetch(PDO::FETCH_OBJ)){                    
-                    $option = $option . "<option value='".$row->id_tipo."'>".$row->descricao."</option>";
+               while($row = $query->fetch(PDO::FETCH_OBJ)){   
+                   $selecionado = "";
+                   
+                    if($idTipo == $row->id_tipo){
+                        $selecionado = "selected='selected'";
+                    }
+                   
+                    $option = $option . "<option value='".$row->id_tipo."' $selecionado>".$row->descricao."</option>";
                }
                 
                 return $option;                

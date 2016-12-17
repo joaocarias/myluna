@@ -371,6 +371,7 @@ class Usuario extends Conexao{
                         . "<td>".$row->uf."</td>"
                         . "<td>".$row->complemento."</td>"
                         . "<td>".$row->obs."</td>"
+                        . "<td><a class='btn btn-primary btn-sm' href='editar_usuario.php?editar=true&id_usuario=".$row->id_usuario."' title='Editar'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> <a class='btn btn-danger btn-sm' href='processa_usuario.php?btn-excluir=true&id_usuario=".$row->id_usuario."' title='Excluir' ><i class='fa fa-trash-o' aria-hidden='true'></i></td>"                      
                         . "</tr> ";                
             }
                
@@ -418,4 +419,34 @@ class Usuario extends Conexao{
             return "";
         }
     }
+          
+    function excluir(){                
+        try {
+            $pdo = parent::getDB();
+           
+            $query = $pdo->prepare("UPDATE `usuario` "
+                    . "SET "
+                    . "`data_modificacao`= NOW()"
+                    . ", `modificado_por`=?"
+                    . ", `status`=? "
+                    . "WHERE "
+                    . "id_usuario = ?;"
+                );        
+                        
+           // $query->bindValue(1, $this->getDescricao());            
+         //   $query->bindValue(3, Auxiliar::dateToUS(Auxiliar::getDataAtualBR()));            
+            $query->bindValue(1, $_SESSION['id_usuario']);
+            $query->bindValue(2, 2);            
+            $query->bindValue(3, $this->getId_usuario());        
+            
+            
+            $query->execute();    
+            
+            
+            return true;
+       
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }  
 }
