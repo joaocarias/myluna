@@ -141,15 +141,16 @@ if(isset($_POST['btn-salvar'])){
     }
 }else if(isset($_POST['btn-salvar-edicao'])){ 
     
-//   $retorno = $obj->editar();
-//   
-//    if($retorno == true){      
-//        header("Location: index.php?msg=2");
-//    }else{       
-//        header("Location: index.php?msg=3");
-//    }   
+   $retorno = $obj->editar();
+   
+    if($retorno == true){      
+        header("Location: index.php?msg=2");
+    }else{       
+        header("Location: index.php?msg=3");
+    }   
     
-    print_r($_POST);
+   // print_r($_POST);
+//   echo $retorno;
 }else {   
     header("Location: index.php?msg=0");
 }

@@ -109,9 +109,10 @@ class ViewUsuario {
                     </div>
                     <div class='panel-body'>                            
                         <div class='col-xs-4'>
-                            <label for='id_usuario'>ID Usuário</label>
-                            <input type='text' class='form-control' id='id_usuario' name='id_usuario' value='".$idUsuario."' disabled=''>                            
-                            <input type='hidden' id='id_usuario' name='id_usuario' value='".$idUsuario."' />
+                          
+                                <label for='id_usuario'>ID Usuário</label>
+                                <input type='text' class='form-control' id='id_usuario_' name='id_usuario_' value='".$idUsuario."' disabled>                            
+                                <input type='hidden' id = 'id_usuario' name='id_usuario' value='".$idUsuario."'>
                         </div>                                            
                     </div>                    
                 </div>        

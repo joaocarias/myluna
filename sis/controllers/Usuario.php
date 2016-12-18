@@ -449,4 +449,99 @@ class Usuario extends Conexao{
             return $ex->getMessage();
         }
     }  
+    
+    function editar(){
+        try {
+            $pdo = parent::getDB();
+            
+            if($this->getId_usuario() == $_SESSION['id_usuario']){
+                $sql = "UPDATE `usuario` SET"                         
+                        . "`cpf`=?"
+                        . ",`nome`=?"
+                        . ",`sexo`=?"
+                        . ",`data_nascimento`=?"
+                        . ",`telefone`=?"
+                        . ",`email`=?"
+                        . ",`rua`=?"
+                        . ",`numero`=?"
+                        . ",`bairro`=?"
+                        . ",`cep`=?"
+                        . ",`cidade`=?"
+                        . ",`uf`=?"
+                        . ",`complemento`=?"
+                        . ",`obs`=?"
+                        . ",`data_modificacao`=NOW()"
+                        . ",`modificado_por`=?"
+                        . " WHERE "
+                        . "id_usuario = ?";
+                
+                $query = $pdo->prepare($sql); 
+                
+                $query->bindValue(1, $this->getCpf());
+                $query->bindValue(2, $this->getNome());            
+                $query->bindValue(3, $this->getSexo());
+                $query->bindValue(4, Auxiliar::dateToUS($this->getData_nascimento()));
+                $query->bindValue(5, $this->getTelefone());
+                $query->bindValue(6, $this->getEmail());
+                $query->bindValue(7, $this->getRua());
+                $query->bindValue(8, $this->getNumero());
+                $query->bindValue(9, $this->getBairro());
+                $query->bindValue(10, $this->getCep());
+                $query->bindValue(11, $this->getCidade());
+                $query->bindValue(12, $this->getUf());
+                $query->bindValue(13, $this->getComplemento());
+                $query->bindValue(14, $this->getObs());
+                $query->bindValue(15, $_SESSION['id_usuario']);
+                $query->bindValue(16, $this->getId_usuario());     
+                
+            }else{
+               $sql = "UPDATE `usuario` SET"                         
+                       // . "`cpf`=?"
+                        . "`nome`=?"
+                        . ",`sexo`=?"
+                        . ",`data_nascimento`=?"
+                        . ",`telefone`=?"
+                        . ",`email`=?"
+                        . ",`rua`=?"
+                        . ",`numero`=?"
+                        . ",`bairro`=?"
+                        . ",`cep`=?"
+                        . ",`cidade`=?"
+                        . ",`uf`=?"
+                        . ",`complemento`=?"
+                        . ",`obs`=?"
+                        . ",`data_modificacao`= NOW()"
+                        . ",`modificado_por`=?"
+                        . ",`id_tipo`=?"
+                        . ",`comissao`=?"
+                        . " WHERE "
+                        . "id_usuario = ?";
+                
+                $query = $pdo->prepare($sql); 
+                              
+                $query->bindValue(1, $this->getNome());            
+                $query->bindValue(2, $this->getSexo());
+                $query->bindValue(3, Auxiliar::dateToUS($this->getData_nascimento()));
+                $query->bindValue(4, $this->getTelefone());
+                $query->bindValue(5, $this->getEmail());
+                $query->bindValue(6, $this->getRua());
+                $query->bindValue(7, $this->getNumero());
+                $query->bindValue(8, $this->getBairro());
+                $query->bindValue(9, $this->getCep());
+                $query->bindValue(10, $this->getCidade());
+                $query->bindValue(11, $this->getUf());
+                $query->bindValue(12, $this->getComplemento());
+                $query->bindValue(13, $this->getObs());
+                $query->bindValue(14, $_SESSION['id_usuario']);
+                $query->bindValue(15, $this->getId_tipo());
+                $query->bindValue(16, $this->getComissao());
+                $query->bindValue(17, $this->getId_usuario());
+            }              
+            $query->execute();   
+            return true;
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+        
+    }
 }
