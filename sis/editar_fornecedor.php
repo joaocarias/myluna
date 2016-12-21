@@ -2,8 +2,8 @@
 session_start();
 
 include_once 'testarLogado.php';
-  
-include_once 'view/ViewUsuario.php';
+
+include_once 'view/ViewFornecedor.php';
 
 include_once 'partes/header.php';
 
@@ -11,14 +11,22 @@ include_once 'partes/profile.php';
     
 include_once 'partes/menu_lateral.php';
     
-$acao = "";
-$idUsuario = "";
-
 include_once 'partes/menu_top.php';
     
-    $view = new ViewUsuario();    
-    $view->setTitulo("Usuario");
-    $view->setSubTitulo("Cadastrar Novo Usuário");
+$acao = "";
+$idFornecedor = "";
+
+
+if(isset($_GET['editar'])){
+    $acao = "editar";
+    if(isset($_GET['id_fornecedor'])){
+        $idFornecedor = $_GET['id_fornecedor'];
+    }
+}
+
+    $view = new ViewFornecedor();    
+    $view->setTitulo("Fornecedor");
+    $view->setSubTitulo("Editar Cadastro de Fornecedor");
     
     ?>
      <!-- page content -->
@@ -36,7 +44,7 @@ include_once 'partes/menu_top.php';
 
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   
-                    <?php $view->imprimirForm($acao,$idUsuario); ?>
+                    <?php $view->imprimirForm($acao, $idFornecedor); ?>
 
                 </div>
 

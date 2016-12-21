@@ -39,8 +39,53 @@ class ViewPaciente {
 
     
    
-   function imprimirForm(){
+   function imprimirForm($acao, $idPaciente){
        Mensagem::getMensagem(1, 1, $this->getTitulo(), "processa_paciente.php");
+       
+        $nome = "";
+        $cpf = "";
+        $dataNascimento = "";
+        $sexo = "";
+        $telefone = "";
+        $email = "";            
+        $rua = "";
+        $numero = "";
+        $bairro = "";
+        $cep = "";
+        $cidade = "";
+        $uf = "";
+        $complemento = "";
+        $obs = ""; 
+               
+        if($acao == "editar" && $idPaciente != ""){
+            $dados = Paciente::getInformacoes($idPaciente);
+            
+            $nome = $dados->getNome();
+            $cpf = $dados->getCpf();
+            $dataNascimento = $dados->getData_nascimento();
+            $sexo = $dados->getSexo();
+            $telefone = $dados->getTelefone();
+            $email = $dados->getEmail();            
+            $rua = $dados->getRua();
+            $numero = $dados->getNumero();
+            $bairro = $dados->getBairro();
+            $cep = $dados->getCep();
+            $cidade = $dados->getCidade();
+            $uf = $dados->getUf();
+            $complemento = $dados->getComplemento();
+            $obs = $dados->getObs();            
+        }
+       
+        if($acao == "editar"){
+            $btn_salvar = "<label>
+                    <input type='submit' id='btn-salvar-edicao' name='btn-salvar-edicao' value='Salvar Edição' class='btn btn-success' />                                                                                           
+                </label>";
+        }else{
+           $btn_salvar = "<label>
+                    <input type='submit' id='btn-salvar' name='btn-salvar' value='Salvar' class='btn btn-success' />                                                                                           
+                </label>";
+        }
+       
        $myForm = "<div class='col-lg-12'>
             <form method='POST' action='processa_paciente.php' name='myform' id='myform' >                            
                 <div class='col-sm-12'>                        
@@ -51,7 +96,8 @@ class ViewPaciente {
                     <div class='panel-body'>                            
                         <div class='col-xs-4'>
                             <label for='id_paciente'>ID Paciente</label>
-                            <input type='text' class='form-control' id='id_paciente' name='id_paciente' value='' disabled=''>                            
+                            <input type='text' class='form-control' id='id_paciente_' name='id_paciente_' value='".$idPaciente."' disabled=''>    
+                            <input type='hidden' id = 'id_paciente' name='id_paciente' value='".$idPaciente."'>
                         </div>                                            
                     </div>                    
                 </div>        
@@ -64,42 +110,55 @@ class ViewPaciente {
                     <div class='panel-body'>                            
                         <div class='col-xs-3'>
                             <label for='cpf'>CPF </label>
-                            <input type='text' class='form-control' id='cpf' placeholder='' maxlength='11' name='cpf' value=''>
+                            <input type='text' class='form-control' id='cpf' placeholder='' maxlength='11' name='cpf' value='".$cpf."'>
                         </div>
                                                                              
                         <div class='col-xs-9'>
                             <label for='nome'>Nome *</label>
-                            <input type='text' id='nome' class='form-control' placeholder='' maxlength='244' name='nome' value='' required>
+                            <input type='text' id='nome' class='form-control' placeholder='' maxlength='244' name='nome' value='".$nome."' required>
                         </div>
                              
                         <div class='col-xs-3'>
                             <label for='sexo'>Gênero *</label>
                             <select class='form-control' id='sexo' name='sexo'>
                                 <option value='sel'>Selecione</option>
-                                <option value='M'>Masculino</option>
-                                <option value='F'>Feminino</option>
+                                ";
+                            
+                                if($sexo == "M"){
+                                   $myForm = $myForm . "<option value='M' selected='selected'>Masculino</option>";
+                                }else{
+                                    $myForm = $myForm . "<option value='M'>Masculino</option>";
+                                }
+
+                               if($sexo == "F"){
+                                   $myForm = $myForm . "<option value='F' selected='selected'>Feminino</option>";
+                                }else{
+                                    $myForm = $myForm . "<option value='F'>Feminino</option>";
+                                }
+
+                                $myForm = $myForm . "</select>
                             </select>
                         </div>
                             
                         <div class='col-xs-3'>
                             <label for='data_nascimento'>Data de Nasc.</label>
-                            <input type='text' id='data_nascimento' name='data_nascimento' class='form-control' placeholder='' value='' maxlength='10'>
+                            <input type='text' id='data_nascimento' name='data_nascimento' class='form-control' placeholder='' value='".Auxiliar::dateToBR($dataNascimento)."' maxlength='10'>
                         </div>
                         
 
                         <div class='col-xs-6'>
                             <label for='email'>E-Mail </label>
-                            <input type='email' id='email' class='form-control' placeholder='' maxlength='244' length='150' name='email' value='' >
+                            <input type='email' id='email' class='form-control' placeholder='' maxlength='244' length='150' name='email' value='".$email."' >
                         </div>
                         
                         <div class='col-xs-3'>
                             <label for='telefone'>Telefone </label>
-                            <input type='text' class='form-control' id='telefone' placeholder='' maxlength='22' name='telefone' value=''  >
+                            <input type='text' class='form-control' id='telefone' placeholder='' maxlength='22' name='telefone' value='".$telefone."'  >
                         </div>
                         
                         <div class='col-xs-9'>
                             <label for='obs'>Observações</label>
-                            <input type='text' id='obs' class='form-control' placeholder='' maxlength='244' name='obs' value=''>
+                            <input type='text' id='obs' class='form-control' placeholder='' maxlength='244' name='obs' value='".$obs."'>
                         </div>                       
                     </div>                    
                 </div>        
@@ -113,32 +172,32 @@ class ViewPaciente {
                 
                     <div class='col-xs-9'>
                         <label for='rua'>Logradouro</label>
-                        <input type='text' id='rua' class='form-control' placeholder='' name='rua' value=''>
+                        <input type='text' id='rua' class='form-control' placeholder='' name='rua' value='".$rua."'>
                     </div>
                         
                     <div class='col-xs-3'>
                         <label for='numero'>Número</label>
-                        <input type='text' class='form-control' id='numero' placeholder='' maxlength='10' name='numero' value=''>
+                        <input type='text' class='form-control' id='numero' placeholder='' maxlength='10' name='numero' value='".$numero."'>
                     </div>
                     
                     <div class='col-xs-6'>
                         <label for='complemento'>Complemento</label>
-                        <input type='text' id='complemento' class='form-control' placeholder='' maxlength='244' name='complemento' value=''>
+                        <input type='text' id='complemento' class='form-control' placeholder='' maxlength='244' name='complemento' value='".$complemento."'>
                     </div>
                     
                     <div class='col-xs-6'>
                         <label for='bairro'>Bairro</label>
-                        <input type='text' id='bairro' class='form-control' placeholder='' maxlength='244' name='bairro' value=''>
+                        <input type='text' id='bairro' class='form-control' placeholder='' maxlength='244' name='bairro' value='".$bairro."'>
                     </div>
                           
                     <div class='col-xs-3'>
                         <label for='cep'>CEP</label>
-                        <input type='text' id='cep' placeholder='' class='form-control' name='cep' value=''>                        
+                        <input type='text' id='cep' placeholder='' class='form-control' name='cep' value='".$cep."'>                        
                     </div>                    
                     
                     <div class='col-xs-6'>
                         <label for='cidade'>Cidade</label>
-                        <input type='text' class='form-control' id='cidade' placeholder='' maxlength='255' name='cidade' value=''>
+                        <input type='text' class='form-control' id='cidade' placeholder='' maxlength='255' name='cidade' value='".$cidade."'>
                     </div>
                     
                     <div class='col-xs-3'>
@@ -147,8 +206,8 @@ class ViewPaciente {
                             <option value='sel'>Selecione</option>
                             
                         ";
-       
-                            $uf_ = "";
+                            
+                            $uf_ = $uf;
                             
                             if($uf_==''){
                                 $uf_ = 'RN';                                
@@ -183,9 +242,7 @@ class ViewPaciente {
                         <label>                            
                             <button type='button' class='btn btn btn-danger' data-toggle='modal' data-target='.bs-example-modal-lg'>Cancelar</button>                           
                         </label>
-                        <label>
-                            <input type='submit' id='btn-salvar' name='btn-salvar' value='Salvar' onsubmit='return salvar(this)' class='btn btn-success' />                                                                                           
-                        </label>                            
+                          ".$btn_salvar."                             
                     </p>
                 </div>
                     
@@ -355,13 +412,11 @@ class ViewPaciente {
                             <th>UF</th>
                             <th>Complemento</th>
                             <th>Obs</th>
+                            <th></th>
                         </tr>
                       </thead>
-
-                      <tbody>
-                       
-                          ".  Paciente::getLinhasTabela()."
-                                           
+                      <tbody>                       
+                          ".  Paciente::getLinhasTabela()."                                           
                       </tbody>
                     </table>
                   </div>

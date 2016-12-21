@@ -104,19 +104,38 @@ if(isset($_POST['uf'])){
 
 if(isset($_POST['btn-salvar'])){
     $retorno = $obj->inserir();
-    //echo $retorno;
-    if($retorno == true){
-       // echo "<script>alert('Cadastrado com Sucesso!');</script>";
-        header("Location: index.php");
+    if($retorno == true){      
+        header("Location: index.php?msg=2");
+    }else{       
+        header("Location: index.php?msg=3");
+    }   
+}else if(isset($_GET['btn-cancelar'])){    
+    header("Location: index.php?msg=1");
+}else if(isset($_GET['btn-excluir'])){
+
+    if(isset($_GET['id_paciente'])){
+        $obj->setId_paciente($_GET['id_paciente']);   
     }else{
-        //echo "<script>alert('Erro ao Salvar Cadastro!');</script>";
-        header("Location: index.php");
+        $obj->setId_paciente("");
+    }    
+    
+    $retorno = $obj->excluir();
+   
+    if($retorno == true){      
+        header("Location: index.php?msg=4");
+    }else{       
+        header("Location: index.php?msg=0");
     }
-    //echo $retorno;
-}else if(isset($_GET['btn-cancelar'])){
-    echo "<script>alert('Cadastrado Cancelado!');</script>";
-    header("Location: index.php");
-}else{
-    echo "<script>alert('Ação Desconhecida... Ação Cancelada!');</script>";
-    header("Location: index.php");
+}else if(isset($_POST['btn-salvar-edicao'])){ 
+    
+   $retorno = $obj->editar();
+//   echo $retorno;
+   
+    if($retorno == true){      
+        header("Location: index.php?msg=2");
+    }else{       
+        header("Location: index.php?msg=3");
+    }   
+}else {   
+    header("Location: index.php?msg=0");
 }

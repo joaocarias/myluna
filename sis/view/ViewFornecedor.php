@@ -34,11 +34,50 @@ class ViewFornecedor {
    function setTitulo($titulo) {
        $this->titulo = $titulo;
    }
-
-    
    
-   function imprimirForm(){
-       Mensagem::getMensagem(1, 1, $this->getTitulo(), "processa_fornecedor.php");
+   
+    function imprimirForm($acao, $idFornecedor){
+        Mensagem::getMensagem(1, 1, $this->getTitulo(), "processa_fornecedor.php");
+              
+        $nome = "";
+        $cpf_cnpj = "";        
+        $telefone = "";
+        $email = "";            
+        $rua = "";
+        $numero = "";
+        $bairro = "";
+        $cep = "";
+        $cidade = "";
+        $uf = "";
+        $complemento = "";
+        $obs = ""; 
+               
+        if($acao == "editar" && $idFornecedor != ""){
+            $dados = Fornecedor::getInformacoes($idFornecedor);
+            
+            $nome = $dados->getNome();
+            $cpf_cnpj = $dados->getCpf_cnpj();            
+            $telefone = $dados->getTelefone();
+            $email = $dados->getEmail();            
+            $rua = $dados->getRua();
+            $numero = $dados->getNumero();
+            $bairro = $dados->getBairro();
+            $cep = $dados->getCep();
+            $cidade = $dados->getCidade();
+            $uf = $dados->getUf();
+            $complemento = $dados->getComplemento();
+            $obs = $dados->getObs();            
+        }
+       
+        if($acao == "editar"){
+            $btn_salvar = "<label>
+                    <input type='submit' id='btn-salvar-edicao' name='btn-salvar-edicao' value='Salvar Edição' class='btn btn-success' />                                                                                           
+                </label>";
+        }else{
+           $btn_salvar = "<label>
+                    <input type='submit' id='btn-salvar' name='btn-salvar' value='Salvar' class='btn btn-success' />                                                                                           
+                </label>";
+        }
        
        $myForm = "<div class='col-lg-12'>
             <form method='POST' action='processa_fornecedor.php' name='myform' id='myform' >                            
@@ -48,9 +87,10 @@ class ViewFornecedor {
                         <h3 class='panel-title'></h3>
                     </div>
                     <div class='panel-body'>                            
-                        <div class='col-xs-4'>
+                        <div class='col-xs-3'>
                             <label for='id_fornecedor'>ID Fornecedor</label>
-                            <input type='text' class='form-control' id='id_fornecedor' name='id_fornecedor' value='' disabled=''>                            
+                            <input type='text' class='form-control' id='id_fornecedor_' name='id_fornecedor_' value='".$idFornecedor."' disabled=''>  
+                            <input type='hidden' id = 'id_fornecedor' name='id_fornecedor' value='".$idFornecedor."'>
                         </div>                                            
                     </div>                    
                 </div>        
@@ -63,27 +103,27 @@ class ViewFornecedor {
                     <div class='panel-body'>                            
                         <div class='col-xs-3'>
                             <label for='cpf'>CPF/CNPJ</label>
-                            <input type='text' class='form-control' id='cpf_cnpj' placeholder='' maxlength='20' name='cpf_cnpj' value='' >
+                            <input type='text' class='form-control' id='cpf_cnpj' placeholder='' maxlength='20' name='cpf_cnpj' value='".$cpf_cnpj."' >
                         </div>
                                                                              
                         <div class='col-xs-6'>
                             <label for='nome'>Nome *</label>
-                            <input type='text' id='nome' class='form-control' placeholder='' maxlength='244' name='nome' value='' required>
+                            <input type='text' id='nome' class='form-control' placeholder='' maxlength='244' name='nome' value='".$nome."' required>
                         </div>
                                                 
                         <div class='col-xs-3'>
                             <label for='telefone'>Telefone *</label>
-                            <input type='text' class='form-control' id='telefone' placeholder='' maxlength='22' name='telefone' value='' required >
+                            <input type='text' class='form-control' id='telefone' placeholder='' maxlength='22' name='telefone' value='".$telefone."' required >
                         </div>
                         
                         <div class='col-xs-6'>
                             <label for='email'>E-Mail</label>
-                            <input type='email' id='email' class='form-control' placeholder='' maxlength='100' name='email' value=''>
+                            <input type='email' id='email' class='form-control' placeholder='' maxlength='100' name='email' value='".$email."'>
                         </div>
                         
                         <div class='col-xs-6'>
                             <label for='obs'>Observações</label>
-                            <input type='text' id='obs' class='form-control' placeholder='' maxlength='244' name='obs' value=''>
+                            <input type='text' id='obs' class='form-control' placeholder='' maxlength='244' name='obs' value='".$obs."'>
                         </div>
                                                 
                     </div>                    
@@ -98,32 +138,32 @@ class ViewFornecedor {
                 
                     <div class='col-xs-9'>
                         <label for='rua'>Logradouro</label>
-                        <input type='text' id='rua' class='form-control' placeholder='' name='rua' value=''>
+                        <input type='text' id='rua' class='form-control' placeholder='' name='rua' value='".$rua."'>
                     </div>
                         
                     <div class='col-xs-3'>
                         <label for='numero'>Número</label>
-                        <input type='text' class='form-control' id='numero' placeholder='' maxlength='10' name='numero' value=''>
+                        <input type='text' class='form-control' id='numero' placeholder='' maxlength='10' name='numero' value='".$numero."'>
                     </div>
                     
                     <div class='col-xs-6'>
                         <label for='complemento'>Complemento</label>
-                        <input type='text' id='complemento' class='form-control' placeholder='' maxlength='244' name='complemento' value=''>
+                        <input type='text' id='complemento' class='form-control' placeholder='' maxlength='244' name='complemento' value='".$complemento."'>
                     </div>
                     
                     <div class='col-xs-6'>
                         <label for='bairro'>Bairro</label>
-                        <input type='text' id='bairro' class='form-control' placeholder='' maxlength='244' name='bairro' value=''>
+                        <input type='text' id='bairro' class='form-control' placeholder='' maxlength='244' name='bairro' value='".$bairro."'>
                     </div>
                           
                     <div class='col-xs-3'>
                         <label for='cep'>CEP</label>
-                        <input type='text' id='cep' placeholder='' class='form-control' name='cep' value=''>                        
+                        <input type='text' id='cep' placeholder='' class='form-control' name='cep' value='".$cep."'>                        
                     </div>                    
                     
                     <div class='col-xs-6'>
                         <label for='cidade'>Cidade</label>
-                        <input type='text' class='form-control' id='cidade' placeholder='' maxlength='255' name='cidade' value=''>
+                        <input type='text' class='form-control' id='cidade' placeholder='' maxlength='255' name='cidade' value='".$cidade."'>
                     </div>
                     
                     <div class='col-xs-3'>
@@ -133,7 +173,7 @@ class ViewFornecedor {
                             
                         ";
        
-                            $uf_ = "";
+                             $uf_ = $uf;
                             
                             if($uf_==''){
                                 $uf_ = 'RN';                                
@@ -168,9 +208,7 @@ class ViewFornecedor {
                         <label>                            
                             <button type='button' class='btn btn btn-danger' data-toggle='modal' data-target='.bs-example-modal-lg'>Cancelar</button>                           
                         </label>
-                        <label>
-                            <input type='submit' id='btn-salvar' name='btn-salvar' value='Salvar' onsubmit='return salvar(this)' class='btn btn-success' />                                                                                           
-                        </label>                            
+                          ".$btn_salvar."                              
                     </p>
                 </div>
                     
@@ -214,6 +252,7 @@ class ViewFornecedor {
                             <th>UF</th>
                             <th>Complemento</th>
                             <th>Obs</th>
+                            <th></th>
                         </tr>
                       </thead>
 

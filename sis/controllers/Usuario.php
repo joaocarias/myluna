@@ -290,8 +290,7 @@ class Usuario extends Conexao{
         }
     }    
     
-    public static function primeiroNome($id){
-        //Select Substring_index(nome,’ ‘,1) as primeiro_nome from clientes
+    public static function primeiroNome($id){        
         try{
             $pdo = parent::getDB();
            
@@ -310,7 +309,6 @@ class Usuario extends Conexao{
                 return "Usuario Não Encontrado: ".$id;
             endif;
 //          }
-//            return "Usuario Não Encontrado: ".$id;
             
         } catch (Exception $ex) {
             return $ex->getMessage();

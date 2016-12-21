@@ -103,6 +103,30 @@ if(isset($_POST['btn-salvar'])){
     //echo $retorno;
 }else if(isset($_GET['btn-cancelar'])){    
     header("Location: index.php?msg=1");
-}else{   
+}else if(isset($_GET['btn-excluir'])){
+    if(isset($_GET['id_fornecedor'])){
+        $obj->setId_fornecedor($_GET['id_fornecedor']);   
+    }else{
+        $obj->setId_fornecedor("");
+    }    
+    
+    $retorno = $obj->excluir();
+   
+    if($retorno == true){      
+        header("Location: index.php?msg=4");
+    }else{       
+        header("Location: index.php?msg=0");
+    }
+}else if(isset($_POST['btn-salvar-edicao'])){ 
+    
+   $retorno = $obj->editar();
+//   echo $retorno;
+   
+    if($retorno == true){      
+        header("Location: index.php?msg=2");
+    }else{       
+        header("Location: index.php?msg=3");
+    }   
+}else {   
     header("Location: index.php?msg=0");
 }

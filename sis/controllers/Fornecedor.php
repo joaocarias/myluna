@@ -249,6 +249,7 @@ class Fornecedor extends Conexao {
                         . "<td>".$row->uf."</td>"
                         . "<td>".$row->complemento."</td>"
                         . "<td>".$row->obs."</td>"
+                        . "<td><a class='btn btn-primary btn-sm' href='editar_fornecedor.php?editar=true&id_fornecedor=".$row->id_fornecedor."' title='Editar'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> <a class='btn btn-danger btn-sm' href='processa_fornecedor.php?btn-excluir=true&id_fornecedor=".$row->id_fornecedor."' title='Excluir' ><i class='fa fa-trash-o' aria-hidden='true'></i></td>"
                         . "</tr> ";                
             }
                
@@ -294,4 +295,78 @@ class Fornecedor extends Conexao {
     }
     
 
+    function excluir(){                
+        try {
+            $pdo = parent::getDB();
+           
+            $query = $pdo->prepare("UPDATE `fornecedor` "
+                    . "SET "
+                    . "`data_modificacao`= NOW()"
+                    . ", `modificado_por`=?"
+                    . ", `id_status`=? "
+                    . "WHERE "
+                    . "id_fornecedor = ?;"
+                );     
+              
+            $query->bindValue(1, $_SESSION['id_usuario']);
+            $query->bindValue(2, 2);            
+            $query->bindValue(3, $this->getId_fornecedor());        
+            
+            $query->execute();    
+            
+            return true;       
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }  
+    
+    function editar(){        
+          try {
+            $pdo = parent::getDB();
+           
+            $query = $pdo->prepare("UPDATE `fornecedor` SET "
+                                    . "`cpf_cnpj`=?"
+                                    . ",`nome`=?"
+                                    . ",`telefone`=?"
+                                    . ",`email`=?"
+                                    . ",`rua`=?"
+                                    . ",`numero`=?"
+                                    . ",`bairro`=?"
+                                    . ",`cep`=?"
+                                    . ",`cidade`=?"
+                                    . ",`uf`=?"
+                                    . ",`complemento`=?"
+                                    . ",`obs`=?"
+                                    . ",`data_modificacao`=NOW()"
+                                    . ",`modificado_por`=?"
+                                    . " WHERE "
+                                    . "`id_fornecedor` = ?"
+                    );        
+                        
+            $query->bindValue(1, $this->getCpf_cnpj());
+            $query->bindValue(2, $this->getNome());
+            $query->bindValue(3, $this->getTelefone());
+            $query->bindValue(4, $this->getEmail());
+            $query->bindValue(5, $this->getRua());
+            $query->bindValue(6, $this->getNumero());
+            $query->bindValue(7, $this->getBairro());
+            $query->bindValue(8, $this->getCep());
+            $query->bindValue(9, $this->getCidade());
+            $query->bindValue(10, $this->getUf());            
+            $query->bindValue(11, $this->getComplemento());
+            $query->bindValue(12, $this->getObs());
+            $query->bindValue(13, $_SESSION['id_usuario']);
+            $query->bindValue(14, $this->getId_fornecedor());
+            
+            $query->execute();
+                  
+            return true;
+       
+        } catch (Exception $ex) {
+            echo $ex->getMessage();
+            return false;
+        }
+    }  
+        
+    
 }

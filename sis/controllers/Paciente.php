@@ -346,6 +346,7 @@ class Paciente extends Conexao {
                         . "<td>".$row->uf."</td>"
                         . "<td>".$row->complemento."</td>"
                         . "<td>".$row->obs."</td>"
+                        . "<td><a class='btn btn-primary btn-sm' href='editar_paciente.php?editar=true&id_paciente=".$row->id_paciente."' title='Editar'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> <a class='btn btn-danger btn-sm' href='processa_paciente.php?btn-excluir=true&id_paciente=".$row->id_paciente."' title='Excluir' ><i class='fa fa-trash-o' aria-hidden='true'></i></td>"
                         . "</tr> ";                
             }
                
@@ -354,5 +355,86 @@ class Paciente extends Conexao {
             return "";
         }
      }
+     
+     function excluir(){                
+        try {
+            $pdo = parent::getDB();
+           
+            $query = $pdo->prepare("UPDATE `paciente` "
+                    . "SET "
+                    . "`data_modificacao`= NOW()"
+                    . ", `modificado_por`=?"
+                    . ", `id_status`=? "
+                    . "WHERE "
+                    . "id_paciente = ?;"
+                );     
+              
+            $query->bindValue(1, $_SESSION['id_usuario']);
+            $query->bindValue(2, 2);            
+            $query->bindValue(3, $this->getId_paciente());        
+            
+            $query->execute();    
+            
+            return true;       
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }  
+    
+    function editar(){        
+          try {
+            $pdo = parent::getDB();
+           
+            $query = $pdo->prepare("UPDATE `paciente` SET "
+                                    . "`cpf`=?"
+                                    . ",`nome`=?"
+                                    . ",`sexo`=?"
+                                    . ",`data_nascimento`=?"
+                                    . ",`telefone`=?"
+                                    . ",`email`=?"
+                                    . ",`rua`=?"
+                                    . ",`numero`=?"
+                                    . ",`bairro`=?"
+                                    . ",`cep`=?"
+                                    . ",`cidade`=?"
+                                    . ",`uf`=?"
+                                    . ",`complemento`=?"
+                                    . ",`obs`=?"
+                                    . ",`data_modificacao`=NOW()"
+                                    . ",`modificado_por`=?"
+                                    . " WHERE "
+                                    . "`id_paciente` = ?"
+                    );        
+                        
+            $query->bindValue(1, $this->getCpf());
+            $query->bindValue(2, $this->getNome());            
+            $query->bindValue(3, $this->getSexo());            
+            $query->bindValue(4, Auxiliar::dateToUS($this->getData_nascimento()));
+            $query->bindValue(5, $this->getTelefone());
+            $query->bindValue(6, $this->getEmail());
+            $query->bindValue(7, $this->getRua());
+            $query->bindValue(8, $this->getNumero());
+            $query->bindValue(9, $this->getBairro());
+            $query->bindValue(10, $this->getCep());
+            $query->bindValue(11, $this->getCidade());
+            $query->bindValue(12, $this->getUf());            
+            $query->bindValue(13, $this->getComplemento());
+            $query->bindValue(14, $this->getObs());
+            $query->bindValue(15, $_SESSION['id_usuario']);
+            $query->bindValue(16, $this->getId_paciente());
+            
+//            print_r($query);                    
+            
+            $query->execute();
+                  
+            return true;
+       
+        } catch (Exception $ex) {
+            echo $ex->getMessage();
+            return false;
+        }
+    }  
+        
+    
     
 }
