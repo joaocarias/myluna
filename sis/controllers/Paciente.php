@@ -346,7 +346,7 @@ class Paciente extends Conexao {
                         . "<td>".$row->uf."</td>"
                         . "<td>".$row->complemento."</td>"
                         . "<td>".$row->obs."</td>"
-                        . "<td><a class='btn btn-primary btn-sm' href='editar_paciente.php?editar=true&id_paciente=".$row->id_paciente."' title='Editar'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> <a class='btn btn-danger btn-sm' href='processa_paciente.php?btn-excluir=true&id_paciente=".$row->id_paciente."' title='Excluir' ><i class='fa fa-trash-o' aria-hidden='true'></i></td>"
+                        . "<td><a class='btn btn-primary btn-sm' href='editar_paciente.php?editar=true&id_paciente=".$row->id_paciente."' title='Editar'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></a> <a class='btn btn-default btn-sm' href='novo_orcamento.php?novo_orcamento=true&id_paciente=".$row->id_paciente."' title='Novo Orçamento'><i class='fa fa-calculator' aria-hidden='true'></i></a> <a class='btn btn-danger btn-sm' href='processa_paciente.php?btn-excluir=true&id_paciente=".$row->id_paciente."' title='Excluir' ><i class='fa fa-trash-o' aria-hidden='true'></i></a></td>"
                         . "</tr> ";                
             }
                
@@ -435,6 +435,4 @@ class Paciente extends Conexao {
         }
     }  
         
-    
-    
 }

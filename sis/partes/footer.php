@@ -321,7 +321,18 @@
       gauge.animationSpeed = 32;
       gauge.set(3200);
       gauge.setTextField(document.getElementById("gauge-text"));
+      
+      
+      
     </script>
+    
+    <script>
+        jQuery(function($){
+            $("#data_nascimento").mask("99/99/9999");
+           
+        });
+    </script>
+    
     <!-- /gauge.js -->
   </body>
 </html>
