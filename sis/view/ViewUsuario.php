@@ -80,25 +80,32 @@ class ViewUsuario {
             $comissao = $dados->getComissao();
         }
        
+        
+        $disabled_cpf = "";
+        $disabled_tipo = "";
+        $disabled_comissao = "";
+        
         if($acao == "editar"){
             $btn_salvar = "<label>
                     <input type='submit' id='btn-salvar-edicao' name='btn-salvar-edicao' value='Salvar Edição' class='btn btn-success' />                                                                                           
                 </label>";
+            
+            if($idUsuario == $_SESSION['id_usuario']){
+                $disabled_cpf = "";
+                $disabled_tipo = "disabled";
+                $disabled_comissao = "disabled";
+            }else{
+                $disabled_cpf = "disabled" ;
+                $disabled_tipo = "";
+                $disabled_comissao = "";
+            }
+            
         }else{
            $btn_salvar = "<label>
                     <input type='submit' id='btn-salvar' name='btn-salvar' value='Salvar' class='btn btn-success' />                                                                                           
                 </label>";
         }
-        
-        if($idUsuario == $_SESSION['id_usuario']){
-            $disabled_cpf = "";
-            $disabled_tipo = "disabled";
-            $disabled_comissao = "disabled";
-        }else{
-            $disabled_cpf = "disabled" ;
-            $disabled_tipo = "";
-            $disabled_comissao = "";
-        }
+       
        
        $myForm = "<div class='col-lg-12'>
             <form method='POST' action='processa_usuario.php' name='myform' id='myform' >                            
@@ -224,7 +231,7 @@ class ViewUsuario {
                           
                     <div class='col-xs-3'>
                         <label for='cep'>CEP</label>
-                        <input type='text' id='cep' placeholder='' class='form-control' name='cep' value='".$cep."'>                        
+                        <input type='text' id='cep' placeholder='' class='form-control' name='cep' value='".$cep."' maxlength='8'>                        
                     </div>                    
                     
                     <div class='col-xs-6'>

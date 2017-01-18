@@ -205,6 +205,30 @@ class Servico extends Conexao {
         }
     }
     
+    public static function getLinhasTabelaOrcamento($idPaciente, $id_dentista){
+        try{
+            $pdo = parent::getDB();
+
+            $query = $pdo->prepare("SELECT * FROM `servico` WHERE id_status = '1'" );        
+                          
+            $query->execute();
+               
+            $linhas = "";
+                
+            while($row = $query->fetch(PDO::FETCH_OBJ)){                    
+                $linhas = $linhas . "<tr>"
+                        . "<td>".$row->id_servico."</td>"
+                        . "<td><a href='novo_orcamento.php?novo_orcamento=true&id_paciente=".$idPaciente."&dentista=".$id_dentista."&servico=".$row->id_servico."'>".$row->descricao."</a></td>"
+                        . "<td>".$row->valor."</td>"  
+                     //   . "<td><a class='btn btn-primary btn-sm' href='editar_servico.php?editar=true&id_servico=".$row->id_servico."' title='Editar'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> <a class='btn btn-danger btn-sm' href='processa_servico.php?btn-excluir=true&id_servico=".$row->id_servico."' title='Excluir' ><i class='fa fa-trash-o' aria-hidden='true'></i></td>"                      
+                        . "</tr> ";                
+            }               
+            return $linhas;                
+        } catch (Exception $ex) {
+            return "";
+        }
+    }
+    
     public static function getInformacoes($id){
         try{
             $dados = new Servico();            

@@ -152,5 +152,43 @@ class ViewServico {
 ";
        echo $myLista;
    }
+      
+   public static function imprimirListaServicosParaOrcamento($idPaciente, $id_dentista){
+       
+       $myLista = "<div class='clearfix'></div>
+                    <div class='row'>
+                        <div class='col-md-12 col-sm-12 col-xs-12'>
+                            <div class='x_panel'>
+                                <div class='x_title'>
+                                <h2>Lista de Serviços</h2>
+                                <ul class='nav navbar-right panel_toolbox'>
+                                    <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
+                                        </li>                      
+                                    <li><a class='close-link'><i class='fa fa-close'></i></a>
+                                        </li>
+                                </ul>
+                                <div class='clearfix'></div>
+                            </div>
+                            <p class='text-muted font-13 m-b-30'>
+                                Escolha um dos Serviços.
+                            </p>
+                            <table id='datatable-responsive' class='table table-striped table-bordered dt-responsive nowrap' cellspacing='0' width='100%'>
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Descrição</th>
+                                        <th>Valor</th>                                        
+                                    </tr>
+                                </thead>
+                                <tbody>                       
+                                    ".Servico::getLinhasTabelaOrcamento($idPaciente, $id_dentista)."                                           
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+              </div>
+";
+       echo $myLista;
+   }
    
 }
