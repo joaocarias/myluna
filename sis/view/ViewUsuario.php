@@ -37,7 +37,43 @@ class ViewUsuario {
    }
 
     
+   public static function imprimirInformacaoDentistaOrcamento($id){
+       $dadosDentista = Usuario::getInformacoes($id);
+       
+       $imprimir = "<div class='row'>
+            <div class='col-md-12 col-sm-12 col-xs-12'>
+                <div class='x_panel'>
+                    <div class='x_title'>
+                        <h2>Dados do Dentista</h2>
+                        <ul class='nav navbar-right panel_toolbox'>
+                            <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
+                            </li>                      
+                            <li><a class='close-link'><i class='fa fa-close'></i></a>
+                            </li>
+                        </ul>
+                        <div class='clearfix'></div>
+                    </div>
+                    <div class='x_content'>                       
+                        <div class='col-md-5 col-sm-12 col-xs-12'>                                         
+                            <strong>Nome Completo: </strong>".$dadosDentista->getNome()."
+                        </div>
+
+                        <div class='col-md-3 col-sm-6 col-xs-12'>                                         
+                            <strong>Código: </strong>".$dadosDentista->getId_usuario()."
+                        </div>
+
+                        <div class='col-md-4 col-sm-6 col-xs-12'>                                         
+                            <strong>CPF: </strong>".$dadosDentista->getCpf()."
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>";
+       
+       echo $imprimir;
    
+   }
+           
    function imprimirForm($acao, $idUsuario){
        
         Mensagem::getMensagem(1, 1, $this->getTitulo(), "processa_usuario.php");

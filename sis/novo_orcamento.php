@@ -1,23 +1,46 @@
 <?php
+
 session_start();
 
   include_once 'testarLogado.php';  
 include_once 'controllers/Paciente.php';
 include_once 'controllers/Servico.php';
+include_once 'controllers/Orcamento.php';
+include_once 'controllers/Usuario.php';
 include_once 'view/ViewOrcamento.php';
 include_once 'view/ViewServico.php';
+include_once 'view/ViewPaciente.php';
+include_once 'view/ViewUsuario.php';
 include_once 'partes/header.php';
 include_once 'partes/profile.php';    
 include_once 'partes/menu_lateral.php';
-include_once 'controllers/Usuario.php';
     
 $acao = "";
 $idUsuario = "";
 
 $idPaciente = 0;
+$idServico = 0;
+$idOrcamento = 0;
+$idDentista = 0;
 
-if(isset($_GET['id_paciente'])){
+if(isset($_GET['id_orcamento'])){
+    $idOrcamento = $_GET['id_orcamento'];
+    
+    if(isset($_GET['novo_orcamento'])){
+        if($_GET['novo_orcamento'] == "true"){
+            $dadosOrcamento = Orcamento::getInformacoes($idOrcamento, 3);
+            $idPaciente = $dadosOrcamento->getId_paciente();
+            $idDentista = $dadosOrcamento->getId_dentista();
+            
+            //echo "<script>alert('".$idPaciente." : ".$idDentista."'); </script>";
+        }
+    }  
+}else if(isset($_GET['id_paciente'])){
     $idPaciente = $_GET['id_paciente'];
+}
+
+if(isset($_GET['servico'])){
+    $idServico = $_GET['servico'];
 }
 
 include_once 'partes/menu_top.php';
@@ -26,13 +49,10 @@ include_once 'partes/menu_top.php';
     $view->setTitulo("Orçamento");
     $view->setSubTitulo("Novo <strong> Orçamento: </strong>");
     
-    $myDados = Paciente::getInformacoes($idPaciente);
-    
+    $viewPaciente = new ViewPaciente();
+    $viewDentista = new ViewUsuario();
+        
     ?>
-
-    
-                        
-
      <!-- page content -->
         <div class="right_col" role="main">                
             <div class="row">
@@ -51,92 +71,21 @@ include_once 'partes/menu_top.php';
 
                   <div class='clearfix'></div>
 
-        <div class='row'>
-            <div class='col-md-12 col-sm-12 col-xs-12'>
-                <div class='x_panel'>
-                    <div class='x_title'>
-                        <h2>Dados do Paciente</h2>
-                        <ul class='nav navbar-right panel_toolbox'>
-                            <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
-                            </li>                      
-                            <li><a class='close-link'><i class='fa fa-close'></i></a>
-                            </li>
-                        </ul>
-                        <div class='clearfix'></div>
-                    </div>
-                    <div class='x_content'>
-                        <p>
-                        <div class='col-md-5 col-sm-12 col-xs-12'>                                         
-                            <strong>Nome Completo: </strong> <?php echo $myDados->getNome(); ?>
-                        </div>
-
-                        <div class='col-md-3 col-sm-6 col-xs-12'>                                         
-                            <strong>Código: </strong> <?php echo $myDados->getId_paciente(); ?>
-                        </div>
-
-                        <div class='col-md-4 col-sm-6 col-xs-12'>                                         
-                            <strong>CPF: </strong> <?php echo $myDados->getCpf(); ?>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
+                <?php
                   
+                    $viewPaciente->imprimirInformacoesBasicasPaciente($idPaciente);
+                      
+                    if($idDentista != 0){
+                        $viewDentista->imprimirInformacaoDentistaOrcamento($idDentista);                      
                   
-                  <?php
-                                    
-                    if(isset($_GET['dentista'])){
-                        $id_dentista = $_GET['dentista'];
-                        
-                        $dadosDentista = Usuario::getInformacoes($id_dentista);
-                        
-                        
-                        ?>
-                  
-                  <div class='clearfix'></div>
-
-        <div class='row'>
-            <div class='col-md-12 col-sm-12 col-xs-12'>
-                <div class='x_panel'>
-                    <div class='x_title'>
-                        <h2>Dados do Dentista</h2>
-                        <ul class='nav navbar-right panel_toolbox'>
-                            <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
-                            </li>                      
-                            <li><a class='close-link'><i class='fa fa-close'></i></a>
-                            </li>
-                        </ul>
-                        <div class='clearfix'></div>
-                    </div>
-                    <div class='x_content'>                       
-                        <div class='col-md-5 col-sm-12 col-xs-12'>                                         
-                            <strong>Nome Completo: </strong> <?php echo $dadosDentista->getNome(); ?>
-                        </div>
-
-                        <div class='col-md-3 col-sm-6 col-xs-12'>                                         
-                            <strong>Código: </strong> <?php echo $dadosDentista->getId_usuario(); ?>
-                        </div>
-
-                        <div class='col-md-4 col-sm-6 col-xs-12'>                                         
-                            <strong>CPF: </strong> <?php echo $dadosDentista->getCpf(); ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-                 
-            
-           <?php ViewServico::imprimirListaServicosParaOrcamento($idPaciente, $id_dentista); ?>
-           
-                  
-              
-          
-        <!-- /page content -->
-                  
-                  <?php
-                        
+                        echo "<div class='clearfix'></div>";
+                       
+                        if($idServico > 0){
+                            ViewServico::imprimirFormServicoOrcamento($idOrcamento, $idServico);
+                        }else{
+                            ViewServico::imprimirListaServicosParaOrcamento($idOrcamento);
+                        }   
+                                       
                     }else{
                   
                   ?>
@@ -156,7 +105,7 @@ include_once 'partes/menu_top.php';
                     </div>
                     <div class='x_content'>      
                         <form method='POST' action='processa_orcamento.php' name='myform' id='myform' > 
-                            <input type="hidden" id="id_paciente" name="id_paciente" value="<?php echo $myDados->getId_paciente(); ?>" />
+                            <input type="hidden" id="id_paciente" name="id_paciente" value="<?=$idPaciente; ?>" />
                             <div class='col-xs-4'>
                                 <label for='dentista'>Lista</label>
                                 <select class='form-control' id='dentista' name='dentista' >      

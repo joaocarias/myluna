@@ -279,6 +279,10 @@ class Paciente extends Conexao {
         }
     }
     
+    public static function getInformacoesPacienteOrcamento($id){
+        
+    }
+    
     public static function getInformacoes($id){
         try{
             $dados = new Paciente();            

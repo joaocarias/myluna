@@ -88,12 +88,65 @@ class Orcamento extends Conexao{
         $this->status = $status;
     }
 
-    function inserir(){
-        
+    public function inserir(){
+        try{
+            $pdo = parent::getDB();
+            
+            $query = $pdo->prepare("INSERT INTO orcamento "
+                    . "("
+                    . "id_paciente"
+                    . ", id_dentista"
+                    . ", id_pai"
+                    . ", id_status"
+                    . ", data_cadastro"
+                    . ") "
+                   // . "OUTPUT INSERTED.id_orcamento "
+                    . "VALUES ("
+                    . "?,?,?,?,NOW());");
+            
+            $query->bindvalue(1, $this->getId_paciente());
+            $query->bindValue(2, $this->getId_dentista());
+            $query->bindValue(3, $this->getId_pai());
+            $query->bindValue(4, '3');            
+            
+            $query->execute();
+            
+            //$retorno = $query->fetch(PDO::FETCH_ASSOC);
+            
+            return $pdo->lastInsertId();            
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
     }
     
-    public static function getInformacoes($id){
-        
+    public static function getInformacoes($id, $idStatus){
+        try{
+            $dados = new Orcamento();            
+            
+            $pdo = parent::getDB();
+
+            $query = $pdo->prepare("SELECT * FROM `orcamento` WHERE id_status = ? AND id_orcamento = ?" );        
+
+            $query->bindValue(1, $idStatus);
+            $query->bindValue(2, $id);
+                            
+            $query->execute();               
+                           
+            while($row = $query->fetch(PDO::FETCH_OBJ)){                    
+                $dados->setId_orcamento($row->id_orcamento);
+                $dados->setId_paciente($row->id_paciente);
+                $dados->setId_dentista($row->id_dentista);
+                $dados->setId_pai($row->id_pai);
+                $dados->setData_cadastro($row->data_cadastro);
+                $dados->setData_modificacao($row->data_modificacao);
+                $dados->setModificado_por($row->modificado_por);            
+                $dados->setStatus($row->id_status);                      
+            }
+               
+            return $dados;       
+        } catch (Exception $ex) {
+            return "";
+        }
     }
     
     
