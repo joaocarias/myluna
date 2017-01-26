@@ -119,6 +119,28 @@ class Orcamento extends Conexao{
         }
     }
     
+    public static function getValorTotalDoOrcamento($idOrcamento, $idStatus){
+        try{
+            $pdo = parent::getDB();
+            $query = $pdo->prepare("SELECT SUM(total) AS soma FROM item_orcamento "
+                    . "WHERE id_orcamento = ? AND id_status = ?;");
+            $query->bindValue(1, $idOrcamento);
+            $query->bindValue(2, $idStatus);
+            
+            $query->execute();
+            
+            $valorTotal = 0;
+            
+            while($row = $query->fetch(PDO::FETCH_OBJ)){
+                $valorTotal = $row->soma;
+            }
+                    
+            return $valorTotal;
+        } catch (Exception $ex) {
+            return 0;
+        }
+    }
+    
     public static function getInformacoes($id, $idStatus){
         try{
             $dados = new Orcamento();            

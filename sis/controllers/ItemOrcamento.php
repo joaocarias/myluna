@@ -144,7 +144,7 @@ class ItemOrcamento extends Conexao {
             $query->bindvalue(1, $this->getId_orcamento());
             $query->bindValue(2, $this->getId_servico());
             $query->bindValue(3, $this->getValor());
-            $query->bindValue(4, '0');
+            $query->bindValue(4, $this->getDesconto());
             $query->bindValue(5, $this->getTotal());
             $query->bindValue(6, '3');                    
             $query->bindValue(7, $_SESSION['id_usuario']);            

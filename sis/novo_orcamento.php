@@ -85,7 +85,8 @@ include_once 'partes/menu_top.php';
                         }else{
                             ViewServico::imprimirListaServicosParaOrcamento($idOrcamento);
                         }   
-                                       
+                        
+                        ViewServico::getItensDoOrcamento($idOrcamento, '3');                                       
                     }else{
                   
                   ?>
@@ -94,7 +95,7 @@ include_once 'partes/menu_top.php';
             <div class='col-md-12 col-sm-12 col-xs-12'>
                 <div class='x_panel'>
                     <div class='x_title'>
-                        <h2>Dados do Dentista</h2>
+                        <h2>Escolher o Dentista</h2>
                         <ul class='nav navbar-right panel_toolbox'>
                             <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
                             </li>                      

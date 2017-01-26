@@ -204,6 +204,41 @@ class Servico extends Conexao {
             return "";
         }
     }
+            
+    public static function getLinhasTabelaItensPedentesOrcamento($idOrcamento){
+        try{
+            $pdo = parent::getDB();
+
+            $query = $pdo->prepare("SELECT i.id_servico as id_servico, s.descricao as descricao, i.valor as valor,
+                    i.desconto as desconto, i.total as total
+                    FROM `item_orcamento` as i, `servico` as s 
+                    WHERE
+                    s.id_servico = i.id_servico                        
+                    AND i.id_status = '3'
+                    AND i.id_orcamento = ? ;" );
+            
+            $query->bindValue(1, $idOrcamento);
+                          
+            $query->execute();
+               
+            $linhas = "";
+                
+            while($row = $query->fetch(PDO::FETCH_OBJ)){                    
+                $linhas = $linhas . "<tr>"
+                            . "<td> Remover </td>"
+                            . "<td>".$row->id_servico."</td>"
+                            . "<td>".$row->descricao."</td>"
+                            . "<td>".$row->valor."</td>"
+                            . "<td>".$row->desconto."</td>"
+                            . "<td>".$row->total."</td>"
+                        . "</tr> ";                
+               
+            }               
+            return $linhas;                
+        } catch (Exception $ex) {
+            return "";
+        }
+    }
     
     public static function getLinhasTabelaOrcamento($idOrcamento){
         try{
