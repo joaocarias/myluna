@@ -64,7 +64,7 @@ class ViewServico {
                                     </tr>
                                 </thead>
                                 <tbody>                       
-                                    ".Servico::getLinhasTabelaItensPedentesOrcamento($idOrcamento)."                                           
+                                    ".Servico::getLinhasTabelaItensOrcamento($idOrcamento, $idStatus)."                                           
                                 </tbody>
                             </table>
                             <p class='text-muted font-20 m-b-30'>

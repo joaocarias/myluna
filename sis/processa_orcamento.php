@@ -17,6 +17,10 @@ if(isset($_POST['id_orcamento'])){
     $id_orcamento = $_POST['id_orcamento'];
 }
 
+if(isset($_GET['id_orcamento'])){
+    $id_orcamento = $_GET['id_orcamento'];
+}
+
 if(isset($_POST['id_servico'])){
     $id_servico = $_POST['id_servico'];
 }
@@ -64,4 +68,22 @@ if(isset($_POST['btn-selecionar-dentista'])){
     
     header("location: novo_orcamento.php?novo_orcamento=true&id_orcamento=".$id_orcamento);
     
+}else if(isset($_GET['remover_item'])){
+    if($_GET['remover_item'] == 'true'){
+        
+        $id_item_orcamento = -1;
+        
+        if($_GET['id_item_orcamento']){
+            $id_item_orcamento = $_GET['id_item_orcamento'];
+            
+            $item_orcamento = new ItemOrcamento();
+            $item_orcamento->setId_item_orcamento($id_item_orcamento);
+            
+            $item_orcamento->remover($id_item_orcamento);
+            
+            if($_GET['novo_orcamento']){
+                header("location: novo_orcamento.php?novo_orcamento=true&id_orcamento=".$id_orcamento);
+            }            
+        }
+    }
 }

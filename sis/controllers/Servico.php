@@ -205,19 +205,20 @@ class Servico extends Conexao {
         }
     }
             
-    public static function getLinhasTabelaItensPedentesOrcamento($idOrcamento){
+    public static function getLinhasTabelaItensOrcamento($idOrcamento, $idStatus){
         try{
             $pdo = parent::getDB();
 
             $query = $pdo->prepare("SELECT i.id_servico as id_servico, s.descricao as descricao, i.valor as valor,
-                    i.desconto as desconto, i.total as total
+                    i.desconto as desconto, i.total as total, i.id_item_orcamento as id_item_orcamento
                     FROM `item_orcamento` as i, `servico` as s 
                     WHERE
                     s.id_servico = i.id_servico                        
-                    AND i.id_status = '3'
+                    AND i.id_status = ?
                     AND i.id_orcamento = ? ;" );
             
-            $query->bindValue(1, $idOrcamento);
+            $query->bindValue(1, $idStatus);
+            $query->bindValue(2, $idOrcamento);
                           
             $query->execute();
                
@@ -225,7 +226,7 @@ class Servico extends Conexao {
                 
             while($row = $query->fetch(PDO::FETCH_OBJ)){                    
                 $linhas = $linhas . "<tr>"
-                            . "<td> Remover </td>"
+                            . "<td> <a href='processa_orcamento.php?novo_orcamento=true&remover_item=true&id_orcamento=".$idOrcamento."&id_item_orcamento=".$row->id_item_orcamento."'>Remover"."</a> </td>"
                             . "<td>".$row->id_servico."</td>"
                             . "<td>".$row->descricao."</td>"
                             . "<td>".$row->valor."</td>"
