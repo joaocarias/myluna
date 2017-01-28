@@ -86,4 +86,19 @@ if(isset($_POST['btn-selecionar-dentista'])){
             }            
         }
     }
+}else if(isset($_GET['btn-cancelar'])){    
+    $retorno = "";
+    
+    if($id_orcamento != ""){
+        $orcamento = new Orcamento();
+        $orcamento->setId_orcamento($id_orcamento);
+        $retorno = $orcamento->cancelar();
+    }
+    
+    //print_r($_GET);
+    
+    //echo " Retorno: ".$retorno;
+    header("Location: index.php?msg=1");
+}else {   
+    header("Location: index.php?msg=0");
 }

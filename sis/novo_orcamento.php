@@ -3,6 +3,7 @@
 session_start();
 
   include_once 'testarLogado.php';  
+include_once 'partes/header.php';  
 include_once 'controllers/Paciente.php';
 include_once 'controllers/Servico.php';
 include_once 'controllers/Orcamento.php';
@@ -11,7 +12,7 @@ include_once 'view/ViewOrcamento.php';
 include_once 'view/ViewServico.php';
 include_once 'view/ViewPaciente.php';
 include_once 'view/ViewUsuario.php';
-include_once 'partes/header.php';
+
 include_once 'partes/profile.php';    
 include_once 'partes/menu_lateral.php';
     
@@ -35,8 +36,11 @@ if(isset($_GET['id_orcamento'])){
             //echo "<script>alert('".$idPaciente." : ".$idDentista."'); </script>";
         }
     }  
+    
+      
 }else if(isset($_GET['id_paciente'])){
     $idPaciente = $_GET['id_paciente'];
+      
 }
 
 if(isset($_GET['servico'])){
@@ -51,6 +55,15 @@ include_once 'partes/menu_top.php';
     
     $viewPaciente = new ViewPaciente();
     $viewDentista = new ViewUsuario();
+    
+    //Mensagem de Cancelar
+    if($idOrcamento == ""){
+        Mensagem::getMensagem(1, 1, $view->getTitulo(), "processa_orcamento.php");
+    }else{
+        Mensagem::getMensagem(1, 3, $view->getTitulo(), "processa_orcamento.php?btn-cancelar=true&id_orcamento=".$idOrcamento);
+    }
+   
+   //  Mensagem::getMensagem(1, 3, $view->getTitulo(), "processa_orcamento.php?btn-cancelar=true&id_orcamento=".$id_orcamento);
         
     ?>
      <!-- page content -->
@@ -72,7 +85,7 @@ include_once 'partes/menu_top.php';
                   <div class='clearfix'></div>
 
                 <?php
-                  
+                 
                     $viewPaciente->imprimirInformacoesBasicasPaciente($idPaciente);
                       
                     if($idDentista != 0){
@@ -86,7 +99,13 @@ include_once 'partes/menu_top.php';
                             ViewServico::imprimirListaServicosParaOrcamento($idOrcamento);
                         }   
                         
-                        ViewServico::getItensDoOrcamento($idOrcamento, '3');                                       
+                        ViewServico::getItensDoOrcamento($idOrcamento, '3');  
+                       
+                        echo "                                
+                                <label>                            
+                                    <button type='button' class='btn btn btn-danger' data-toggle='modal' data-target='.bs-example-modal-lg'>Cancelar</button>                           
+                                </label>
+                           ";                
                     }else{
                   
                   ?>
@@ -121,12 +140,16 @@ include_once 'partes/menu_top.php';
                     </div>
             </div>
                 </div>
+                  <label>                            
+                            <button type='button' class='btn btn btn-danger' data-toggle='modal' data-target='.bs-example-modal-lg'>Cancelar</button>                           
+                        </label>
+                  
         </div>
                 
                 <?php 
                     }   //fechamento do else
                     ?>
-
+                
                 </div>
 
                 <div class="clearfix"></div>

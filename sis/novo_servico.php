@@ -10,8 +10,7 @@ include_once 'partes/header.php';
 include_once 'partes/profile.php';
     
 include_once 'partes/menu_lateral.php';
-    
-//include_once 'partes/footer_buttons.php';
+
     
 $acao = "";
 $idServico = "";

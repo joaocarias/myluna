@@ -16,18 +16,21 @@ class Mensagem {
     public static function getMensagem($tipo, $idMensagem, $tituloPagina, $paginaSeguinte){
         $tituloModal = "";
         $texto = "";
-        
-        
+                
         if($tipo == 1){    //Se tipo igual a 1, então é um questionamento      
              switch ($idMensagem):
                 case 1:                    
                     $texto = "Tem Certeza que Deseja Cancelar o Cadastro?";
                     $bt_confirmar = "<a href='".$paginaSeguinte."?btn-cancelar=true'><button type='button' class='btn btn-primary'>Cancelar Cadastro</button></a>";
                     break;
-                case 2:                    
+                case 2:         //aqui é possível definir os paramentros dos GET           
                     $texto = "Tem Certeza que Deseja Excluir o Cadastro?";
                     $bt_confirmar = "<a href='".$paginaSeguinte."'><button type='button' class='btn btn-primary'>Excluir Cadastro</button></a>";
                     break;
+                case 3:     //Pode definir os paramentros do GET                    
+                    $texto = "Tem Certeza que Deseja Cancelar o Cadastro?";
+                    $bt_confirmar = "<a href='".$paginaSeguinte."'><button type='button' class='btn btn-primary'>Cancelar Cadastro</button></a>";
+                    break;                
                 default :
                     $texto = "[ERRO] Ação não Identificada!";
                     $bt_confirmar = "";
