@@ -99,6 +99,14 @@ if(isset($_POST['btn-selecionar-dentista'])){
     
     //echo " Retorno: ".$retorno;
     header("Location: index.php?msg=1");
-}else {   
+}else if(isset($_POST['btn-salvar'])){
+    if($id_orcamento != ""){
+        $orcamento = new Orcamento();
+        $orcamento->setId_orcamento($id_orcamento);
+        $retorno = $orcamento->ativar();
+        header("Location: index.php?msg=2");
+    }
+}
+else {   
     header("Location: index.php?msg=0");
 }

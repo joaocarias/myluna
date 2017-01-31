@@ -117,6 +117,34 @@ class Orcamento extends Conexao{
         }
     }
     
+    public function ativar(){
+        try{
+            $pdo = parent::getDB();
+            
+            $query = $pdo->prepare("UPDATE `orcamento` "
+                    . "SET "
+                    . "`id_status`='1'"
+                    . ",`data_modificacao`=NOW()"
+                    . ",`modificado_por`= ? "
+                    . "WHERE "
+                    . "`id_orcamento` = ?");
+            
+            
+            $query->bindValue(1, $_SESSION['id_usuario']);
+            $query->bindValue(2, $this->getId_orcamento());
+            
+            $query->execute();
+            
+           // echo "<script>alert('".$this->getId_orcamento()."');<script>";
+            
+            ItemOrcamento::ativarItemOrcamento($this->getId_orcamento());
+            
+            return $this->getId_orcamento();            
+        } catch (Exception $ex) {
+            return -1;
+        }
+    }
+    
     public function inserir(){
         try{
             $pdo = parent::getDB();

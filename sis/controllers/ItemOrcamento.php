@@ -124,6 +124,27 @@ class ItemOrcamento extends Conexao {
         $this->id_servico = $id_servico;
     }
 
+    public static function  ativarItemOrcamento($idOrcamento){
+        try{
+            $pdo = parent::getDB();
+            $query = $pdo->prepare("UPDATE item_orcamento SET "
+                    . "id_status = '1'"
+                    . ", data_modificado = NOW()"
+                    . ", modificado_por = ? "
+                    . "WHERE "
+                    . "id_orcamento = ?;");
+            
+            $query->bindValue(1, $_SESSION['id_usuario']);
+            $query->bindValue(2, $idOrcamento);
+            
+            $query->execute();
+            
+            return 1;
+        } catch (Exception $ex) {
+            return -1;
+        }
+    }
+
     public static function cancelarOrcamento($idOrcamento){
         try{
             $pdo = parent::getDB();
