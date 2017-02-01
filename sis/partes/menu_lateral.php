@@ -8,7 +8,8 @@
      <li><a><i class="fa fa-male"></i> Paciente <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
           <li><a href="novo_paciente.php">Novo Paciente</a></li>
-          <li><a href="lista_paciente.php">Lista de Paciente</a></li>
+          <li><a href="lista_paciente.php">Lista de Pacientes</a></li>
+          <li><a href="lista_orcamento.php">Lista de Orçamentos</a></li>
            <li><a href="lista_aniversariantes_pacientes.php">Aniversariantes do Mês</a></li>
         </ul>
       </li>
@@ -19,7 +20,8 @@
       </li>-->
       <li><a><i class="fa fa-clock-o"></i> Agendamento <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">          
-          <li><a href="tables_dynamic.html">Agenda do Dia</a></li>   
+          <li><a href="tables_dynamic.html">Agenda do Dia</a></li>
+          <li><a href="nova_visita.php">Agendar Visita</a></li>
           <li><a href="tables_dynamic.html">Listar por Período</a></li>
         </ul>
       </li>

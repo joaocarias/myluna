@@ -124,6 +124,38 @@ class ItemOrcamento extends Conexao {
         $this->id_servico = $id_servico;
     }
 
+    public static function getListaItensOrcamento($idOrcamento, $idStatus){
+        try{
+            $pdo = parent::getDB();
+            $query = $pdo->prepare("SELECT s.descricao AS descricao FROM item_orcamento as i
+                        INNER JOIN servico as s ON s.id_servico = i.id_servico
+                        WHERE
+                        i.id_orcamento = ?
+                        AND i.id_status = ?;"
+                    );
+            
+            $query->bindValue(1, $idOrcamento);
+            $query->bindValue(2, $idStatus);
+            
+            $query->execute();
+                    
+            $lista = "";
+            $i = 0;
+            
+            while($row = $query->fetch(PDO::FETCH_OBJ)){                  
+                if($i>0){
+                    $lista = $lista . "<br />";
+                }
+                $lista = $lista." ".$row->descricao;
+                $i++;
+            }
+                  
+            return $lista;
+        } catch (Exception $ex) {
+            return -1;
+        }
+    }
+    
     public static function  ativarItemOrcamento($idOrcamento){
         try{
             $pdo = parent::getDB();
