@@ -1,0 +1,89 @@
+[33mcommit 68259b33124f482a76169a2f38b158be74c7ead6[m
+Author: Joao Carias <joaocariasdefranca@gmail.com>
+Date:   Tue Jan 31 22:03:05 2017 -0300
+
+    criado a lista de orcamentos
+
+[33mcommit 292082a66a96a2f5434aa1438a58dcb1be1fd3c5[m
+Author: Joao Carias <joaocariasdefranca@gmail.com>
+Date:   Mon Jan 30 21:38:52 2017 -0300
+
+    salvando orcamento no bd
+
+[33mcommit 2b1ac126ce4a73405484ae262ca036781e6b9412[m
+Author: Joao Carias <joaocariasdefranca@gmail.com>
+Date:   Sat Jan 28 07:46:19 2017 -0300
+
+    Criado a funcionalidade de Cancelar Orcamento
+
+[33mcommit 2c1e26a1aab5b8cffdccd3ef9d93811441cf0d0d[m
+Author: Joao Carias <joaocariasdefranca@gmail.com>
+Date:   Thu Jan 26 21:46:29 2017 -0300
+
+    marcando item de orcamento como removido
+
+[33mcommit 91334c458b5115d42b295344657e6bc1ac909e28[m
+Author: Joao Carias <joaocariasdefranca@gmail.com>
+Date:   Thu Jan 26 20:50:16 2017 -0300
+
+    inserindo o valor total de um orcamento em novo orcamento
+
+[33mcommit 13f8291a11df755b1402a02c8375a0d5e2438eb7[m
+Author: Joao Carias <joaocariasdefranca@gmail.com>
+Date:   Sun Jan 22 18:20:50 2017 -0300
+
+    Inserindo item orcamento no banco do dados
+
+[33mcommit f264c09d30d8aa829e91355b2ef8c60f7dfc2736[m
+Author: Joao Carias <joaocariasdefranca@gmail.com>
+Date:   Tue Jan 17 22:12:51 2017 -0300
+
+    continuação da inserção do novo orçamento, no caso, ensirindo a lista de serviços
+
+[33mcommit 7cb652618199e5cbb1e5109adf8c8080c706864b[m
+Author: Joao Carias <joaocariasdefranca@gmail.com>
+Date:   Fri Jan 13 22:07:44 2017 -0300
+
+    atualizações básicas da viewpaciente e continuação da criação do form orçamento
+
+[33mcommit 6294a3b8f9421845ddb03d4660b7ef593917e440[m
+Author: Joao Carias <joaocariasdefranca@gmail.com>
+Date:   Tue Dec 20 22:32:09 2016 -0300
+
+    Implementação de Edição e Exclusão de fornecedor e paciente
+
+[33mcommit c443dc8b4c3712203aea0f61b65e33e7ecc6a6c9[m
+Author: Joao Carias <joaocariasdefranca@gmail.com>
+Date:   Sun Dec 18 19:07:44 2016 -0300
+
+    Implementação de edição e exclusão de usuário
+
+[33mcommit cf89848d6383b915e35a8cbb887e8a7080806a5d[m
+Author: Joao Carias <joaocariasdefranca@gmail.com>
+Date:   Fri Dec 16 22:43:25 2016 -0300
+
+    Implementado a exclusão de usuário e começo da implementação de edição de usuário
+
+[33mcommit 5a3f14eb5c0da03215444bb0cd01928877110434[m
+Author: Joao Carias <joaocariasdefranca@gmail.com>
+Date:   Fri Dec 16 07:19:26 2016 -0300
+
+    Implementado a edição e exclusão de servico
+
+[33mcommit 38e0c81d799d101a12a933572e6e00dd9cbec190[m
+Author: Joao Carias <joaocariasdefranca@gmail.com>
+Date:   Thu Dec 15 16:08:29 2016 -0300
+
+    Fase inicial do projeto, já criado algumas formulários
+
+[33mcommit af36f8a05b79284eded9b5be9df416c003afde8b[m
+Author: joaocarias <joaocariasdefranca@gmail.com>
+Date:   Thu Dec 15 15:59:11 2016 -0300
+
+    Update README.md
+
+[33mcommit 075fb4f7830e5925d0c35a5174c059f8fe15056a[m
+Author: joaocarias <joaocariasdefranca@gmail.com>
+Date:   Thu Dec 15 15:57:53 2016 -0300
+
+    Initial commit

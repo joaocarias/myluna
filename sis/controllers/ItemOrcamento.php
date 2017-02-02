@@ -150,6 +150,7 @@ class ItemOrcamento extends Conexao {
                 $i++;
             }
                   
+            //
             return $lista;
         } catch (Exception $ex) {
             return -1;
