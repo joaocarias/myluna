@@ -13,6 +13,7 @@
  */
 
 include_once './controllers/Paciente.php';
+include_once './controllers/Orcamento.php';
 include_once './Auxiliares/Auxiliar.php';
 
 class ViewPaciente {
@@ -384,7 +385,40 @@ class ViewPaciente {
    }
    
    public function imprimirListaOrcamentoPaciente($id){        
-          
+       $myLista = "<div class='col-md-12 col-sm-12 col-xs-12'>
+                <div class='x_panel'>
+                  <div class='x_title'>
+                    <h2>Orçamento(s)</h2>                    
+                    <div class='clearfix'></div>
+                  </div>
+                  <div class='x_content'>
+                    <p class='text-muted font-13 m-b-30'>
+                      Segue a lista de Orçamento(s) para este paciente:
+                    </p>
+                     <table id='datatable-responsive' class='table table-striped table-bordered dt-responsive nowrap' cellspacing='0' width='100%'>
+                      <thead>
+                        <tr>                            
+                            <th>Código</th>
+                            <th>Data</th> 
+                            
+                            <th>Dentista</th>
+                            <th>Serviços</th>
+                            <th>Total R$</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                       
+                          ". Orcamento::getLinhasTabelaOrcamentoPaciente($id)."
+                                           
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+";
+       echo $myLista;     
+    
    }
    
    public function imprimirListaPacientes(){

@@ -73,7 +73,7 @@ if(isset($_GET['id_paciente'])){
                     
 
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                  
+                  <div class="clearfix"></div>
                     <?php 
                         $view->imprimirListaOrcamentoPaciente($id);                        
                     ?>                    

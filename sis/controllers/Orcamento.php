@@ -290,4 +290,33 @@ class Orcamento extends Conexao{
             return $linhas;               
     }
     
+    public  static function getLinhasTabelaOrcamentoPaciente($idPaciente){
+        $pdo = parent::getDB();
+            $query = $pdo->prepare("SELECT o.id_orcamento, DATE_FORMAT(o.data_cadastro,'%d/%m/%Y') as data_cadastro
+                                    , p.nome as paciente, u.nome as dentista, p.id_paciente as id_paciente
+                                    FROM `orcamento` o
+                                    INNER JOIN paciente p ON o.id_paciente = p.id_paciente AND o.id_paciente = ?
+                                    INNER JOIN usuario u ON u.id_usuario = o.id_dentista
+                                    WHERE o.id_status = 1 
+                                    ORDER BY id_orcamento DESC;");
+                                        
+            $query->bindValue(1, $idPaciente);
+            
+            $query->execute();
+               
+            $linhas = "";
+             while($row = $query->fetch(PDO::FETCH_OBJ)){                    
+                $linhas = $linhas . "<tr>"
+                        . "<td><a href='page_orcamento.php?id_orcamento=".$row->id_orcamento."'>".$row->id_orcamento."</a></td>"
+                        . "<td>".$row->data_cadastro."</td>"
+                    //    . "<td><a href='page_paciente.php?id_paciente=".$row->id_paciente."'>".$row->paciente."</a></td>"
+                        . "<td>".$row->dentista."</td>"
+                        . "<td>".ItemOrcamento::getListaItensOrcamento($row->id_orcamento, '1')."</td>" 
+                        . "<td>".self::getValorTotalDoOrcamento($row->id_orcamento, '1')."</td> "                       
+                        . "</tr> ";                
+            }
+               
+            return $linhas; 
+    }
+    
 }

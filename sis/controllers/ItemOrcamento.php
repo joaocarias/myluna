@@ -146,7 +146,7 @@ class ItemOrcamento extends Conexao {
                 if($i>0){
                     $lista = $lista . "<br />";
                 }
-                $lista = $lista." ".$row->descricao;
+                $lista = $lista." ".($i+1)." - ".$row->descricao;
                 $i++;
             }
                   
