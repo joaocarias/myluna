@@ -248,8 +248,8 @@ class ItemOrcamento extends Conexao {
             
             return 1;            
         } catch (Exception $ex) {
-           // return $ex->getMessage();
-            return -1;
+            return $ex->getMessage();
+           // return -1;
         }
     }
 }

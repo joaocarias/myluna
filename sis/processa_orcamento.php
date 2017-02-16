@@ -66,6 +66,8 @@ if(isset($_POST['btn-selecionar-dentista'])){
     
     $retorno = $item_orcamento->inserir();
     
+    //echo $retorno;
+    
     header("location: novo_orcamento.php?novo_orcamento=true&id_orcamento=".$id_orcamento);
     
 }else if(isset($_GET['remover_item'])){

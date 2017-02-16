@@ -2,7 +2,7 @@
 
 session_start();
 
-  include_once 'testarLogado.php';  
+include_once 'testarLogado.php';  
 include_once 'partes/header.php';  
 include_once 'controllers/Paciente.php';
 include_once 'controllers/Servico.php';
@@ -63,8 +63,6 @@ include_once 'partes/menu_top.php';
         Mensagem::getMensagem(1, 3, $view->getTitulo(), "processa_orcamento.php?btn-cancelar=true&id_orcamento=".$idOrcamento);
     }
    
-   //  Mensagem::getMensagem(1, 3, $view->getTitulo(), "processa_orcamento.php?btn-cancelar=true&id_orcamento=".$id_orcamento);
-        
     ?>
      <!-- page content -->
         <div class="right_col" role="main">                

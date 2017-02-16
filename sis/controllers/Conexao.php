@@ -6,7 +6,7 @@ abstract class Conexao{
     //const PASS = "minhasenha";
     
 	const USER = "root";
-    const PASS = "";
+    const PASS = "minhasenha";
     const BDNAME = "bd_sisgcon";
     const LOCAL = "localhost";
 	

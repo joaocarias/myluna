@@ -119,7 +119,8 @@ class ViewServico {
                         
                         <div class='col-xs-3'>
                             <label for='valor'>Desconto(%)</label>
-                                <input type='text' class='form-control' id='desconto' name='desconto' maxlength='7' value='0.00' disabled/>                                
+                                <input type='text' class='form-control' id='desconto_' name='desconto_' maxlength='7' value='0.00' disabled/> 
+                                <input type='hidden' id='desconto' name='desconto' value='0.00'/>
                         </div> 
                         
                         <div class='col-xs-3'>
