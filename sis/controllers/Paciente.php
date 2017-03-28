@@ -321,6 +321,46 @@ class Paciente extends Conexao {
     }
 
 
+    public static function getLinhasTabelaEntrada(){
+        try{
+            $pdo = parent::getDB();
+
+            $query = $pdo->prepare("SELECT * FROM `paciente` WHERE id_status = ?" );        
+
+            $query->bindValue(1, "1");
+                            
+            $query->execute();
+               
+            $linhas = "";
+                
+            while($row = $query->fetch(PDO::FETCH_OBJ)){                    
+                $linhas = $linhas . "<tr>"
+                        . "<td><a href='entrada.php?id_paciente=".$row->id_paciente."'>Escolher</a></td>"
+                        . "<td><a href='entrada.php?id_paciente=".$row->id_paciente."'>".$row->id_paciente."</a></td>"
+                        . "<td><a href='entrada.php?id_paciente=".$row->id_paciente."'>".$row->nome."</a></td>"
+                        . "<td>".$row->cpf."</td>"
+                        . "<td>".Auxiliar::dateToBR($row->data_nascimento)."</td>"
+//                        . "<td>".Auxiliar::getGenero($row->sexo)."</td>"
+//                        . "<td>".$row->telefone."</td>"
+//                        . "<td>".$row->email."</td>"            
+//                        . "<td>".$row->rua."</td>"
+//                        . "<td>".$row->numero."</td>"
+//                        . "<td>".$row->bairro."</td>"
+//                        . "<td>".$row->cep."</td>"
+//                        . "<td>".$row->cidade."</td>"
+//                        . "<td>".$row->uf."</td>"
+//                        . "<td>".$row->complemento."</td>"
+//                        . "<td>".$row->obs."</td>"
+//                        . "<td><a class='btn btn-primary btn-sm' href='editar_paciente.php?editar=true&id_paciente=".$row->id_paciente."' title='Editar'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></a> <a class='btn btn-default btn-sm' href='novo_orcamento.php?novo_orcamento=true&id_paciente=".$row->id_paciente."' title='Novo Orçamento'><i class='fa fa-calculator' aria-hidden='true'></i></a> <a class='btn btn-danger btn-sm' href='processa_paciente.php?btn-excluir=true&id_paciente=".$row->id_paciente."' title='Excluir' ><i class='fa fa-trash-o' aria-hidden='true'></i></a></td>"
+                        . "</tr> ";                
+            }
+               
+            return $linhas;                
+        } catch (Exception $ex) {
+            return "";
+        }
+    }
+
     public static function getLinhasTabela(){
         try{
             $pdo = parent::getDB();

@@ -8,6 +8,7 @@
 
 include_once 'Conexao.php';
 include_once './Auxiliares/Auxiliar.php';
+include_once './Auxiliares/Orcamento.php';
 
 /**
  * Description of Servico
@@ -223,15 +224,22 @@ class Servico extends Conexao {
             $query->execute();
                
             $linhas = "";
+            
+            while($row = $query->fetch(PDO::FETCH_OBJ)){
+                if($idStatus == "1"){
+                    $texto = "<a href='entrada.php?id_paciente=".Orcamento::getIdPaciente($idOrcamento)."'>Receber</a>, Agendar, Feito";   
+                }else{
+                    $texto = "";
+                }  
                 
-            while($row = $query->fetch(PDO::FETCH_OBJ)){                    
                 $linhas = $linhas . "<tr>"
-                            . "<td> <a href='processa_orcamento.php?novo_orcamento=true&remover_item=true&id_orcamento=".$idOrcamento."&id_item_orcamento=".$row->id_item_orcamento."'>Remover"."</a> </td>"
+                            . "<td> <a href='processa_orcamento.php?novo_orcamento=true&remover_item=true&id_orcamento=".$idOrcamento."&id_item_orcamento=".$row->id_item_orcamento."'>Remover"."</a>, ".$texto." </td>" 
                             . "<td>".$row->id_servico."</td>"
                             . "<td>".$row->descricao."</td>"
                             . "<td>".$row->valor."</td>"
                             . "<td>".$row->desconto."</td>"
                             . "<td>".$row->total."</td>"
+                            
                         . "</tr> ";                
                
             }               
@@ -239,6 +247,13 @@ class Servico extends Conexao {
         } catch (Exception $ex) {
             return "";
         }
+    }
+    
+    public function getTextoReceber($idStatus){
+        $texto = "";
+        
+        
+        return $texto;
     }
     
     public static function getLinhasTabelaOrcamento($idOrcamento){

@@ -28,10 +28,10 @@
       
       <li><a><i class="fa fa-cart-arrow-down"></i> Financeiro <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">          
-          <li><a href="tables_dynamic.html">Nova Entrada</a></li>   
-          <li><a href="tables_dynamic.html">Listar de Entrada</a></li>
+          <li><a href="entrada.php">Nova Entrada</a></li>   
+          <li><a href="tables_dynamic.html">Lista de Entrada</a></li>
           <li><a href="tables_dynamic.html">Nova Saída</a></li>   
-          <li><a href="tables_dynamic.html">Listar de Saída</a></li>          
+          <li><a href="tables_dynamic.html">Lista de Saída</a></li>          
         </ul>
       </li>
       

@@ -14,7 +14,7 @@ include_once './controllers/Servico.php';
  * @author joao
  */
 class ViewServico {
-    private $titulo;
+   private $titulo;
    private $subTitulo;
    
    function getSubTitulo() {
@@ -35,6 +35,12 @@ class ViewServico {
    }
    
    public static function getItensDoOrcamento($idOrcamento, $idStatus){
+       if($idStatus == "1"){
+           $textoReceber = "<th></th>";
+       }else{
+           $textoReceber = "";
+       }
+       
        $myLista = "<div class='clearfix'></div>
                     <div class='row'>
                         <div class='col-md-12 col-sm-12 col-xs-12'>
@@ -61,6 +67,7 @@ class ViewServico {
                                         <th>Valor</th>                                        
                                         <th>Desconto (%)</th>
                                         <th>Valor Pagar (R$)</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>                       
