@@ -364,7 +364,7 @@ class Orcamento extends Conexao{
                                         ic.id_status = 1 
                                         AND c.id_status = 1 
                                         AND ic.id_item_orcamento
-                                            NOT IN (SELECT id_item_orcamento FROM entrada AS e
+                                            NOT IN (SELECT id_item_orcamento FROM item_entrada AS e
                                                 WHERE e.id_status = 6 or e.id_status = 7)
                                         AND c.id_paciente = ?;");
                                         
@@ -395,7 +395,7 @@ class Orcamento extends Conexao{
         try{
             
             $pdo = parent::getDB();
-            $query = $pdo->prepare("INSERT INTO entrada (
+            $query = $pdo->prepare("INSERT INTO item_entrada (
                                         id_item_orcamento
                                         , valor
                                         , id_status
@@ -416,4 +416,77 @@ class Orcamento extends Conexao{
         }
     }
     
+    public static function marcarComoExcluido($idEntrada){
+        try{            
+            $pdo = parent::getDB();
+            $query = $pdo->prepare("UPDATE item_entrada "
+                    . "SET id_status = 2"
+                    . ", data_modificacao = NOW()"
+                    . ", modificado_por = ? "
+                    . "WHERE "
+                    . "id_entrada = ?;");
+            
+            $query->bindValue(1, $_SESSION['id_usuario']);
+            $query->bindValue(2, $idEntrada);
+            
+            $query->execute();
+                return 1;
+        } catch (Exception $ex) {
+            echo $ex->getMessage();
+            return $ex->getMessage();
+        }
+    }
+
+    public static function getLinhaTabelaItemSelecionadosNaoRecebidos($idPaciente) {
+        try{
+            $pdo = parent::getDB();
+            $query = $pdo->prepare("SELECT 
+                                        c.id_orcamento as id_orcamento
+                                        , ic.id_item_orcamento as id_item_orcamento
+                                        , c.id_paciente as id_paciente
+                                        , s.id_servico as id_servico
+                                        , u.nome AS dentista
+                                        , s.descricao AS descricao
+                                        , ic.valor AS valor
+                                        , ic.desconto AS desconto
+                                        , ic.total as total
+                                        , e.id_entrada as id_item_entrada
+                                    FROM orcamento AS c
+                                    INNER JOIN item_orcamento AS ic 
+                                        ON c.id_orcamento = ic.id_orcamento
+                                    INNER JOIN servico AS s 
+                                        ON s.id_servico = ic.id_servico
+                                    INNER JOIN usuario AS u 
+                                        ON u.id_usuario = c.id_dentista
+                                    INNER JOIN item_entrada AS e 
+                                        ON e.id_item_orcamento = ic.id_item_orcamento 
+                                    WHERE 
+                                        ic.id_status = 1 
+                                        AND c.id_status = 1                           
+                                        AND e.id_status = 6
+                                        AND c.id_paciente = ?;");
+                                        
+            $query->bindValue(1, $idPaciente);
+            
+            $query->execute();
+               
+            $linhas = "";
+             while($row = $query->fetch(PDO::FETCH_OBJ)){                    
+                $linhas = $linhas . "<tr>"
+                        . "<td><a href='processa_entrada.php?acao=cancelar&id_paciente=".$row->id_paciente."&id_item_entrada=".$row->id_item_entrada."&valor=".$row->valor."'>Cancelar</a></td>"
+                        . "<td>".$row->id_orcamento."</td>"
+                        . "<td>".$row->dentista."</td>"                       
+                        . "<td>".$row->descricao."</td>"
+                        . "<td>".$row->valor."</td>" 
+                        . "<td>".$row->desconto."</td> "
+                        . "<td>".$row->total."</td> "
+                        . "</tr> ";                
+            }
+               
+            return $linhas; 
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }
+
 }

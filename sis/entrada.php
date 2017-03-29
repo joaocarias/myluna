@@ -85,9 +85,9 @@ include_once 'partes/menu_top.php';
                           
                 <?php 
                     $viewPaciente->imprimirInformacoesBasicasPaciente($idPaciente);
-                    $view->imprimirListaItensNaoRecebidos($idPaciente); ?>
-              
-
+                    $view->imprimirListaItensNaoRecebidos($idPaciente);
+                    $view->imprimirListaItensSelecionados($idPaciente);
+                ?>
               </div>
           </div>
         </div>

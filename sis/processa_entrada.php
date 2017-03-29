@@ -8,11 +8,18 @@ $acao = "";
 $id_paciente = "";
 $id_item_orcamento = "";
 $valor = "";
+$idItemEntrada = "";
 
 if(isset($_GET['acao'])){
     $acao = $_GET['acao'];    
 }else{
     $acao = "";
+}
+
+if(isset($_GET['id_item_entrada'])){
+    $idItemEntrada = $_GET['id_item_entrada'];
+}else{
+    $idItemEntrada = "";
 }
 
 if(isset($_GET['valor'])){
@@ -37,6 +44,10 @@ if($acao == "receber"){
     
     //echo $id_item_orcamento ." : ".$valor;
    $retorno = Orcamento::marcarParaReceber($id_item_orcamento, $valor);
+  //  echo $retorno;
+    header("Location: entrada.php?id_paciente=".$id_paciente);
+}else if($acao == "cancelar"){
+    $retorno = Orcamento::marcarComoExcluido($idItemEntrada);
   //  echo $retorno;
     header("Location: entrada.php?id_paciente=".$id_paciente);
 }
