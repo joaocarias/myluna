@@ -437,7 +437,7 @@ class Orcamento extends Conexao{
         }
     }
 
-    public static function getLinhaTabelaItemSelecionadosNaoRecebidos($idPaciente) {
+    public static function getLinhaTabelaItemSelecionadosNaoRecebidos($idPaciente, $permissao_remover = TRUE) {
         try{
             $pdo = parent::getDB();
             $query = $pdo->prepare("SELECT 
@@ -470,10 +470,14 @@ class Orcamento extends Conexao{
             
             $query->execute();
                
+            $row_remover = "<td><a href='processa_entrada.php?acao=cancelar&id_paciente=".$row->id_paciente."&id_item_entrada=".$row->id_item_entrada."&valor=".$row->valor."'>Remover</a></td>";
             $linhas = "";
-             while($row = $query->fetch(PDO::FETCH_OBJ)){                    
+            while($row = $query->fetch(PDO::FETCH_OBJ)){ 
+                if(!($permissao_remover)){
+                    $row_remover = "";
+                }                
                 $linhas = $linhas . "<tr>"
-                        . "<td><a href='processa_entrada.php?acao=cancelar&id_paciente=".$row->id_paciente."&id_item_entrada=".$row->id_item_entrada."&valor=".$row->valor."'>Cancelar</a></td>"
+                        . $row_remover
                         . "<td>".$row->id_orcamento."</td>"
                         . "<td>".$row->dentista."</td>"                       
                         . "<td>".$row->descricao."</td>"
@@ -481,6 +485,41 @@ class Orcamento extends Conexao{
                         . "<td>".$row->desconto."</td> "
                         . "<td>".$row->total."</td> "
                         . "</tr> ";                
+            }              
+                    
+            return $linhas; 
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }
+    
+    public static function getValorReceber($idPaciente){
+        try{
+            $pdo = parent::getDB();
+            $query = $pdo->prepare("SELECT 
+                                        SUM(e.valor) as valor_total
+                                    FROM orcamento AS c
+                                    INNER JOIN item_orcamento AS ic 
+                                        ON c.id_orcamento = ic.id_orcamento
+                                    INNER JOIN servico AS s 
+                                        ON s.id_servico = ic.id_servico
+                                    INNER JOIN usuario AS u 
+                                        ON u.id_usuario = c.id_dentista
+                                    INNER JOIN item_entrada AS e 
+                                        ON e.id_item_orcamento = ic.id_item_orcamento 
+                                    WHERE 
+                                        ic.id_status = 1 
+                                        AND c.id_status = 1                           
+                                        AND e.id_status = 6
+                                        AND c.id_paciente = ?;");
+                                        
+            $query->bindValue(1, $idPaciente);
+            
+            $query->execute();
+               
+            $linhas = "0.00";
+             while($row = $query->fetch(PDO::FETCH_OBJ)){                    
+                $linhas = $row->valor_total;               
             }
                
             return $linhas; 

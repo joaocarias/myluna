@@ -3,11 +3,18 @@
 session_start();
 
 $idPaciente = "";
+$forma_de_pagamento = ""; 
 
 if(isset($_GET['id_paciente'])){
     $idPaciente = $_GET['id_paciente'];
 }else{
     $idPaciente = "";
+}
+
+if(isset($_GET['forma_de_pagamento'])){
+    $forma_de_pagamento = $_GET['forma_de_pagamento'];    
+}else{
+    $forma_de_pagamento = "";
 }
 
 include_once 'testarLogado.php';
@@ -28,13 +35,6 @@ include_once 'partes/menu_top.php';
     $view->setSubTitulo("Cadastrar Nova Entrada");
     
     $viewPaciente = new ViewPaciente();
-    
-    $idPaciente = "";
-    if(isset($_GET['id_paciente'])){
-        $idPaciente = $_GET['id_paciente'];
-    }else{
-        $idPaciente = "";
-    }
             
     if($idPaciente == ""){
         //Paciente não passado como parâmentos, logo, é necessário seleciona-lo.
@@ -85,17 +85,36 @@ include_once 'partes/menu_top.php';
                           
                 <?php 
                     $viewPaciente->imprimirInformacoesBasicasPaciente($idPaciente);
-                    $view->imprimirListaItensNaoRecebidos($idPaciente);
-                    $view->imprimirListaItensSelecionados($idPaciente);
+                    
+                    $permissao_remover = TRUE;
+                    if($forma_de_pagamento == ""){
+                        $view->imprimirListaItensNaoRecebidos($idPaciente);
+                        $permissao_remover = TRUE;
+                   
+                         
+                        $view->imprimirListaItensSelecionados($idPaciente, $permissao_remover, strtoupper($forma_de_pagamento));
+                    }else{
+                        $permissao_remover = FALSE;
+                         
+                        $view->imprimirListaItensSelecionados($idPaciente, $permissao_remover, strtoupper($forma_de_pagamento));
+                        
+                        $view->imprimirFormEscolherFomarmaDePagamento($idPaciente);
+                    }
+                   
+                                        
                 ?>
+            
+                <label>                            
+                    <button type='button' class='btn btn btn-danger' data-toggle='modal' data-target='.bs-example-modal-lg'>Cancelar</button>                           
+                </label>  
               </div>
-          </div>
+
+        </div>
         </div>
         <!-- /page content -->
 
-        
         <?php
-        
+            
         
     }
    

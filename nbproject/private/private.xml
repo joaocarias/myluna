@@ -7,6 +7,7 @@
             <file>file:/var/www/html/myluna/sis/entrada.php</file>
             <file>file:/var/www/html/myluna/sis/controllers/Orcamento.php</file>
             <file>file:/var/www/html/myluna/sis/processa_entrada.php</file>
+            <file>file:/var/www/html/myluna/sis/view/ViewPaciente.php</file>
             <file>file:/var/www/html/myluna/sis/processa_login.php</file>
             <file>file:/var/www/html/myluna/sis/view/ViewEntrada.php</file>
         </group>
