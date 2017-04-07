@@ -14,6 +14,7 @@
 include_once './controllers/Paciente.php';
 include_once './controllers/Orcamento.php';
 include_once './Auxiliares/Auxiliar.php';
+include_once './controllers/FormaPagamento.php';
 
 class ViewEntrada {
     private $titulo;
@@ -26,7 +27,6 @@ class ViewEntrada {
     function setSubTitulo($subTitulo) {
        $this->subTitulo = $subTitulo;
     }
-
       
     function getTitulo() {
        return $this->titulo;
@@ -38,6 +38,8 @@ class ViewEntrada {
     
     
     public function imprimirListaItensNaoRecebidos($idPaciente){
+        
+        if(Orcamento::getLinhaTabelaItemNaoPago($idPaciente) != ""){
        $myLista = "
                 <div class='x_panel'>
                   <div class='x_title'>
@@ -69,6 +71,7 @@ class ViewEntrada {
               
 ";
        echo $myLista;
+        }
       
     }
     
@@ -106,7 +109,7 @@ class ViewEntrada {
    
    public function imprimirListaItensSelecionados($idPaciente, $permissao_remover = TRUE, $forma_de_pagamento = "ESCOLHER") {
        
-        if($forma_de_pagamento != "ESCOLHER"){
+        if($forma_de_pagamento == ""){
             $buttonFormaPagamento = " <label>                            
                     <a href='entrada.php?id_paciente=".$idPaciente."&forma_de_pagamento=escolher'><button type='button' class='btn btn btn-primary'>Forma de Pagamento</button></a>                           
                 </label>  ";
@@ -129,7 +132,7 @@ class ViewEntrada {
             $myLista = "
                 <div class='x_panel'>
                   <div class='x_title'>
-                    <h2>Item Selecionados para ser Recebidos</h2>                    
+                    <h2>Item Selecionado(s)</h2>                    
                     <div class='clearfix'></div>
                   </div>
                   <div class='x_content'>
@@ -192,6 +195,7 @@ class ViewEntrada {
                                     <option value='4'>DINHEIRO E CARTÃO</option>
                                     <option value='5'>DINHEIRO E DÉBITO</option>
                                     <option value='6'>CARTÃO E DÉBITO</option>
+                                    <option value='7'>DINHEIRO, CARTÃO E DÉBITO</option>
                                 </select>                                         
                             </div>    
                             <div class='col-xs-4'>
@@ -208,6 +212,206 @@ class ViewEntrada {
         
        echo $imprimir;
                   
+    }
+
+    public function imprimirFormPagamento($forma_de_pagamento, $id_paciente, $n_parcela_cartao) {
+        $valor_total = Orcamento::getValorReceber($id_paciente);
+        $rows = "";
+        
+        if($forma_de_pagamento != "ESCOLHER" && $forma_de_pagamento != ""){
+            
+            if($forma_de_pagamento == 1){                
+                    $formaEscolhida = new FormaPagamento();
+                    $formaEscolhida->gerarFormaDePagamento("DINHEIRO");
+
+                    $rows = $rows."<tr>"
+                            . "<td>1</td>"
+                        . "<td>".$formaEscolhida->getDescricao()."</td>"
+                        . "<td>".(int) $formaEscolhida->getValor_minimo_parcela()."</td>"
+                        . "<td>".$formaEscolhida->getValorParcela($valor_total)."</td>"
+                        . "<td>".$valor_total."</td>"
+                            . "</tr>";
+                                                
+            }else if($forma_de_pagamento == 2){                                
+                    $formaEscolhida = new FormaPagamento();
+                    $formaEscolhida->gerarFormaDePagamento("CARTAO");
+
+                    if($n_parcela_cartao != ""){
+                        $rows = $rows."<tr>"
+                            . "<td>1</td>"
+                        . "<td>".$formaEscolhida->getDescricao()."</td>"
+                        . "<td>".$n_parcela_cartao."</td>"
+                        . "<td>".(($valor_total)/$n_parcela_cartao)."</td>"
+                        . "<td>".$valor_total."</td>"
+                            . "</tr>";
+                    }else{
+                    
+                        echo "<div class='x_panel'>
+                            <div class='x_title'>
+                                <h2>Escolher o número de Parcelas</h2>
+                                <div class='clearfix'></div>
+                            </div>
+                            <div class='x_content'>
+                                <form method='GET' action='entrada.php' name='myform' id='myform'>
+                                    <input type='hidden' name='id_paciente' value='".$id_paciente."'>
+                                    <input type='hidden' name='forma_de_pagamento' value='".$forma_de_pagamento."'>
+                                
+                                    <div class='col-xs-4'>
+                                        <label for='n_parcela_cartao'>Número de Parcelas</label>
+                                        <select class='form-control' id='n_parcela_cartao' name='n_parcela_cartao' >      
+                                            ".$formaEscolhida->getOptionsCartao($valor_total)."                                      
+                                        </select> 
+                                    </div>
+                                    <div class='col-xs-4'>
+                                        <label>
+                                            <input type='submit' id='btn-escolher' name='btn-escolher' value='Escolher' class='btn btn-primary' />                                                                                           
+                                        </label>
+                                    </div>  
+                                </form>
+                            </div>
+                        </div>";
+                    }                    
+            
+            }else if($forma_de_pagamento == 3){                                
+                    $formaEscolhida = new FormaPagamento();
+                    $formaEscolhida->gerarFormaDePagamento("DEBITO");
+
+                    $rows = $rows."<tr>"
+                            . "<td>1</td>"
+                        . "<td>".$formaEscolhida->getDescricao()."</td>"
+                        . "<td>".(int) $formaEscolhida->getValor_minimo_parcela()."</td>"
+                        . "<td>".$formaEscolhida->getValorParcela($valor_total)."</td>"
+                        . "<td>".$valor_total."</td></tr>";
+                                
+            }else if($forma_de_pagamento == 4){                                
+                    $formaEscolhida = new FormaPagamento();
+                    $formaEscolhida->gerarFormaDePagamento("CARTAO");
+                    
+                    $rows = $rows."<tr><td>1</td>"
+                        . "<td>".$formaEscolhida->getDescricao()."</td>"
+                        . "<td>".(int) $formaEscolhida->getValor_minimo_parcela()."</td>"
+                        . "<td>".$formaEscolhida->getValorParcela($valor_total)."</td>"
+                        . "<td>".$valor_total."</td>"
+                            . "</tr>";
+                                
+                    $formaEscolhida = new FormaPagamento();
+                    $formaEscolhida->gerarFormaDePagamento("DINHEIRO");
+
+                    $rows = $rows."<tr><td>2</td>"
+                        . "<td>".$formaEscolhida->getDescricao()."</td>"
+                        . "<td>".(int) $formaEscolhida->getValor_minimo_parcela()."</td>"
+                        . "<td>".$formaEscolhida->getValorParcela($valor_total)."</td>"
+                        . "<td>".$valor_total."</td></tr>";
+
+            }else if($forma_de_pagamento == 5){
+                                
+                    $formaEscolhida = new FormaPagamento();
+                    $formaEscolhida->gerarFormaDePagamento("DINHEIRO");
+                    
+                    $rows = $rows."<tr><td>1</td>"
+                        . "<td>".$formaEscolhida->getDescricao()."</td>"
+                        . "<td>".(int) $formaEscolhida->getValor_minimo_parcela()."</td>"
+                        . "<td>".$formaEscolhida->getValorParcela($valor_total)."</td>"
+                        . "<td>".$valor_total."</td></tr>";
+                                
+                    $formaEscolhida = new FormaPagamento();
+                    $formaEscolhida->gerarFormaDePagamento("DEBITO");
+                  
+                    $rows = $rows."<tr><td>2</td>"
+                        . "<td>".$formaEscolhida->getDescricao()."</td>"
+                        . "<td>".(int) $formaEscolhida->getValor_minimo_parcela()."</td>"
+                        . "<td>".$formaEscolhida->getValorParcela($valor_total)."</td>"
+                        . "<td>".$valor_total."</td></tr>";
+            
+            }else if($forma_de_pagamento == 6){
+                                
+                    $formaEscolhida = new FormaPagamento();
+                    $formaEscolhida->gerarFormaDePagamento("DEBITO");
+                    
+                    $rows = $rows."<tr><td>1</td>"
+                        . "<td>".$formaEscolhida->getDescricao()."</td>"
+                        . "<td>".(int) $formaEscolhida->getValor_minimo_parcela()."</td>"
+                        . "<td>".$formaEscolhida->getValorParcela($valor_total)."</td>"
+                        . "<td>".$valor_total."</td></tr>";
+                                
+                    $formaEscolhida = new FormaPagamento();
+                    $formaEscolhida->gerarFormaDePagamento("CARTAO");
+                  
+                    $rows = $rows."<tr><td>2</td>"
+                        . "<td>".$formaEscolhida->getDescricao()."</td>"
+                        . "<td>".(int) $formaEscolhida->getValor_minimo_parcela()."</td>"
+                        . "<td>".$formaEscolhida->getValorParcela($valor_total)."</td>"
+                        . "<td>".$valor_total."</td></tr>";
+            
+            }else if($forma_de_pagamento == 7){
+                                
+                    $formaEscolhida = new FormaPagamento();
+                    $formaEscolhida->gerarFormaDePagamento("DEBITO");
+                    
+                    $rows = $rows."<tr><td>1</td>"
+                        . "<td>".$formaEscolhida->getDescricao()."</td>"
+                        . "<td>".(int) $formaEscolhida->getValor_minimo_parcela()."</td>"
+                        . "<td>".$formaEscolhida->getValorParcela($valor_total)."</td>"
+                        . "<td>".$valor_total."</td></tr>";
+                                
+                    $formaEscolhida = new FormaPagamento();
+                    $formaEscolhida->gerarFormaDePagamento("CARTAO");
+                  
+                    $rows = $rows."<tr><td>2</td>"
+                        . "<td>".$formaEscolhida->getDescricao()."</td>"
+                        . "<td>".(int) $formaEscolhida->getValor_minimo_parcela()."</td>"
+                        . "<td>".$formaEscolhida->getValorParcela($valor_total)."</td>"
+                        . "<td>".$valor_total."</td></tr>";
+                    
+                    $formaEscolhida = new FormaPagamento();
+                    $formaEscolhida->gerarFormaDePagamento("DINHEIRO");
+                  
+                    
+                    $rows = $rows."<tr><td>3</td>"
+                        . "<td>".$formaEscolhida->getDescricao()."</td>"
+                        . "<td>".(int) $formaEscolhida->getValor_minimo_parcela()."</td>"
+                        . "<td>".$formaEscolhida->getValorParcela($valor_total)."</td>"
+                        . "<td>".$valor_total."</td></tr>";                
+            }else{
+                echo "<p>Escolha não conhecida</p>";
+            }
+           
+        }
+        
+        if($rows != ""){
+            
+            $myTable = " 
+                    <div class='x_panel'>
+                      <div class='x_title'>
+                        <h2>Detalhamento de Forma de Pagamento</h2>
+
+                        <div class='clearfix'></div>
+                      </div>
+                      <div class='x_content'>
+
+                        <table class='table table-bordered'>
+                          <thead>
+                            <tr>    
+                                <th>#</th>
+                                <th>FORMA DE PAGAMENTO</th>
+                                <th>Nº DE PARCELAS</th>
+                                <th>VALOR DA PARCELA</th>
+                                <th>VALOR TOTAL</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                                ".$rows."
+                          </tbody>
+                        </table>
+
+                      </div>
+                    </div>
+
+                " ;
+
+                echo $myTable;
+        }
+        
     }
 
 }

@@ -4,6 +4,7 @@ session_start();
 
 $idPaciente = "";
 $forma_de_pagamento = ""; 
+$n_parcela_cartao = "";
 
 if(isset($_GET['id_paciente'])){
     $idPaciente = $_GET['id_paciente'];
@@ -15,6 +16,12 @@ if(isset($_GET['forma_de_pagamento'])){
     $forma_de_pagamento = $_GET['forma_de_pagamento'];    
 }else{
     $forma_de_pagamento = "";
+}
+
+if(isset($_GET['n_parcela_cartao'])){
+    $n_parcela_cartao = $_GET['n_parcela_cartao'];    
+}else{
+    $n_parcela_cartao = "";
 }
 
 include_once 'testarLogado.php';
@@ -98,7 +105,11 @@ include_once 'partes/menu_top.php';
                          
                         $view->imprimirListaItensSelecionados($idPaciente, $permissao_remover, strtoupper($forma_de_pagamento));
                         
-                        $view->imprimirFormEscolherFomarmaDePagamento($idPaciente);
+                        if($forma_de_pagamento == "escolher"){
+                            $view->imprimirFormEscolherFomarmaDePagamento($idPaciente);
+                        }else{
+                            $view->imprimirFormPagamento($forma_de_pagamento, $idPaciente, $n_parcela_cartao);                            
+                        }
                     }
                    
                                         
