@@ -6,11 +6,18 @@ $idPaciente = "";
 $forma_de_pagamento = ""; 
 $n_parcela_cartao = "";
 $valor_dinheiro_receber = "";
+$valor_debito_receber = "";
 
 if(isset($_GET['valor_dinheiro_receber'])){
     $valor_dinheiro_receber = $_GET['valor_dinheiro_receber'];    
 }else{
     $valor_dinheiro_receber = "";
+}
+
+if(isset($_GET['valor_debito_receber'])){
+    $valor_debito_receber = $_GET['valor_debito_receber'];    
+}else{
+    $valor_debito_receber = "";
 }
 
 if(isset($_GET['id_paciente'])){
@@ -115,7 +122,7 @@ include_once 'partes/menu_top.php';
                         if($forma_de_pagamento == "escolher"){
                             $view->imprimirFormEscolherFomarmaDePagamento($idPaciente);
                         }else{
-                            $view->imprimirFormPagamento($forma_de_pagamento, $idPaciente, $n_parcela_cartao, $valor_dinheiro_receber);                            
+                            $view->imprimirFormPagamento($forma_de_pagamento, $idPaciente, $n_parcela_cartao, $valor_dinheiro_receber, $valor_debito_receber);                            
                         }
                     }
                    
