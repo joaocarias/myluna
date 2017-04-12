@@ -152,8 +152,6 @@ class FormaPagamento extends Conexao {
     }
     
     function getOptionsCartao($valor_total){
-        
-//        $num_max_de_parcelas = $this->getNumero_max_de_parcelas();
         $num_max_de_parcelas = (int) $this->getNumero_max_de_parcelas();
         $valor_minimo = $this->getValor_minimo_parcela();
         
