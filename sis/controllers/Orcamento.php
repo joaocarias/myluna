@@ -527,5 +527,32 @@ class Orcamento extends Conexao{
             return $ex->getMessage();
         }
     }
+    
+    public static function finalizarEntrada($IdPaciente, $idEntrada){
+         try{            
+            $pdo = parent::getDB();
+            $query = $pdo->prepare(" UPDATE item_entrada "
+                    . " SET id_status = 7 "                    
+                    . ", data_modificacao = NOW() "
+                    . ", modificado_por = ? "
+                    . ", cod_entrada = ? "
+                    . " WHERE "
+                    . " id_status = 6 "
+                    . " id_item_orcamento 
+                        in (select ic.id_item_orcamento from item_orcamento as ic, orcamento as o where ic.id_orcamento = o.id_orcamento 
+                        and o.id_paciente = ?);");
+            
+            $query->bindValue(1, $_SESSION['id_usuario']);
+            $query->bindValue(2, $idEntrada);
+            $query->bindValue(3, $IdPaciente);
+            
+            $query->execute();
+            
+            return 1;
+        } catch (Exception $ex) {
+            echo $ex->getMessage();
+            return $ex->getMessage();
+        }
+    }
 
 }

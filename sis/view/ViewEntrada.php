@@ -606,7 +606,7 @@ class ViewEntrada {
                 }else{
                 
                                 
-                     $restante = (($valor_total) - ($valor_debito_receber + $valor_dinheiro_receber));
+                    $restante = (($valor_total) - ($valor_debito_receber + $valor_dinheiro_receber));
                     
                     $formaEscolhida = new FormaPagamento();
                     $formaEscolhida->gerarFormaDePagamento("DINHEIRO");                     
@@ -640,7 +640,7 @@ class ViewEntrada {
                 }
             }else{
                 echo "<p>Escolha não conhecida</p>";
-            }           
+            }
         }
         
         if($rows != ""){
@@ -675,6 +675,18 @@ class ViewEntrada {
                 " ;
 
                 echo $myTable;
+                
+                echo "<form method='GET' action='processa_entrada.php' name='myform' id='myform'>
+                                <input type='hidden' name='id_paciente' value='".$id_paciente."'>
+                                <input type='hidden' name='forma_de_pagamento' value='".$forma_de_pagamento."'>
+                                <input type='hidden' name='valor_debito_receber' value='".$valor_debito_receber."'>
+                                <input type='hidden' name='valor_dinheiro_receber' value='".$valor_dinheiro_receber."'>
+                                
+                                <input type='hidden' name='numero_parcela_cartao' value='".$n_parcela_cartao."'>"
+                    . "
+                        <input type='submit' id='btn-confirmar_forma_pagamento' name='btn-confirmar_forma_pagamento' value='Confirmar Forma de Pagamento' class='btn btn-primary' />                                                                                           
+                       "                         
+                    ;
         }
         
     }

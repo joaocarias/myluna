@@ -104,8 +104,8 @@ if(isset($_POST['uf'])){
 
 if(isset($_POST['btn-salvar'])){
     $retorno = $obj->inserir();
-    if($retorno == true){      
-        header("Location: index.php?msg=2");
+    if($retorno > 0){      
+        header("Location: page_paciente.php?id_paciente=".$retorno."&msg=2");
     }else{       
         header("Location: index.php?msg=3");
     }   

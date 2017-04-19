@@ -5,7 +5,6 @@
         <group>
             <file>file:/var/www/html/myluna/sis/entrada.php</file>
             <file>file:/var/www/html/myluna/sis/processa_entrada.php</file>
-            <file>file:/var/www/html/myluna/sis/controllers/FormaPagamento.php</file>
             <file>file:/var/www/html/myluna/sis/view/ViewEntrada.php</file>
         </group>
     </open-files>

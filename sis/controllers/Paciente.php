@@ -233,7 +233,7 @@ class Paciente extends Conexao {
             
             $query->execute();    
             
-                return true;
+            return $pdo->lastInsertId();
           
         } catch (Exception $ex) {
             return $ex->getMessage();
