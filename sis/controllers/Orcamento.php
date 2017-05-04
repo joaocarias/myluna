@@ -538,7 +538,7 @@ class Orcamento extends Conexao{
                     . ", cod_entrada = ? "
                     . " WHERE "
                     . " id_status = 6 "
-                    . " id_item_orcamento 
+                    . " AND id_item_orcamento 
                         in (select ic.id_item_orcamento from item_orcamento as ic, orcamento as o where ic.id_orcamento = o.id_orcamento 
                         and o.id_paciente = ?);");
             
@@ -550,7 +550,7 @@ class Orcamento extends Conexao{
             
             return 1;
         } catch (Exception $ex) {
-            echo $ex->getMessage();
+           // echo $ex->getMessage();
             return $ex->getMessage();
         }
     }

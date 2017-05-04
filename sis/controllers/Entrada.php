@@ -31,13 +31,24 @@ class Entrada extends Conexao{
     private $modificadoPor;
     
     function __construct($idPaciente, $valorDinheiro, $valorCartao, $parcelaCartao, $valorDebito) {
-        $this->valorDinheiro = $valorDinheiro;
-        $this->parcelaDinheiro = 1;
+        $this->valorDinheiro = (double) $valorDinheiro;
+        if($valorDinheiro > 0){
+            $this->parcelaDinheiro = 1;
+        }else{
+            $this->parcelaDinheiro = 0;
+        }
+        
         $this->idPaciente = $idPaciente;
-        $this->valorCartao = $valorCartao;
+        
+        $this->valorCartao = (double) $valorCartao;        
         $this->parcelaCartao = $parcelaCartao;
-        $this->valorDebito = $valorDebito;
-        $this->parcelaDebito = 1;
+        
+        $this->valorDebito = (double) $valorDebito;
+        if($valorDebito > 0){
+            $this->parcelaDebito = 1;
+        }else{
+            $this->parcelaDebito = 0;
+        }
     }
     
     function getIdEntrada() {
@@ -185,4 +196,80 @@ class Entrada extends Conexao{
             return $ex->getMessage();
         }        
     }    
-}
+    
+     public static function getInformacoes($id){
+        try{
+            $dados = new Entrada(1, 1, 1, 1, 1);            
+            
+            $pdo = parent::getDB();
+
+            $query = $pdo->prepare("SELECT * FROM `entrada` WHERE id_status = ? AND id_entrada = ?" );        
+
+            $query->bindValue(1, "1");
+            $query->bindValue(2, $id);
+                            
+            $query->execute();               
+                           
+            while($row = $query->fetch(PDO::FETCH_OBJ)){    
+                $dados->setIdEntrada($row->id_entrada);
+                $dados->setIdPaciente($row->id_paciente);
+                $dados->setValorDinheiro($row->valor_dinheiro);
+                $dados->setParcelaDinheiro($row->parcela_dinheiro);
+                $dados->setValorCartao($row->valor_cartao);
+                $dados->setParcelaCartao($row->parcela_cartao);
+                $dados->setValorDebito($row->valor_debito);
+                $dados->setParcelaDebito($row->parcela_debito);
+                $dados->setIdPai($row->id_pai);
+                $dados->setIdStatus($row->id_status);
+                $dados->setDataCadastro($row->data_cadastro);
+                $dados->setDataModificacao($row->data_modificacao);
+                $dados->setModificadoPor($row->modificado_por); 
+            }
+               
+            return $dados;       
+        } catch (Exception $ex) {
+            return "";
+        }
+    }
+    
+    public static function getLinhasServicosEntrada($idEntrada){
+        try{
+            
+            $pdo = parent::getDB();
+            $query = $pdo->prepare("SELECT ie.id_entrada as id_entrada
+                                        , o.id_orcamento as id_orcamento
+                                        , s.descricao as servico
+                                        , u.nome as dentista
+                                        , it.valor as valor
+                                        , it.desconto as desconto
+                                        , it.total as total
+                                        FROM item_entrada as ie
+                                        INNER JOIN item_orcamento as it on it.id_item_orcamento = ie.id_item_orcamento AND it.id_status = '1'
+                                        INNER JOIN orcamento as o on o.id_orcamento = it.id_orcamento AND o.id_status = '1'
+                                        INNER JOIN servico as s on s.id_servico = it.id_servico AND s.id_status = '1'
+                                        INNER JOIN usuario as u on u.id_usuario = o.id_dentista AND u.status = '1'
+                                        WHERE ie.cod_entrada = ? AND ie.id_status = '7';");
+            $query->bindValue(1, $idEntrada);
+            $query->execute();
+                        
+            $i = 1;
+            $linhas = "";
+            while($row = $query->fetch(PDO::FETCH_OBJ)){
+                $linhas = $linhas . ""
+                        . "<tr>
+                              <th scope='row'>".$row->id_orcamento."</th>
+                              <td>".$row->servico."</td>
+                              <td>".$row->dentista."</td>
+                              <td>".Auxiliar::convParaReal($row->valor)."</td>
+                              <td>".Auxiliar::convParaReal($row->desconto)."</td>
+                              <td>".Auxiliar::convParaReal($row->total)."</td>
+                           </tr>";
+                $i++;
+            }
+
+            return $linhas;
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }
+ }

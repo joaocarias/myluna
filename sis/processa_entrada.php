@@ -17,19 +17,19 @@ $valor_dinheiro_receber = 0;
 $n_parcela_cartao = 0;
 
 if(isset($_GET['valor_debito_receber'])){
-    $valor_debito_receber = $_POST['valor_debito_receber'];    
+    $valor_debito_receber = $_GET['valor_debito_receber'];     
 }else{
     $valor_debito_receber = 0;
 }
 
 if(isset($_GET['valor_dinheiro_receber'])){
-    $valor_dinheiro_receber = $_POST['valor_dinheiro_receber'];    
+    $valor_dinheiro_receber = $_GET['valor_dinheiro_receber'];    
 }else{
     $valor_dinheiro_receber = 0;
 }
 
 if(isset($_GET['n_parcela_cartao'])){
-    $n_parcela_cartao = $_POST['n_parcela_cartao'];    
+    $n_parcela_cartao = $_GET['n_parcela_cartao'];    
 }else{
     $n_parcela_cartao = 0;
 }
@@ -79,6 +79,8 @@ if($acao == "receber"){
     
     $nova_entrada = new Entrada($id_paciente, $valor_dinheiro_receber, $valor_receber_cartao, $n_parcela_cartao, $valor_debito_receber);
     
+    
+   // print_r($nova_entrada);
     $id_entrada = $nova_entrada->inserir();
     
     if($id_entrada > 0){
@@ -86,6 +88,6 @@ if($acao == "receber"){
     }else{
         
         echo $id_entrada;
-//        header("Location: inxdex.php?msg=2");
+     //   header("Location: inxdex.php?msg=2");
     }
 }

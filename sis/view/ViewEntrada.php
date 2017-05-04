@@ -12,9 +12,13 @@
  * @author joao
  */
 include_once './controllers/Paciente.php';
+include_once './controllers/Entrada.php';
 include_once './controllers/Orcamento.php';
 include_once './Auxiliares/Auxiliar.php';
 include_once './controllers/FormaPagamento.php';
+include_once './Auxiliares/Auxiliar.php';
+
+include_once 'ViewPaciente.php';
 
 class ViewEntrada {
     private $titulo;
@@ -227,9 +231,13 @@ class ViewEntrada {
                             . "<td>1</td>"
                         . "<td>".$formaEscolhida->getDescricao()."</td>"
                         . "<td>".(int) $formaEscolhida->getValor_minimo_parcela()."</td>"
-                        . "<td>".$formaEscolhida->getValorParcela($valor_total)."</td>"
+                        . "<td>".$valor_total."</td>"
                         . "<td>".$valor_total."</td>"
                             . "</tr>";
+                    
+                    $valor_debito_receber = 0;
+                    $valor_dinheiro_receber = $valor_total;
+                    $n_parcela_cartao = 0;
                                                 
             }else if($forma_de_pagamento == 2){                                
                     $formaEscolhida = new FormaPagamento();
@@ -243,6 +251,11 @@ class ViewEntrada {
                         . "<td>".(($valor_total)/$n_parcela_cartao)."</td>"
                         . "<td>".$valor_total."</td>"
                             . "</tr>";
+                        
+                         
+                        $valor_debito_receber = 0;
+                        $valor_dinheiro_receber = 0;
+                        
                     }else{
                     
                         echo "<div class='x_panel'>
@@ -270,6 +283,8 @@ class ViewEntrada {
                         </div>";
                     }                    
             
+                    
+                    
             }else if($forma_de_pagamento == 3){                                
                     $formaEscolhida = new FormaPagamento();
                     $formaEscolhida->gerarFormaDePagamento("DEBITO");
@@ -278,9 +293,14 @@ class ViewEntrada {
                             . "<td>1</td>"
                         . "<td>".$formaEscolhida->getDescricao()."</td>"
                         . "<td>".(int) $formaEscolhida->getValor_minimo_parcela()."</td>"
-                        . "<td>".$formaEscolhida->getValorParcela($valor_total)."</td>"
+                        . "<td>".$valor_total."</td>"
                         . "<td>".$valor_total."</td></tr>";
-                                
+                        
+                     
+                    $valor_debito_receber = $valor_total;
+                    $valor_dinheiro_receber = 0;
+                    $n_parcela_cartao = 0;
+                    
             }else if($forma_de_pagamento == 4){                                
                    
                 if($valor_dinheiro_receber == ""){
@@ -409,6 +429,10 @@ class ViewEntrada {
                         . "<td>".(int) $formaEscolhida->getValor_minimo_parcela()."</td>"
                         . "<td>".$formaEscolhida->getValorParcela($valor_total - $valor_dinheiro_receber)."</td>"
                         . "<td>".($valor_total - $valor_dinheiro_receber)."</td></tr>";
+                    
+                     
+                    $valor_debito_receber = ($valor_total) - ($valor_dinheiro_receber);                    
+                    $n_parcela_cartao = 0;
                 }
             }else if($forma_de_pagamento == 6){
                                 
@@ -682,7 +706,7 @@ class ViewEntrada {
                                 <input type='hidden' name='valor_debito_receber' value='".$valor_debito_receber."'>
                                 <input type='hidden' name='valor_dinheiro_receber' value='".$valor_dinheiro_receber."'>
                                 
-                                <input type='hidden' name='numero_parcela_cartao' value='".$n_parcela_cartao."'>"
+                                <input type='hidden' name='n_parcela_cartao' value='".$n_parcela_cartao."'>"
                     . "
                         <input type='submit' id='btn-confirmar_forma_pagamento' name='btn-confirmar_forma_pagamento' value='Confirmar Forma de Pagamento' class='btn btn-primary' />                                                                                           
                        "                         
@@ -690,5 +714,169 @@ class ViewEntrada {
         }
         
     }
+    
+     public function informacoesBasicas($id){   
+         
+        $viewPaciente = new ViewPaciente();
+         
+        $myDados = Entrada::getInformacoes($id);   
+        
+         echo "<div class='row'>
+                        <div class='col-md-12 col-sm-12 col-xs-12'>
+                            <div class='x_panel'>
+                                <div class='x_title'>
+                                    <h2>Detalhamento</h2>
+                                    <ul class='nav navbar-right panel_toolbox'>
+                                        <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
+                                        </li>                      
+                                        <li><a class='close-link'><i class='fa fa-close'></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class='clearfix'></div>
+                                </div>
+                                <div class='x_content'>
+                                    
+                                    <div class='clearfix'></div>
+                                    
+                                   <p>
+                                    <div class='col-md-5 col-sm-12 col-xs-12'>                                         
+                                        <strong>Código: </strong>".$myDados->getIdEntrada()."
+                                    </div>
+
+                                    <div class='col-md-3 col-sm-6 col-xs-12'>                                         
+                                        <strong>Data: </strong> ".  Auxiliar::dateToBR($myDados->getDataCadastro())."
+                                    </div>
+
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+        
+        $viewPaciente->imprimirInformacoesBasicasPaciente($myDados->getIdPaciente());
+       
+       
+        
+        echo "<div class='clearfix'></div>
+
+                    <div class='row'>
+                        <div class='col-md-12 col-sm-12 col-xs-12'>
+                            <div class='x_panel'>
+                                <div class='x_title'>
+                                    <h2>Serviços</h2>
+                                    <ul class='nav navbar-right panel_toolbox'>
+                                        <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
+                                        </li>                      
+                                        <li><a class='close-link'><i class='fa fa-close'></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class='clearfix'></div>
+                                </div>
+                                <div class='x_content'>
+                                    
+                                    <div class='clearfix'></div>
+                                   
+                                            <table class='table table-hover'>
+                                              <thead>
+                                                <tr>
+                                                  <th>Cod. Orçam.</th>
+                                                  <th>Serviço</th>
+                                                  <th>Dentista</th>
+                                                  <th>Valor R$</th>
+                                                  <th>Desconto R$</th>
+                                                  <th>Valor Pago R$</th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>                                                
+                                                ".Entrada::getLinhasServicosEntrada($id)."
+                                              </tbody>
+                                            </table>
+
+                                          </div>
+                                    </div>
+
+                            </div>
+                        </div> ";
+        
+        echo "<div class='clearfix'></div>
+
+                    <div class='row'>
+                        <div class='col-md-12 col-sm-12 col-xs-12'>
+                            <div class='x_panel'>
+                                <div class='x_title'>
+                                    <h2>Detalhamento de Pagamento</h2>
+                                    <ul class='nav navbar-right panel_toolbox'>
+                                        <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
+                                        </li>                      
+                                        <li><a class='close-link'><i class='fa fa-close'></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class='clearfix'></div>
+                                </div>
+                                <div class='x_content'>
+                                    
+                                    <div class='clearfix'></div>
+                                   
+                                            <table class='table table-hover'>
+                                              <thead>
+                                                <tr>
+                                                  <th>#</th>
+                                                  <th>Forma de Pagamento</th>
+                                                  <th>Parcela(s)</th>
+                                                  <th>Valor R$</th>                                                  
+                                                </tr>
+                                              </thead>
+                                              <tbody>                                                
+                                                ";
+        
+                                                    $i = 1;
+                                                    if($myDados->getParcelaDinheiro() != 0){
+                                                        echo "<tr>
+                                                                <th scope='row'>".$i."</th>"
+                                                                . "<td>DINHEIRO</td>"
+                                                                . "<td>".$myDados->getParcelaDinheiro()."</td>"
+                                                                . "<td>".Auxiliar::convParaReal($myDados->getValorDinheiro())."</td>"
+                                                             . "<tr>";
+                                                        $i++;
+                                                    }
+                                                                                                        
+                                                    if($myDados->getParcelaCartao() != 0){
+                                                        echo "<tr>
+                                                                <th scope='row'>".$i."</th>"
+                                                                . "<td>CARTÃO</td>"
+                                                                . "<td>".$myDados->getParcelaCartao()."</td>"
+                                                                . "<td>".Auxiliar::convParaReal($myDados->getValorCartao())."</td>"
+                                                             . "<tr>";
+                                                        $i++;
+                                                    }
+                                                    
+                                                    
+                                                    $i = 1;
+                                                    if($myDados->getParcelaDebito() != 0){
+                                                        echo "<tr>
+                                                                <th scope='row'>".$i."</th>"
+                                                                . "<td>DEBITO</td>"
+                                                                . "<td>".$myDados->getParcelaDebito()."</td>"
+                                                                . "<td>".Auxiliar::convParaReal($myDados->getValorDebito())."</td>"
+                                                             . "<tr>";
+                                                        $i++;
+                                                    }
+                                                echo "
+                                              </tbody>
+                                            </table>
+
+                                          </div>
+                                    </div>
+
+                                    <p>
+                                        Valor Total Recebido: R$ ".Auxiliar::convParaReal($myDados->getValorCartao() + $myDados->getValorDebito() + $myDados->getValorDinheiro())."
+                                    </p>
+                            </div>
+                        </div> ";
+   
+        
+      
+   }
 
 }

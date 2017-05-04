@@ -134,7 +134,6 @@ include_once 'partes/menu_top.php';
                         <form method='POST' action='processa_orcamento.php' name='myform' id='myform' > 
                             <input type="hidden" id="id_paciente" name="id_paciente" value="<?=$idPaciente; ?>" />
                             <div class='col-xs-4'>
-                                <label for='dentista'>Lista</label>
                                 <select class='form-control' id='dentista' name='dentista' >      
                                     <?php echo Usuario::getOpcoesSelecaoDentista(); ?>
                                 </select>                                         
