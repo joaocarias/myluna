@@ -491,7 +491,7 @@ class Paciente extends Conexao {
                     . ", telefone"
                     . ", cidade"
                     . ", uf "
-                    . "FROM paciente ORDER BY id_paciente DESC LIMIT 10;");
+                    . "FROM paciente WHERE id_status = 1 ORDER BY id_paciente DESC LIMIT 10;");
                         
             $query->execute();
             

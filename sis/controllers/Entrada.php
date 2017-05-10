@@ -203,7 +203,7 @@ class Entrada extends Conexao{
             
             $pdo = parent::getDB();
 
-            $query = $pdo->prepare("SELECT * FROM `entrada` WHERE id_status = ? AND id_entrada = ?" );        
+            $query = $pdo->prepare("SELECT e.*, date_format(e.data_cadastro, '%d/%m/%Y %H:%i:%s') as data_cadastro FROM `entrada` as e WHERE e.id_status = ? AND e.id_entrada = ?" );        
 
             $query->bindValue(1, "1");
             $query->bindValue(2, $id);
@@ -268,6 +268,44 @@ class Entrada extends Conexao{
             }
 
             return $linhas;
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }
+    
+    public static function getLinhasTabelaUltimasEntradas(){
+        try{
+            $pdo = parent::getDB();
+            $query = $pdo->prepare("select 
+                                        date_format(e.data_cadastro, '%d/%m/%Y') as data_cadastro
+                                    , e.id_entrada as id_entrada
+                                    , p.id_paciente as id_paciente
+                                    , p.nome as nome
+                                    , e.parcela_dinheiro as parcela_dinheiro
+                                    , e.parcela_cartao as parcela_cartao
+                                    , e.parcela_debito as parcela_debito
+                                    , e.valor_dinheiro as valor_dinheiro
+                                    , e.valor_cartao as valor_cartao
+                                    , e.valor_debito as valor_debito
+                                    from entrada as e
+                                    inner join paciente as p on p.id_paciente = e.id_paciente and p.id_status = '1'
+                                    where e.id_status = '1' order by id_entrada desc limit 10; 
+                                ");
+            $query->execute();
+            
+            $linhas = "";
+            
+            while($row = $query->fetch(PDO::FETCH_OBJ)){                    
+                $linhas = $linhas . "<tr>
+                          <th scope='row'>".$row->id_entrada."</th>
+                          <td>".$row->data_cadastro."</td>
+                          <td><a href='page_paciente.php?id_paciente=".$row->id_paciente."'>".$row->nome."</a></td>
+                          <td>".Auxiliar::convParaReal(($row->parcela_dinheiro * $row->valor_dinheiro) + ($row->parcela_cartao * $row->valor_cartao) + ($row->parcela_debito * $row->valor_debito) )."</td>
+                          <td><a href='page_entrada.php?id_entrada=".$row->id_entrada."'>Mais Detalhes</a></td>                          
+                        </tr>";            
+            }
+            
+            return $linhas;            
         } catch (Exception $ex) {
             return $ex->getMessage();
         }

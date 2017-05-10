@@ -744,7 +744,7 @@ class ViewEntrada {
                                     </div>
 
                                     <div class='col-md-3 col-sm-6 col-xs-12'>                                         
-                                        <strong>Data: </strong> ".  Auxiliar::dateToBR($myDados->getDataCadastro())."
+                                        <strong>Data: </strong> ".  $myDados->getDataCadastro()."
                                     </div>
 
                                     </p>
@@ -877,6 +877,37 @@ class ViewEntrada {
    
         
       
+   }
+   
+   public static function getUltimasEntradas(){
+       echo "<div class='col-md-12 col-sm-12 col-xs-12'>
+                <div class='x_panel'>
+                  <div class='x_title'>
+                    <h2>Entrada <small>Lista de Últimas Entradas</small></h2>
+                    
+                    <div class='clearfix'></div>
+                  </div>
+                  <div class='x_content'>
+                    <table class='table table-hover'>
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Data da Entrada</th>
+                          <th>Paciente</th>                          
+                          <th>Valor Total</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        ";
+        
+            echo Entrada::getLinhasTabelaUltimasEntradas();
+            
+            echo "</tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>";
    }
 
 }

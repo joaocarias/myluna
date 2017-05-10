@@ -14,6 +14,7 @@
     include_once 'partes/menu_top.php'; 
     
     include_once 'view/ViewPaciente.php';
+    include_once 'view/ViewEntrada.php';
     
     
     ?>
@@ -23,7 +24,10 @@
         <!-- page content -->
         <div class="right_col" role="main">
         
-            <?php                ViewPaciente::getUltimosPacientes(); ?>
+            <?php
+                ViewEntrada::getUltimasEntradas();           
+                ViewPaciente::getUltimosPacientes(); 
+            ?>
             
         
           <!-- top tiles -->
