@@ -478,5 +478,42 @@ class Paciente extends Conexao {
             return false;
         }
     }  
+    
+    public static function getLinhasTabelaUltimosPacientes(){
+        try{            
+            $pdo = parent::getDB();
+            $query = $pdo->prepare("SELECT "
+                    . " DATE_FORMAT(data_cadastro, '%d/%m/%Y') as data_cadastro"
+                    . ", id_paciente"
+                    . ", nome"
+                    . ", sexo"
+                    . ", data_nascimento"
+                    . ", telefone"
+                    . ", cidade"
+                    . ", uf "
+                    . "FROM paciente ORDER BY id_paciente DESC LIMIT 10;");
+                        
+            $query->execute();
+            
+            $linhas = "";
+            
+            while($row = $query->fetch(PDO::FETCH_OBJ)){                    
+                $linhas = $linhas . "<tr>
+                          <th scope='row'>".$row->id_paciente."</th>
+                          <td>".$row->data_cadastro."</td>
+                          <td><a href='page_paciente.php?id_paciente=".$row->id_paciente."'>".$row->nome."</a></td>
+                          <td>".$row->sexo."</td>
+                          <td>".Auxiliar::dateToBR($row->data_nascimento)."</td>
+                          <td>".$row->telefone."</td>
+                          <td>".$row->cidade." - ".$row->uf."</td>
+                        </tr>";            
+            }
+                     
+            return $linhas; 
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+
+        }
+    }
         
 }

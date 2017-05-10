@@ -546,5 +546,38 @@ class ViewPaciente {
 ";
        echo $myLista;
     }
+    
+    public static function getUltimosPacientes(){
+        echo "<div class='col-md-12 col-sm-12 col-xs-12'>
+                <div class='x_panel'>
+                  <div class='x_title'>
+                    <h2>Pacientes <small>Lista de Últimos Pacientes Cadastrados</small></h2>
+                    
+                    <div class='clearfix'></div>
+                  </div>
+                  <div class='x_content'>
+                    <table class='table table-hover'>
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Data do Cadastro</th>
+                          <th>Nome</th>
+                          <th>Gênero</th>
+                          <th>Data de Nascimento</th>
+                          <th>Telefone</th>
+                          <th>Cidade</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        ";
+        
+            echo Paciente::getLinhasTabelaUltimosPacientes();
+            
+            echo "</tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>";
+    } 
    
 }

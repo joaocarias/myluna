@@ -11,9 +11,21 @@
     include_once 'partes/menu_lateral.php';    
 //    include_once 'partes/footer_buttons.php';
     
-    include_once 'partes/menu_top.php'; ?>
+    include_once 'partes/menu_top.php'; 
+    
+    include_once 'view/ViewPaciente.php';
+    
+    
+    ?>
+
+    
+
         <!-- page content -->
         <div class="right_col" role="main">
+        
+            <?php                ViewPaciente::getUltimosPacientes(); ?>
+            
+        
           <!-- top tiles -->
           <div class="row tile_count">
             <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
@@ -36,6 +48,7 @@
               <div class="count red">89h 52m 0s</div>
               <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>51% </i> Restando</span>
             </div>
+          </div>
                       <!-- /top tiles -->
 
                              
@@ -57,6 +70,11 @@
                      ?>
 	 
           <div class="row">
+              
+              
+              
+              
+              
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="dashboard_graph">
 
