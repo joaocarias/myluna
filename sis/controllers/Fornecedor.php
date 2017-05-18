@@ -214,10 +214,10 @@ class Fornecedor extends Conexao {
             
             $query->execute();    
             
-                return true;
+            return $pdo->lastInsertId();;
           
         } catch (Exception $ex) {
-            return $ex->getMessage();
+            return -1;
         }
     }   
     
@@ -367,6 +367,59 @@ class Fornecedor extends Conexao {
             return false;
         }
     }  
-        
     
+    
+    public static function getLinhasTabelaSaida(){
+        try{
+            $pdo = parent::getDB();
+
+            $query = $pdo->prepare("SELECT * FROM `fornecedor` WHERE id_status = ?" );        
+
+            $query->bindValue(1, "1");
+                            
+            $query->execute();
+               
+            $linhas = "";
+                
+            while($row = $query->fetch(PDO::FETCH_OBJ)){                    
+                $linhas = $linhas . "<tr>"
+                        . "<td>".$row->id_fornecedor."</td>"
+                        . "<td><a href='nova_saida.php?id_fornecedor=".$row->id_fornecedor."'>".$row->nome."</a></td>"
+                        . "<td>".$row->cpf_cnpj."</td>"
+                        . "<td>".$row->cidade." - ".$row->uf."</td>"                        
+                        . "</tr> ";                
+            }
+               
+            return $linhas;                
+        } catch (Exception $ex) {
+            return "";
+        }
+    }
+    
+    public function inserirServico($descricao_servico){
+      
+            try {
+            $pdo = parent::getDB();
+           
+            $query = $pdo->prepare("insert into servico_fornecedor ("
+                    . "id_fornecedor"
+                    . ", descricao"
+                    . ", id_pai"
+                    . ", id_status"
+                    . ") values "
+                    . "(?,?,?,?);");        
+//                        
+            $query->bindValue(1, $this->getId_fornecedor());
+            $query->bindValue(2, $descricao_servico);
+            $query->bindValue(3, $_SESSION['id_usuario']);
+            $query->bindValue(4, '1');
+            
+            $query->execute();    
+            
+            return $pdo->lastInsertId();;
+          
+        } catch (Exception $ex) {
+            return -1;
+        }       
+    }
 }

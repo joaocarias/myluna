@@ -33,7 +33,7 @@ include_once 'partes/menu_top.php';
 
                   </div>                  
                 </div>
-
+                  
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   
                       <?php $view->imprimirForm($acao,$idUsuario); ?>
@@ -46,8 +46,8 @@ include_once 'partes/menu_top.php';
           </div>        
         </div>
    
-  
-   <?php
+     
+     <?php
 include_once 'partes/footer.php'; 
     
     

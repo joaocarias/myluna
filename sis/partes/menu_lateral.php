@@ -30,7 +30,7 @@
         <ul class="nav child_menu">          
           <li><a href="entrada.php">Nova Entrada</a></li>   
           <li><a href="tables_dynamic.html">Lista de Entrada</a></li>
-          <li><a href="tables_dynamic.html">Nova Saída</a></li>   
+          <li><a href="nova_saida.php">Nova Saída</a></li>   
           <li><a href="tables_dynamic.html">Lista de Saída</a></li>          
         </ul>
       </li>

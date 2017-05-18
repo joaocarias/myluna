@@ -208,7 +208,7 @@ class Paciente extends Conexao {
                     . "VALUES "
                     . "(?,?,?,?,?,"
                     . "?,?,?,?,?,?,?,"
-                    . "?,?,?,?,"
+                    . "?,?,?,NOW(),"
                     . "?)");        
 //                        
             $query->bindValue(1, $this->getCpf());
@@ -227,9 +227,8 @@ class Paciente extends Conexao {
             
             $query->bindValue(13, $this->getComplemento());                          
             $query->bindValue(14, $this->getObs()); 
-            $query->bindValue(15, $_SESSION['id_usuario']);            
-            $query->bindValue(16, Auxiliar::dateToUS(Auxiliar::getDataAtualBR()));  
-            $query->bindValue(17, '1');   
+            $query->bindValue(15, $_SESSION['id_usuario']); 
+            $query->bindValue(16, '1');   
             
             $query->execute();    
             

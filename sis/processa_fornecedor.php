@@ -90,10 +90,18 @@ if(isset($_POST['uf'])){
     $obj->setUf("");
 }
 
+$descricao_servico = "";
+
+if(isset($_POST['descricao_servico'])){
+    $descricao_servico = $_POST['descricao_servico'];
+}else{
+    $descricao_servico = "";
+}
+
 if(isset($_POST['btn-salvar'])){
     $retorno = $obj->inserir();
     //echo $retorno;
-    if($retorno == true){
+    if($retorno > 0){
        // echo "<script>alert('Cadastrado com Sucesso!');</script>";
         header("Location: index.php?msg=2");
     }else{
@@ -127,6 +135,21 @@ if(isset($_POST['btn-salvar'])){
     }else{       
         header("Location: index.php?msg=3");
     }   
+}else if(isset($_POST['btn-salvar_saida_novo_fornecedor'])){
+    $retorno = $obj->inserir();    
+    if($retorno > 0){       
+        header("Location: nova_saida.php?id_fornecedor=".$retorno);
+    }else{
+        header("Location: index.php?msg=3");
+    }
+}else if(isset($_POST['btn-salvar_saida_novo_servico_fornecedor'])){
+    $retorno = $obj->inserirServico($descricao_servico);    
+    if($retorno > 0){       
+        header("Location: nova_saida.php?id_fornecedor=".$obj->getId_fornecedor()."&id_servico=".$retorno);
+    }else{
+        header("Location: index.php?msg=3");
+    }
 }else {   
     header("Location: index.php?msg=0");
 }
+

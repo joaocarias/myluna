@@ -151,7 +151,7 @@ class ViewServico {
    }
    
    public function imprimirForm($acao, $idServico){
-        Mensagem::getMensagem(1, 1, $this->getTitulo(), "processa_servico.php");
+       Mensagem::getMensagem(1, 1, $this->getTitulo(), "processa_servico.php");
                 
        $descricao = "";
        $valor = "";

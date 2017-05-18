@@ -326,12 +326,7 @@
       
     </script>
     
-    <script>
-        jQuery(function($){
-            $("#data_nascimento").mask("99/99/9999");
-           
-        });
-    </script>
+    
     
     <!-- /gauge.js -->
   </body>
