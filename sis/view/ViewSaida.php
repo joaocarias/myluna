@@ -13,6 +13,8 @@
  */
 include_once './controllers/Paciente.php';
 include_once './controllers/Fornecedor.php';
+include_once './controllers/ServicoFornecedor.php';
+include_once './controllers/ServicoFornecedorSaida.php';
 include_once './controllers/Saida.php';
 include_once './controllers/Orcamento.php';
 include_once './Auxiliares/Auxiliar.php';
@@ -42,6 +44,57 @@ class ViewSaida {
         $this->titulo = $titulo;
     }
     
+    public function  imprimirListaDetalhamentoSaida($id_fornecedor){
+        $lista = ServicoFornecedorSaida::getListaServicoSelecionados($id_fornecedor);
+        
+        if($lista != ""){
+            echo "<div class='clearfix'></div>
+                    <div class='row'>
+                        <div class='col-md-12 col-sm-12 col-xs-12'>
+                            <div class='x_panel'>
+                                <div class='x_title'>
+                                    <h2>Detalhamento de Saída</h2>
+                                    <ul class='nav navbar-right panel_toolbox'>
+                                        <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
+                                        </li>                      
+                                        <li><a class='close-link'><i class='fa fa-close'></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class='clearfix'></div>
+                                </div>
+                                <div class='x_content'>
+                                     <table class='table table-hover'>
+                                              <thead>
+                                                <tr>
+                                                  <th>#</th>
+                                                  <th>Serviço</th>
+                                                  <th>Quant.</th>
+                                                  <th>Valor Unit. R$</th>                                                  
+                                                  <th>Total R$</th>
+                                                  <th>Desconto R$</th>
+                                                  <th>Valor Pago R$</th>
+                                                  <th></th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>";
+            
+                                                echo $lista;
+                                                
+                                                echo "
+                                              </tbody>
+                                            </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>";
+      
+   
+        }
+        
+        
+   }
+
     public function imprimirListaFornecedor(){
         
         Mensagem::getMensagem(1, 1, $this->getTitulo(), "index.php");
@@ -222,9 +275,8 @@ class ViewSaida {
    }
    
    public function imprimirListaDeServicosFornecedor($id){
-       $lista = "";
-       
-       
+       $lista = Fornecedor::getLinhasTabelaServicoSaida($id);
+              
         echo "<div class='clearfix'></div>
                     <div class='row'>
                         <div class='col-md-12 col-sm-12 col-xs-12'>
@@ -239,10 +291,25 @@ class ViewSaida {
                                     </ul>
                                     <div class='clearfix'></div>
                                 </div>
-                                <div class='x_content'>
+                                <div class='x_content'>";
                                     
+                                    if($lista != ""){
+                                        echo " 
+                                                <table id='datatable-responsive' class='table table-striped table-bordered dt-responsive nowrap' cellspacing='0' width='100%'>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Nome</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        ".$lista."
+                                                    </tbody>
+                                                </table>";
+                                        }
 
-                                    <label>                            
+                                    echo "<label>                            
                                         <a href='nova_saida.php?id_fornecedor=".$id."&novo_servico=true'><button type='button' class='btn btn btn-primary'>Novo Serviço</button>   </a>                        
                                     </label>
                                 </div>
@@ -345,4 +412,62 @@ class ViewSaida {
                     </div>";
    }
    
+   
+   public static function imprimirFormServico($id_servico){
+       
+        $dados_servicos = ServicoFornecedor::getInformacoes($id_servico);
+                
+        echo "<div class='clearfix'></div>
+
+                    <div class='row'>
+                        <div class='col-md-12 col-sm-12 col-xs-12'>
+                            <div class='x_panel'>
+                                <div class='x_title'>
+                                    <h2>Serviço - Detalhamento</h2>
+                                    <ul class='nav navbar-right panel_toolbox'>
+                                        <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
+                                        </li>                      
+                                        <li><a class='close-link'><i class='fa fa-close'></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class='clearfix'></div>
+                                </div>
+                                <div class='x_content'>
+                                <form method='POST' action='processa_saida.php' name='myform' id='myform' >
+                                
+                                    <div class='col-xs-6'>     
+                                        <label for='descricao_servico'>Descrição</label>
+                                        <input type='text' class='form-control' id='descricao_servico' name='descricao_servico' value='".$dados_servicos->getDescricao()."' disabled=''>  
+                                        <input type='hidden' id = 'id_servico' name='id_servico' value='".$id_servico."'>
+                                    </div>
+
+                                    <div class='col-xs-2'>     
+                                            <label for='quantidade'>Quantidade</label>
+                                        <input type='text' class='form-control' id='quantidade' name='quantidade' value='' required=''>  
+                                    </div>
+                                    
+                                    <div class='col-xs-2'>     
+                                        <label for='valor_unitario'>Valor Unitário</label>
+                                        <input type='text' class='form-control' id='valor_unitario' name='valor_unitario' value='' required=''>  
+                                    </div>
+                                                                                                           
+                                    <div class='col-xs-2'>     
+                                        <label for='valor_pago'>Valor Pago</label>
+                                        <input type='text' class='form-control' id='valor_pago' name='valor_pago' value='' required=''>  
+                                    </div>
+                                    
+                                    <div class='col-xs-12'>     
+                                        <br />
+                                    </div>
+                                                         
+                                    <div class='col-xs-10'>                               
+                                        <input type='submit' id='btn-salvar_selecionar_servico' name='btn-salvar_selecionar_servico' value='Salvar' class='btn btn-success' />                                    
+                                    </div>
+                                    
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+   }
 }

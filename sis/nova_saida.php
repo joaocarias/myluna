@@ -9,7 +9,6 @@ include_once 'partes/header.php';
 
 include_once 'view/ViewSaida.php';
 
-
 include_once 'partes/profile.php';
     
 include_once 'partes/menu_lateral.php';
@@ -23,6 +22,7 @@ include_once 'partes/menu_top.php';
 $novo_fornecedor = false;
 $id_fornecedor = 0;
 $novo_servico = false;
+$id_servico = 0;
 
 if(isset($_GET['novo_fornecedor'])){
     $novo_fornecedor = $_GET['novo_fornecedor'];
@@ -40,6 +40,12 @@ if(isset($_GET['novo_servico'])){
     $novo_servico = $_GET['novo_servico'];
 }else{
     $novo_servico = false;
+}
+
+if(isset($_GET['id_servico'])){
+    $id_servico = $_GET['id_servico'];
+}else{
+    $id_servico = 0;
 }
 
     
@@ -65,6 +71,13 @@ if(isset($_GET['novo_servico'])){
                     }else{                        
                         if($id_fornecedor > 0){
                             $view->imprimirDadosFornecedor($id_fornecedor);
+                            
+                            if($id_servico > 0){
+                                    $view->imprimirFormServico($id_servico);                                
+                            }
+                            
+                            $view->imprimirListaDetalhamentoSaida($id_fornecedor);
+                            
                             $view->imprimirListaDeServicosFornecedor($id_fornecedor);
                             if($novo_servico == true){
                                 $view->imprimirFormNovoServico($id_fornecedor);                            

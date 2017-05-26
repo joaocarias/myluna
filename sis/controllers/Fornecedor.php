@@ -422,4 +422,33 @@ class Fornecedor extends Conexao {
             return -1;
         }       
     }
+           
+    public static function getLinhasTabelaServicoSaida($id_fornecedor){
+        try{
+            $lista = "";
+            $i = 1;
+            $pdo = parent::getDB();
+            
+            $query = $pdo->prepare("SELECT * FROM servico_fornecedor"
+                    . " WHERE "
+                    . " id_fornecedor = ? AND id_status = '1'");
+            
+            $query->bindValue(1,  $id_fornecedor);
+            
+            $query->execute();
+            
+            while ($row = $query->fetch(PDO::FETCH_OBJ)) {
+                $lista = $lista . "<tr>"
+                        . "<td>".$i."</td>"
+                        . "<td><a href='nova_saida.php?id_fornecedor=".$id_fornecedor."&id_servico=".$row->id_servico."'>".$row->descricao."</a></td>"
+                        . "<td><a href='nova_saida.php?id_fornecedor=".$id_fornecedor."&id_servico=".$row->id_servico."'>Selecionar</a></td>"
+                    ."</tr>";
+                $i++;  
+            }
+            
+            return $lista;
+        } catch (Exception $ex) {
+            return "1";
+        }
+    }
 }
