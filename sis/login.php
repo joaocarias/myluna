@@ -47,24 +47,25 @@
                   <input type="password" id="password" name="password" class="form-control" placeholder="Senha" required="" />
               </div>
               <div>
-                  <input type='submit' class='btn btn-default submit'  name='entrar' id='entrar' value='Entrar no Sistema' />               
+                  <input type='submit' class='btn btn-default submit'  name='entrar' id='entrar' value='Entrar' />               
               </div>
 
               <div class="clearfix"></div>
 
               <div class="separator">
-                   
-                <p class="change_link"><a class="reset_pass" href="#">Esqueceu a sua Senha?</a>
+                   <br />
+                <p class="change_link">
                   <a href="#signup" class="to_register"> Sobre </a>
                 </p>
 
                 <div class="clearfix"></div>
+               
                 <br />
 
                 <div>
                     <h1><?php echo Config::getClinicaNome(); ?></h1>
                     <h1><?php echo Config::getClinicaNomeParte2(); ?></h1>
-                    <p>©2016 Todos os Diretos Resevaos. </p><p>Desenvolvido por João Carias de França</p>
+                    <p>©<?php echo Config::getAno(); ?> - Todos os Diretos Resevaos. </p><p>Desenvolvido por <?php echo Config::getDesenvolvido_por(); ?></p>
                 </div>
               </div>
             </form>
@@ -73,37 +74,33 @@
 
         <div id="register" class="animate form registration_form">
           <section class="login_content">
-            <form>
-              <h1>Create Account</h1>
-              <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
-              </div>
-              <div>
-                <input type="email" class="form-control" placeholder="Email" required="" />
-              </div>
-              <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
-              </div>
-              <div>
-                <a class="btn btn-default submit" href="index.html">Submit</a>
-              </div>
-
-              <div class="clearfix"></div>
-
+           
+              <h1>Sobre</h1>
               <div class="separator">
-                <p class="change_link">Already a member ?
-                  <a href="#signin" class="to_register"> Log in </a>
-                </p>
+                <p class="change_link"> </p>
 
                 <div class="clearfix"></div>
+                 <p>O <strong><?php echo Config::getSigla() ." - ".Config::getTitulo(); ?></strong> é um sistema voltado para a gestão 
+                     administrativa de clínica ondotológia, proporcionando e presevando a eficiência de atividades administrativas a qual se 
+                     destina, permitindo assim sempre crescimento e consitência na gestão administrativa.                  
+                </p>
+                <p class="change_link">Voltar e realizar
+                  <a href="#signin" class="to_register"> Login </a>
+                </p>
                 <br />
 
+              </div>
+                <div class="separator">
                 <div>
-                  <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                  <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                   <div>
+                    <h1><?php echo Config::getClinicaNome(); ?></h1>
+                    <h1><?php echo Config::getClinicaNomeParte2(); ?></h1>
+                    <p>©<?php echo Config::getAno(); ?> - Todos os Diretos Resevaos. </p><p>Desenvolvido por <?php echo Config::getDesenvolvido_por(); ?></p>
+                    <p>Contato: <e-mail><?php echo Config::getEmail(); ?></e-mail></p>
+                </div>
                 </div>
               </div>
-            </form>
+           
           </section>
         </div>
       </div>

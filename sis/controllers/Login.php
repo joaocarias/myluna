@@ -43,6 +43,8 @@ class Login extends Conexao  {
                 else:
                     $_SESSION['logado'] = 0;
                 endif;
+                
+                
           } catch (Exception $ex) {
                $_SESSION['logado'] = 0;  
           }

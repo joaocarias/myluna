@@ -7,6 +7,7 @@
  */
 
 include_once 'controllers/Login.php';
+include_once 'controllers/LogAcesso.php';
 
 session_start();
 
@@ -29,8 +30,13 @@ if($username_ != "" && $password_ != ""){
     Login::autentica($_SESSION['login'], $_SESSION['senha']);
     
     if ($_SESSION['logado'] == 1) {
+       $log = new LogAcesso($_SESSION['id_usuario'], $_SESSION['login'], "PERMITIDO", '1');
+       $log->inserir();
        header("Location: index.php");
     } else {
+        $log = new LogAcesso(null, $_SESSION['login'], "NEGADO", '1');
+//        $retorno = $log->inserir();
+//        echo $retorno;
         header("Location: erro_nao_logado.php");
     }
 } else {

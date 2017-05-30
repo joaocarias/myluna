@@ -17,6 +17,9 @@ class Config {
     private static $clinicaNome = "Dra. Luanda Almeida";
     private static $clinicaNomeParte2 = "Odontologia Integrada";
     private static $iconTitulo = "fa fa-id-card-o";
+    private static $ano = "2017";
+    private static $desenvolvido_por = "João Carias de França";
+    private static $email = "joaocariasdefranca@gmail.com";
     
     static function getTitulo() {
         return self::$titulo;
@@ -56,6 +59,32 @@ class Config {
 
     static function setIconTitulo($iconTitulo) {
         self::$iconTitulo = $iconTitulo;
+    }
+
+    static function getAno() {
+        return self::$ano;
+    }
+
+    static function getDesenvolvido_por() {
+        return self::$desenvolvido_por;
+    }
+
+   
+    static function setAno($ano) {
+        self::$ano = $ano;
+    }
+
+    static function setDesenvolvido_por($desenvolvido_por) {
+        self::$desenvolvido_por = $desenvolvido_por;
+    }
+
+  
+    static function getEmail() {
+        return self::$email;
+    }
+
+    static function setEmail($email) {
+        self::$email = $email;
     }
 
 
