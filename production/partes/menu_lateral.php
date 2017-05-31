@@ -9,15 +9,17 @@
         <ul class="nav child_menu">
           <li><a href="novo_paciente.php">Novo Paciente</a></li>
           <li><a href="lista_paciente.php">Lista de Pacientes</a></li>
-          <li><a href="lista_orcamento.php">Lista de Orçamentos</a></li>
+          
+            <?php if($_SESSION['tipo'] == 1){ ?>
+                <li><a href="lista_orcamento.php">Lista de Orçamentos</a></li>
+            <?php } ?>
+                
            <li><a href="lista_aniversariantes_pacientes.php">Aniversariantes do Mês</a></li>
         </ul>
       </li>
-<!--     <li><a><i class="fa fa-file-text-o"></i> Orçamentos <span class="fa fa-chevron-down"></span></a>
-        <ul class="nav child_menu">          
-          <li><a href="tables_dynamic.html">Lista de Orçamentos</a></li>           
-        </ul>
-      </li>-->
+
+    <?php if($_SESSION['tipo'] == 1){ ?>
+
       <li><a><i class="fa fa-clock-o"></i> Agendamento <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">          
           <li><a href="tables_dynamic.html">Agenda do Dia</a></li>
@@ -26,6 +28,10 @@
         </ul>
       </li>
       
+    <?php } ?>
+      
+    <?php if($_SESSION['tipo'] == 1){ ?>
+  
       <li><a><i class="fa fa-cart-arrow-down"></i> Financeiro <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">          
           <li><a href="entrada.php">Nova Entrada</a></li>   
@@ -34,9 +40,12 @@
           <li><a href="tables_dynamic.html">Lista de Saída</a></li>          
         </ul>
       </li>
-      
+    <?php } ?>      
     </ul>
   </div>
+
+    
+  <?php if($_SESSION['tipo'] == 1 || $_SESSION['tipo'] == 2) { ?>
 
     <div class="menu_section">
     <h3>Administrativo</h3>
@@ -68,17 +77,40 @@
     </ul>
   </div>
 
+  <?php } ?>
+    
+  <div class="menu_section">
+    <h3>Relatórios</h3>    
+    <ul class="nav side-menu">
+        <?php if($_SESSION['tipo'] == 1){ ?>
+      <li><a><i class="fa fa-bug"></i> Logs <span class="fa fa-chevron-down"></span></a>
+        <ul class="nav child_menu">
+          <li><a href="e_commerce.html">Acesso do dia</a></li>
+          <li><a href="projects.html">Acesso do Mês</a></li>          
+        </ul>
+      </li>      
+      <?php } ?>
+      
+      <li><a><i class="fa fa-male"></i> Pacientes <span class="fa fa-chevron-down"></span></a>
+        <ul class="nav child_menu">
+          <li><a href="e_commerce.html">Novos Paciente no Dia</a></li>
+          <li><a href="projects.html">Novos Paciente nos Últimos 7 dias</a></li>          
+          <li><a href="projects.html">Novos Paciente nos Últimos 30 dias</a></li>          
+        </ul>
+      </li>
+      
+    </ul>
+  </div>
+
+    
+    <?php if($_SESSION['tipo'] == 1){ ?>
 
   <div class="menu_section">
-    <h3>Relatórios</h3>
+    <h3>Outros</h3>
     <ul class="nav side-menu">
-      <li><a><i class="fa fa-bug"></i> Resetar Senha <span class="fa fa-chevron-down"></span></a>
+      <li><a><i class="fa fa-bug"></i> Login <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
-          <li><a href="e_commerce.html">E-commerce</a></li>
-          <li><a href="projects.html">Projects</a></li>
-          <li><a href="project_detail.html">Project Detail</a></li>
-          <li><a href="contacts.html">Contacts</a></li>
-          <li><a href="profile.html">Profile</a></li>
+          <li><a href="e_commerce.html">E-commerce</a></li>         
         </ul>
       </li>
       <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
@@ -112,6 +144,7 @@
     </ul>
   </div>
 
+    <?php } ?>
 </div>
 
  </div>

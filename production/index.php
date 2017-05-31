@@ -25,35 +25,19 @@
         <div class="right_col" role="main">
         
             <?php
-                ViewEntrada::getUltimasEntradas();           
+                
+            
+                if($_SESSION['tipo'] == 1){
+              
+                    ViewEntrada::getUltimasEntradas();           
+                }                
+                
+                ViewPaciente::getQuantidadeNovosPacientes();
                 ViewPaciente::getUltimosPacientes(); 
             ?>
             
         
-          <!-- top tiles -->
-          <div class="row tile_count">
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Total de Carga Horária Trabalhada no Mês</span>
-              <div class="count">86h 8m 0s</div>
-              <span class="count_bottom"><i>49% </i> já Trabalhado no Total</span>
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-clock-o"></i> Carga Horária Trabalhada</span>
-              <div class="count blue">62h 8m 0s</div>
-              <span class="count_bottom"><i class="blue"><i class="fa fa-sort-asc"></i>36% </i> Carga Trabalhada</span>
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Carga Horária Justificada</span>
-              <div class="count green">24h 0m 0s</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>13% </i> Carga Horária Justificada</span>
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Carga Hoária Restante</span>
-              <div class="count red">89h 52m 0s</div>
-              <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>51% </i> Restando</span>
-            </div>
-          </div>
-                      <!-- /top tiles -->
+          
 
                              
                       
@@ -76,7 +60,7 @@
           <div class="row">
               
               
-              
+           <?php if($_SESSION['tipo'] == 1){ ?>
               
               
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -800,7 +784,7 @@
         </div>
         <!-- /page content -->
         
-       
+           <?php } ?>
         
 
     <?php            include_once 'partes/footer.php'; ?>

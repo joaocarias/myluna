@@ -49,7 +49,7 @@ if(isset($_GET['id_paciente'])){
 
                 <div class="clearfix"></div>
               </div>
-                
+                <?php if($_SESSION['tipo'] == 1){ ?>
                  <div class="col-md-12 col-sm-12 col-xs-12">    
                     <div class='row text-right'>
                         <a href='editar_paciente.php?editar=true&id_paciente=<?php echo $id; ?>' title='Editar'><button type="button" class="btn btn-primary btn-small">
@@ -62,8 +62,14 @@ if(isset($_GET['id_paciente'])){
                     </div>
                  </div>
                 
+                
+                <?php } ?>
+                  
+                <?php if($_SESSION['tipo'] == 1){ ?>    
+                 
                 <div class="dashboard_graph">
              
+                   
                 <div class="row x_title">
                   <div class="col-md-6">
                     <h3>Orçamento <small>Cadastros referente ao Paciente</small></h3>
@@ -79,9 +85,13 @@ if(isset($_GET['id_paciente'])){
                     ?>                    
                     
                 </div>
+                    
 
                 <div class="clearfix"></div>
               </div>
+                
+                <?php } ?>
+                  
             </div>
           </div>        
         </div>

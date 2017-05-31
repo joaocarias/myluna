@@ -38,7 +38,28 @@ class ViewPaciente {
        $this->titulo = $titulo;
    }
 
-    
+   function getQuantidadeNovosPacientes(){ 
+       
+       echo "<!-- top tiles -->
+          <div class='row tile_count'>            
+            <div class='col-md-4 col-sm-4 col-xs-12 tile_stats_count'>
+              <span class='count_top'><i class='a fa-user'></i> Novos Pacientes Hoje</span>
+              <div class='count blue'>".Paciente::getQuantidadeNovosPacientesDia()."</div>
+              <span class='count_bottom'><i class='blue'><i class='fa fa-sort-asc'></i></i><a href='#'>Mais Delhates</a></span>
+            </div>
+            <div class='col-md-4 col-sm-4 col-xs-12 tile_stats_count'>
+              <span class='count_top'><i class='fa fa-user'></i> Novos Pacientes nos Últimos 7 dias</span>
+              <div class='count green'>".Paciente::getQuantidadeNovosPacientesSemana()."</div>
+              <span class='count_bottom'><i class='green'><i class='fa fa-sort-asc'></i></i><a href='#'>Mais Delhates</a></span>
+            </div>
+            <div class='col-md-4 col-sm-4 col-xs-12 tile_stats_count'>
+              <span class='count_top'><i class='fa fa-user'></i> Novos Pacientes nos Últimos 30 dias</span>
+              <div class='count red'>".Paciente::getQuantidadeNovosPacientesMes()."</div>
+              <span class='count_bottom'><i class='red'><i class='fa fa-sort-asc'></i></i><a href='#'>Mais Delhates</a></span>
+            </div>
+          </div>
+                      <!-- /top tiles -->";
+   }
    
    function imprimirForm($acao, $idPaciente){
        Mensagem::getMensagem(1, 1, $this->getTitulo(), "processa_paciente.php");

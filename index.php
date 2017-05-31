@@ -11,7 +11,7 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-            header("Location: sis/login.php");
+            header("Location: production/login.php");
           //  echo "meu teste...";
         ?>
     </body>

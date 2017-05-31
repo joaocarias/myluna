@@ -1,3 +1,13 @@
+<?php
+
+    session_start();
+    session_destroy();
+    session_start();
+
+    include_once 'Auxiliares/Config.php';
+
+    ?>
+    
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentellela Alela! | </title>
+      <title><?php echo Config::getSigla(); ?> | <?php echo Config::getTitulo();?></title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -27,8 +37,8 @@
         <div class="col-md-12">
           <div class="col-middle">
             <div class="text-center text-center">
-              <h1 class="error-number">403</h1>
-              <h2>Acesso Negado!</h2>
+              <h1 class="error-number">Acesso Negado</h1>
+              <h2>CPF ou Senha Inválida!</h2>
               <p>É necessario auteticação para poder acessar a esse recurso. <a href="login.php">Ir para a página de Login?</a>
               </p>              
             </div>

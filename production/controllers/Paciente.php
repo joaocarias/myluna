@@ -514,5 +514,70 @@ class Paciente extends Conexao {
 
         }
     }
+    
+    public static function getQuantidadeNovosPacientesSemana(){
+        try{
+            $pdo = parent::getDB();
+            $query = $pdo->prepare("select COUNT(id_paciente) as count "
+                    . " from paciente "
+                    . " WHERE "
+                    . " id_status = '1' "
+                    . " AND data_cadastro between TIMESTAMP(DATE_SUB(NOW(), INTERVAL 7 day)) AND NOW() ;");
+            $query->execute();
+            
+            $count = 0;
+            
+            while ($row = $query->fetch(PDO::FETCH_OBJ)){
+                $count = $row->count;
+            }
+            return $count;
+        } catch (Exception $ex) {
+            return -1;
+        }
+    }
+       
+    public static function getQuantidadeNovosPacientesMes(){
+        try{
+            $pdo = parent::getDB();
+            $query = $pdo->prepare("select COUNT(id_paciente) as count "
+                    . " from paciente "
+                    . " WHERE "
+                    . " id_status = '1' "
+                    . " AND data_cadastro between TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 day)) AND NOW() ;");
+            $query->execute();
+            
+            $count = 0;
+            
+            while ($row = $query->fetch(PDO::FETCH_OBJ)){
+                $count = $row->count;
+            }
+            return $count;
+        } catch (Exception $ex) {
+            return -1;
+        }
+    }
+    
+    public static function getQuantidadeNovosPacientesDia(){
+        try{
+            $pdo = parent::getDB();
+            $query = $pdo->prepare("select COUNT(id_paciente) as count "
+                    . " from paciente "
+                    . " WHERE "
+                    . " id_status = '1' "
+                    . " AND DAY(data_cadastro) = DAY(NOW())"
+                    . " AND MONTH(data_cadastro) = MONTH(NOW())"
+                    . " AND YEAR(data_cadastro) = YEAR(NOW()) ;");
+            $query->execute();
+            
+            $count = 0;
+            
+            while ($row = $query->fetch(PDO::FETCH_OBJ)){
+                $count = $row->count;
+            }
+            return $count;
+        } catch (Exception $ex) {
+            return -1;
+        }
+    }
         
 }

@@ -41,10 +41,10 @@
               <form action="processa_login.php" method="POST">
               <h1>Login</h1>
               <div>
-                  <input type="text" id="username" name="username" class="form-control" placeholder="Username" required="" />
+                  <input type="text" id="username" name="username" class="form-control" placeholder="CPF - Apenas Número" required="" maxlength="11" />
               </div>
               <div>
-                  <input type="password" id="password" name="password" class="form-control" placeholder="Senha" required="" />
+                  <input type="password" id="password" name="password" class="form-control" placeholder="Senha" required="" maxlength="16" />
               </div>
               <div>
                   <input type='submit' class='btn btn-default submit'  name='entrar' id='entrar' value='Entrar' />               

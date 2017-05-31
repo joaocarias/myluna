@@ -14,13 +14,19 @@
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li><a href="page_usuario.php?id_usuario=<?=$_SESSION['id_usuario'];?>"><i class="fa fa-address-book-o pull-right"></i> Dados</a></li>
-                    <li><a href="javascript:;"> <i class="fa fa-bar-chart pull-right" ></i> Meu Financeiro</a></li>
-                    <li>
-                        <a href="javascript:;"> <i class="fa fa-key pull-right" ></i><span>Alterar Senha</span>
-                      </a>
-                    </li>
-                    <li><a href="javascript:;"><i class="fa fa-question-circle-o pull-right" ></i>Ajuda</a></li>
-                    <li><a href="login.php"><i class="fa fa-sign-out pull-right"></i> Sair</a></li>
+                    
+                    <?php if($_SESSION['tipo'] == 1){ ?>
+                        <li><a href="javascript:;"> <i class="fa fa-bar-chart pull-right" ></i> Meu Financeiro</a></li>
+                    <?php } ?>
+                        <li>
+                            <a href="javascript:;"> <i class="fa fa-key pull-right" ></i><span>Alterar Senha</span>
+                         </a>
+                        </li>
+                    
+                     <?php if($_SESSION['tipo'] == 1){ ?>
+                        <li><a href="javascript:;"><i class="fa fa-question-circle-o pull-right" ></i>Ajuda</a></li>
+                     <?php } ?>
+                        <li><a href="login.php"><i class="fa fa-sign-out pull-right"></i> Sair</a></li>
                   </ul>
                 </li>
 

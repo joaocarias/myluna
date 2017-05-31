@@ -37,7 +37,7 @@ if($username_ != "" && $password_ != ""){
         $log = new LogAcesso(null, $_SESSION['login'], "NEGADO", '1');
 //        $retorno = $log->inserir();
 //        echo $retorno;
-        header("Location: erro_nao_logado.php");
+        header("Location: nao_logado.php");
     }
 } else {
     header("Location: erro_nao_logado.php");

@@ -36,6 +36,7 @@ include_once 'partes/menu_top.php';
                   
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   
+                    
                       <?php $view->imprimirForm($acao,$idUsuario); ?>
 
                 </div>
