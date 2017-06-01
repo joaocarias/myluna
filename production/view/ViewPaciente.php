@@ -45,17 +45,17 @@ class ViewPaciente {
             <div class='col-md-4 col-sm-4 col-xs-12 tile_stats_count'>
               <span class='count_top'><i class='a fa-user'></i> Novos Pacientes Hoje</span>
               <div class='count blue'>".Paciente::getQuantidadeNovosPacientesDia()."</div>
-              <span class='count_bottom'><i class='blue'><i class='fa fa-sort-asc'></i></i><a href='#'>Mais Delhates</a></span>
+              <span class='count_bottom'><i class='blue'><i class='fa fa-sort-asc'></i></i><a href='relatorio_novos_pacientes.php?dias=1'>Mais Delhates</a></span>
             </div>
             <div class='col-md-4 col-sm-4 col-xs-12 tile_stats_count'>
               <span class='count_top'><i class='fa fa-user'></i> Novos Pacientes nos Últimos 7 dias</span>
               <div class='count green'>".Paciente::getQuantidadeNovosPacientesSemana()."</div>
-              <span class='count_bottom'><i class='green'><i class='fa fa-sort-asc'></i></i><a href='#'>Mais Delhates</a></span>
+              <span class='count_bottom'><i class='green'><i class='fa fa-sort-asc'></i></i><a href='relatorio_novos_pacientes.php?dias=7'>Mais Delhates</a></span>
             </div>
             <div class='col-md-4 col-sm-4 col-xs-12 tile_stats_count'>
               <span class='count_top'><i class='fa fa-user'></i> Novos Pacientes nos Últimos 30 dias</span>
               <div class='count red'>".Paciente::getQuantidadeNovosPacientesMes()."</div>
-              <span class='count_bottom'><i class='red'><i class='fa fa-sort-asc'></i></i><a href='#'>Mais Delhates</a></span>
+              <span class='count_bottom'><i class='red'><i class='fa fa-sort-asc'></i></i><a href='relatorio_novos_pacientes.php?dias=30'>Mais Delhates</a></span>
             </div>
           </div>
                       <!-- /top tiles -->";
@@ -600,5 +600,46 @@ class ViewPaciente {
                 </div>
               </div>";
     } 
+    
+    public function imprimirRelatoriosNovosPacientes($dias){
+        $linhas = Paciente::getLinhasTabelaUltimosPacientes($dias);
+        
+        if($linhas == ""){
+            echo "Não encontrado registro";
+        }else{
+            echo "<div class='col-md-12 col-sm-12 col-xs-12'>
+                <div class='x_panel'>
+                  <div class='x_title'>
+                    <h2>Pacientes <small>Lista de Últimos Pacientes Cadastrados</small></h2>
+                    
+                    <div class='clearfix'></div>
+                  </div>
+                  <div class='x_content'>
+                    <table class='table table-hover'>
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Data do Cadastro</th>
+                          <th>Nome</th>
+                          <th>Gênero</th>
+                          <th>Data de Nascimento</th>
+                          <th>Telefone</th>
+                          <th>Cidade</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        ";
+        
+                        echo $linhas ;
+            
+                        echo "</tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>";
+     
+        }
+        
+    }
    
 }

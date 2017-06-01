@@ -478,10 +478,9 @@ class Paciente extends Conexao {
         }
     }  
     
-    public static function getLinhasTabelaUltimosPacientes(){
+    public static function getLinhasTabelaUltimosPacientes($dias = null){
         try{            
-            $pdo = parent::getDB();
-            $query = $pdo->prepare("SELECT "
+            $sql = "SELECT "
                     . " DATE_FORMAT(data_cadastro, '%d/%m/%Y') as data_cadastro"
                     . ", id_paciente"
                     . ", nome"
@@ -490,7 +489,44 @@ class Paciente extends Conexao {
                     . ", telefone"
                     . ", cidade"
                     . ", uf "
-                    . "FROM paciente WHERE id_status = 1 ORDER BY id_paciente DESC LIMIT 10;");
+                    . "FROM paciente WHERE id_status = 1 ORDER BY id_paciente DESC LIMIT 10;";
+            if($dias != null){
+                if($dias == 1){
+                    $sql = "select "
+                            . " DATE_FORMAT(data_cadastro, '%d/%m/%Y') as data_cadastro"
+                            . ", id_paciente"
+                            . ", nome"
+                            . ", sexo"
+                            . ", data_nascimento"
+                            . ", telefone"
+                            . ", cidade"
+                            . ", uf "
+                            . " from paciente "
+                            . " WHERE "
+                            . " id_status = '1' "
+                            . " AND DAY(data_cadastro) = DAY(NOW())"
+                            . " AND MONTH(data_cadastro) = MONTH(NOW())"
+                            . " AND YEAR(data_cadastro) = YEAR(NOW()) ;";
+                }else{
+                    $sql = "select "
+                            . " DATE_FORMAT(data_cadastro, '%d/%m/%Y') as data_cadastro"
+                            . ", id_paciente"
+                            . ", nome"
+                            . ", sexo"
+                            . ", data_nascimento"
+                            . ", telefone"
+                            . ", cidade"
+                            . ", uf "
+                            . " from paciente "
+                            . " WHERE "
+                            . " id_status = '1' "
+                            . " AND data_cadastro between TIMESTAMP(DATE_SUB(NOW(), INTERVAL ".$dias." day)) AND NOW() ;";
+                }
+            }
+            
+            $pdo = parent::getDB();
+            
+            $query = $pdo->prepare($sql);
                         
             $query->execute();
             
