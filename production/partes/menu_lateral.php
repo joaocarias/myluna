@@ -71,6 +71,7 @@
           <li><a href="novo_usuario.php">Novo Usuário</a></li>
           <li><a href="lista_usuarios.php">Lista de Usuários</a></li>
           <li><a href="lista_tipo_usuario.php">Tipos de Usuários</a></li>
+          <li><a href="resetar_senha.php">Resetar Senha de Usuário</a></li>
         </ul>
       </li>
 

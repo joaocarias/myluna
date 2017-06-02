@@ -54,6 +54,10 @@ class Mensagem {
                     $texto = "[AVISO] Cadastro Excluído com Sucesso!";
                     $bt_confirmar = "";
                     break;
+                case 5;
+                    $texto = "[SENHA] Senha Atualizada com Sucesso!";
+                    $bt_confirmar = "";
+                    break;
                 default :                   
                     $texto = "[ERRO] Ação não Identificada!";
                     $bt_confirmar = "";

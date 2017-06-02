@@ -151,6 +151,15 @@ if(isset($_POST['btn-salvar'])){
     
    // print_r($_POST);
 //   echo $retorno;
+}else if(isset($_POST['resetar_senha'])){
+//  print_r($_POST);
+    $retorno = $obj->atualziarSenha($obj->getCpf());
+    
+    if($retorno == true){
+        header("Location: index.php?msg=5");
+    }else{
+        header("Location: index.php?msg=3");
+    }
 }else {   
     header("Location: index.php?msg=0");
 }

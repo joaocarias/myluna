@@ -73,6 +73,67 @@ class ViewUsuario {
        echo $imprimir;
    
    }
+   
+   function imprimirFormResetarSenha($cpf){
+       $dados = Usuario::getInformacoesCPF($cpf);
+       echo "
+       <div class='row'>
+              <div class='col-md-12 col-sm-12 col-xs-12'>
+                <div class='x_panel'>
+                  <div class='x_title'>
+                    <h2>Usuário <small>Dados</small></h2>
+                    <ul class='nav navbar-right panel_toolbox'>
+                      <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
+                      </li>
+                    </ul>
+                    <div class='clearfix'></div>
+                  </div>
+                  <div class='x_content'>
+                    <br />
+                    ";
+       if($dados->getId_usuario() != "" && $dados->getId_usuario() != null){
+            
+        echo "
+           
+                <form id='resetar_senha' data-parsley-validate class='form-horizontal form-label-left' method='POST' action='processa_usuario.php'>
+                   <div class='form-group'>
+                        <label class='control-label col-md-3 col-sm-3 col-xs-12' for='nome'>Nome Completo</label>
+                        <div class='col-md-6 col-sm-6 col-xs-12'>
+                          <input type='text' id='nome' name='nome' disabled='disabled' class='form-control col-md-7 col-xs-12' value='".$dados->getNome()."'>
+                        </div>
+                      </div>
+                      <div class='form-group'>
+                        <label class='control-label col-md-3 col-sm-3 col-xs-12' for='tipo'>Tipo de Usuário</label>
+                        <div class='col-md-6 col-sm-6 col-xs-12'>
+                          <input type='text' id='tipo' name='tipo' disabled='disabled' class='form-control col-md-7 col-xs-12' value=".TipoUsuario::getDescricaoPorID($dados->getId_tipo()).">
+                        </div>
+                      </div>
+                      <div class='form-group'>
+                        <label for='cpf' class='control-label col-md-3 col-sm-3 col-xs-12'>CPF</label>
+                        <div class='col-md-6 col-sm-6 col-xs-12'>
+                          <input type='text' id='cpf_' class='form-control col-md-7 col-xs-12' name='cpf_' disabled='disabled' value='".$dados->getCpf()."'>
+                        </div>
+                            <input type='hidden' id='id_usuario' name='id_usuario' value='".$dados->getId_usuario()."'>
+                            <input type='hidden' id='cpf' name='cpf' value='".$dados->getCpf()."'>
+                      </div>
+                        
+                        
+                        <div class='col-md-3 col-sm-3 col-xs-12 col-md-offset-3'>                          
+                          <button type='submit' id='resetar_senha' name='resetar_senha' class='btn btn-primary'>Resentar Senha</button>
+                        </div>
+                      </div>
+                      
+                    </form>
+             ";       
+                  
+       }else{
+           echo "Não encontrado registro com o CPF Informado!";
+       }
+       echo "</div>
+                </div>
+              </div>
+            </div>";
+   }
            
    function imprimirForm($acao, $idUsuario){
        

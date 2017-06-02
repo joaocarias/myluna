@@ -435,6 +435,45 @@ class Usuario extends Conexao{
             return "";
         }
     }
+    
+    public static function getInformacoesCPF($cpf){
+        try{
+            $dados = new Usuario();            
+            
+            $pdo = parent::getDB();
+
+            $query = $pdo->prepare("SELECT * FROM `usuario` WHERE status = ? AND cpf = ?" );        
+
+            $query->bindValue(1, "1");
+            $query->bindValue(2, $cpf);
+                            
+            $query->execute();               
+                           
+            while($row = $query->fetch(PDO::FETCH_OBJ)){                    
+                $dados->setId_usuario($row->id_usuario);
+                $dados->setNome($row->nome);
+                $dados->setCpf($row->cpf);
+                $dados->setData_nascimento($row->data_nascimento);
+                $dados->setSexo($row->sexo);
+                $dados->setTelefone($row->telefone);
+                $dados->setEmail($row->email);            
+                $dados->setRua($row->rua);
+                $dados->setNumero($row->numero);
+                $dados->setBairro($row->bairro);
+                $dados->setCep($row->cep);
+                $dados->setCidade($row->cidade);
+                $dados->setUf($row->uf);
+                $dados->setComplemento($row->complemento);
+                $dados->setObs($row->obs); 
+                $dados->setId_tipo($row->id_tipo);
+                $dados->setComissao($row->comissao);                
+            }
+               
+            return $dados;       
+        } catch (Exception $ex) {
+            return "";
+        }
+    }
           
     function excluir(){                
         try {
@@ -454,8 +493,7 @@ class Usuario extends Conexao{
             $query->bindValue(1, $_SESSION['id_usuario']);
             $query->bindValue(2, 2);            
             $query->bindValue(3, $this->getId_usuario());        
-            
-            
+                        
             $query->execute();    
             
             
@@ -559,5 +597,32 @@ class Usuario extends Conexao{
             return $ex->getMessage();
         }
         
+    }
+    
+    function atualziarSenha($novaSenha){
+        try{
+            $pdo = parent::getDB();
+           
+            $query = $pdo->prepare("UPDATE `usuario` "
+                    . "SET "
+                    . "`data_modificacao`= NOW()"
+                    . ", `modificado_por`=?"
+                    . ", `senha`=? "
+                    . "WHERE "
+                    . "id_usuario = ?;"
+                );        
+                        
+           // $query->bindValue(1, $this->getDescricao());            
+         //   $query->bindValue(3, Auxiliar::dateToUS(Auxiliar::getDataAtualBR()));            
+            $query->bindValue(1, $_SESSION['id_usuario']);
+            $query->bindValue(2, $novaSenha);            
+            $query->bindValue(3, $this->getId_usuario());        
+                        
+            $query->execute();    
+            
+            return true;
+        } catch (Exception $ex) {
+            return false;
+        }
     }
 }
