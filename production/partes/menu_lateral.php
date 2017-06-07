@@ -92,7 +92,7 @@
       </li>      
       <?php } ?>
       
-      <li><a><i class="fa fa-male"></i> Pacientes <span class="fa fa-chevron-down"></span></a>
+      <li><a><i class="fa fa-male"></i> Paciente <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
           <li><a href="relatorio_novos_pacientes.php?dias=1">Novos Paciente no Dia</a></li>
           <li><a href="relatorio_novos_pacientes.php?dias=7">Novos Paciente nos Últimos 7 dias</a></li>          

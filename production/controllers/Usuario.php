@@ -625,4 +625,37 @@ class Usuario extends Conexao{
             return false;
         }
     }
+    
+    public function  testarSenha(){
+        try{
+            $pdo = parent::getDB();
+            $query = $pdo->prepare("SELECT COUNT(id_usuario) as cont FROM "
+                    . " usuario "
+                    . " WHERE "
+                    . " id_usuario = ? "
+                    . " AND senha = ? "
+                    . " AND status = 1;");
+            
+            $query->bindValue(1, $this->getId_usuario());
+            $query->bindValue(2, $this->getSenha());
+            
+          
+            
+            $query->execute();
+            
+            $cont = 0;
+            
+            while($row = $query->fetch(PDO::FETCH_OBJ)){
+                $cont = $row->cont;
+            }
+            
+            if($cont > 0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
 }

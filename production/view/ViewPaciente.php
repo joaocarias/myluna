@@ -38,7 +38,7 @@ class ViewPaciente {
        $this->titulo = $titulo;
    }
 
-   function getQuantidadeNovosPacientes(){ 
+   public static function getQuantidadeNovosPacientes(){ 
        
        echo "<!-- top tiles -->
           <div class='row tile_count'>            

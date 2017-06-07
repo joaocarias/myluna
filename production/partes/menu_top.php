@@ -19,7 +19,7 @@
                         <li><a href="javascript:;"> <i class="fa fa-bar-chart pull-right" ></i> Meu Financeiro</a></li>
                     <?php } ?>
                         <li>
-                            <a href="javascript:;"> <i class="fa fa-key pull-right" ></i><span>Alterar Senha</span>
+                            <a href="nova_senha.php"> <i class="fa fa-key pull-right" ></i><span>Alterar Senha</span>
                          </a>
                         </li>
                     

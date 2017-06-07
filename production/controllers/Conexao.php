@@ -5,10 +5,15 @@ abstract class Conexao{
     //const USER = "u428736402_sis";
     //const PASS = "minhasenha";
     
-	const USER = "root";
-    const PASS = "minhasenha";
-    const BDNAME = "bd_sisgcon";
-    const LOCAL = "localhost";
+//	const USER = "u568007443_luna";
+//    const PASS = "minhasenha";    
+//    const BDNAME = "bd_sisgcon";
+//    const LOCAL = "localhost";
+    
+        const USER = "u568007443_luna";
+    const PASS = "7XTZ4ZfwCOW3";    
+    const BDNAME = "u568007443_luna";
+    const LOCAL = "mysql.hostinger.com.br";
 	
     private static $instance_ = null;
     

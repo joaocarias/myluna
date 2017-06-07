@@ -115,6 +115,12 @@ if(isset($_POST['uf'])){
     $obj->setUf("");
 }
 
+if(isset($_POST['senha_atual'])){
+    $obj->setSenha($_POST['senha_atual']);
+}else{
+    $obj->setSenha("");
+}
+
 if(isset($_POST['btn-salvar'])){
     $retorno = $obj->inserir();
     if($retorno == true){      
@@ -160,6 +166,39 @@ if(isset($_POST['btn-salvar'])){
     }else{
         header("Location: index.php?msg=3");
     }
+}else if(isset ($_POST['atualizar_senha'])){
+    
+    print_r($_POST);
+//    $obj->setId_usuario($_SESSION['id_usuario']);
+//    
+    if($obj->testarSenha()){
+        if(isset($_POST['nova_senha'])){
+            $senha_nova = $_POST['nova_senha'];
+
+            if(isset($_POST['confirmar_senha'])){
+                $confirmar_senha = $_POST['confirmar_senha'];
+                
+                if($confirmar_senha == $senha_nova){
+                    $retorno = $obj->atualziarSenha($senha_nova);
+                    
+                    if($retorno==true){
+                        header("Location: index.php?msg=5");
+                    }else{
+                        header("Location: index.php?msg=3");
+                    }
+                }else{
+                    header("Location: nova_senha.php?msg=4");
+                }
+            }else{
+                header("Location: nova_senha.php?msg=0");
+            }
+        } else {
+            header("Location: nova_senha.php?msg=2");
+        }       
+    }else{
+        header("Location: nova_senha.php?msg=1");
+    }
+        
 }else {   
     header("Location: index.php?msg=0");
 }

@@ -74,6 +74,62 @@ class ViewUsuario {
    
    }
    
+   
+   function imprimirFormNovaSenha(){
+       echo "
+       <div class='row'>
+              <div class='col-md-12 col-sm-12 col-xs-12'>
+                <div class='x_panel'>
+                  <div class='x_title'>
+                    <h2>Usuário <small>Informe a nova senha</small></h2>
+                    <ul class='nav navbar-right panel_toolbox'>
+                      <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
+                      </li>
+                    </ul>
+                    <div class='clearfix'></div>
+                  </div>
+                  <div class='x_content'>
+                    <br />
+                    ";
+              
+        echo "           
+                <form id='resetar_senha' data-parsley-validate class='form-horizontal form-label-left' method='POST' action='processa_usuario.php'>
+                   <div class='form-group'>
+                        <label class='control-label col-md-3 col-sm-3 col-xs-12' for='senha_atual'>Senha Atual</label>
+                        <div class='col-md-6 col-sm-6 col-xs-12'>
+                          <input type='password' id='senha_atual' name='senha_atual' class='form-control col-md-4 col-xs-12' maxlength='20' required='required' value=''>
+                        </div>
+                      </div>
+                      <div class='form-group'>
+                        <label class='control-label col-md-3 col-sm-3 col-xs-12' for='nova_senha'>Nova Senha</label>
+                        <div class='col-md-6 col-sm-6 col-xs-12'>
+                          <input type='password' id='nova_senha' name='nova_senha' class='form-control col-md-4 col-xs-12' maxlength='20' required='required' value=''>
+                        </div>
+                      </div>
+                      <div class='form-group'>
+                        <label for='confirmar_senha' class='control-label col-md-3 col-sm-3 col-xs-12'>Confirmar Nova Senha</label>
+                        <div class='col-md-6 col-sm-6 col-xs-12'>
+                          <input type='password' id='confirmar_senha' class='form-control col-md-4 col-xs-12' maxlength='20' required='required' name='confirmar_senha' value=''>
+                        </div>
+                            <input type='hidden' id='id_usuario' name='id_usuario' value='".$_SESSION['id_usuario']."'>                            
+                      </div>
+                                                
+                        <div class='col-md-3 col-sm-3 col-xs-12 col-md-offset-3'>                          
+                          <button type='submit' id='atualizar_senha' name='atualizar_senha' class='btn btn-primary'>Atualizar Senha</button>
+                        </div>
+                                               
+                      </div>
+                      
+                    </form>
+             ";       
+                  
+       
+       echo "</div>
+                </div>
+              
+           ";
+   }
+   
    function imprimirFormResetarSenha($cpf){
        $dados = Usuario::getInformacoesCPF($cpf);
        echo "

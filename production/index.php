@@ -9,7 +9,6 @@
     include_once 'partes/profile.php';    
        
     include_once 'partes/menu_lateral.php';    
-//    include_once 'partes/footer_buttons.php';
     
     include_once 'partes/menu_top.php'; 
     
@@ -25,37 +24,24 @@
         <div class="right_col" role="main">
         
             <?php
-                
+               
+                     
+                if(isset($_GET['msg'])){
+                    $msg = $_GET['msg'];
+
+                    Mensagem::getMensagem(2, $msg, "Início", "");
+                }
+                     
+                  
             
-                if($_SESSION['tipo'] == 1){
-              
+                if($_SESSION['tipo'] == 1){              
                     ViewEntrada::getUltimasEntradas();           
                 }                
                 
                 ViewPaciente::getQuantidadeNovosPacientes();
                 ViewPaciente::getUltimosPacientes(); 
             ?>
-            
-        
-          
-
-                             
-                      
-
-<!-- modals -->
-                  <!-- Large modal -->
-                  <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>-->
-
-                  
-                     <?php 
-                     
-                        if(isset($_GET['msg'])){
-                            $msg = $_GET['msg'];
-
-                            Mensagem::getMensagem(2, $msg, "Início", "");
-                        }
-                     
-                     ?>
+                    
 	 
           <div class="row">
               

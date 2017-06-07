@@ -17,9 +17,6 @@ include_once 'partes/header_tabelas.php';
     $view->setSubTitulo("Lista de Serviços");
         
    
-
-  
-    
   ?>
          
 

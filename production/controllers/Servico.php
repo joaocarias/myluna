@@ -193,7 +193,7 @@ class Servico extends Conexao {
                 $linhas = $linhas . "<tr>"
                         . "<td>".$row->id_servico."</td>"
                         . "<td>".$row->descricao."</td>"
-                        . "<td>".$row->valor."</td>"  
+                        . "<td>".  Auxiliar::convParaReal($row->valor)."</td>"  
                         . "<td><a class='btn btn-primary btn-sm' href='editar_servico.php?editar=true&id_servico=".$row->id_servico."' title='Editar'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> <a class='btn btn-danger btn-sm' href='processa_servico.php?btn-excluir=true&id_servico=".$row->id_servico."' title='Excluir' ><i class='fa fa-trash-o' aria-hidden='true'></i></td>"                      
                         . "</tr> ";                
             }
