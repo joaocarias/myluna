@@ -6,6 +6,7 @@
  * and open the template in the editor.
  */
 include_once 'Conexao.php';
+include_once 'Usuario.php';
 /**
  * Description of LogAcesso
  *
@@ -99,5 +100,58 @@ class LogAcesso extends Conexao{
         } catch (Exception $ex) {
             return $ex->getMessage();
         }        
-    }       
+    }  
+    
+    public static function getListaDeLogPorNumeroDeDias($periodo){
+        try{
+            $linhas = "";
+            
+            if($periodo == 1){
+                $parte_sql = " DAY(lc.data_cadastro) = DAY(NOW())"
+                            . " AND MONTH(lc.data_cadastro) = MONTH(NOW())"
+                            . " AND YEAR(lc.data_cadastro) = YEAR(NOW()) ;";
+            }else{
+                $parte_sql = " lc.data_cadastro between "
+                        . "TIMESTAMP(DATE_SUB(NOW(), INTERVAL ".$periodo." day)) "
+                        . "AND NOW() ;";
+            }
+            
+            $pdo = parent::getDB();
+           
+            $query = $pdo->prepare("select "
+                    . " DATE_FORMAT(lc.data_cadastro,'%d/%m/%Y') as data, DATE_FORMAT(lc.data_cadastro,'%H:%i:%s') as hora, "
+                    . " lc.id_log "
+                    . " , lc.id_usuario "
+                    . " , lc.login "
+                    . " , lc.acesso"
+                    . "  from log_acesso as lc "
+                    . " where lc.id_status = '1'"
+                    . " AND ".$parte_sql
+                    );
+            $query->execute();
+            
+            while($row = $query->fetch(PDO::FETCH_OBJ)){
+                $acao = $row->acesso;
+                
+                if($acao == "PERMITIDO"){
+                     $nome_usuario = Usuario::getNomePorId($row->id_usuario);
+                }else{
+                    $nome_usuario = "";
+                }
+                
+                $linhas = $linhas . "<tr>"
+                        . "<td>".$row->id_log."</td>"
+                        . "<td>".$row->hora."</td>"
+                        . "<td>".$row->data."</td>"
+                        . "<td>".$nome_usuario."</td>"
+                        . "<td>".$row->login."</td>"
+                        . "<td>".$acao."</td>"
+                        . "</tr>";
+            }
+            
+            return $linhas;
+        } catch (Exception $ex) {
+            return $ex;
+        }
+    }
 }

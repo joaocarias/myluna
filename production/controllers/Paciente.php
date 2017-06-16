@@ -35,7 +35,16 @@ class Paciente extends Conexao {
     private $data_modificacao;
     private $modificado_por;
     private $status;
+    private $n_ficha;
     
+    function getN_ficha() {
+        return $this->n_ficha;
+    }
+
+    function setN_ficha($n_ficha) {
+        $this->n_ficha = $n_ficha;
+    }
+        
     function getId_paciente() {
         return $this->id_paciente;
     }
@@ -204,12 +213,12 @@ class Paciente extends Conexao {
                     . "`cpf`, `nome`, `sexo`, `data_nascimento`, `telefone`, "
                     . "`email`, `rua`, `numero`, `bairro`, `cep`, `cidade`, `uf`, "
                     . "`complemento`, `obs`, `id_pai`, `data_cadastro`, "
-                    . "`id_status`) "
+                    . "`id_status`, `n_ficha`) "
                     . "VALUES "
                     . "(?,?,?,?,?,"
                     . "?,?,?,?,?,?,?,"
                     . "?,?,?,NOW(),"
-                    . "?)");        
+                    . "?, ?)");        
 //                        
             $query->bindValue(1, $this->getCpf());
             $query->bindValue(2, $this->getNome());  
@@ -229,6 +238,7 @@ class Paciente extends Conexao {
             $query->bindValue(14, $this->getObs()); 
             $query->bindValue(15, $_SESSION['id_usuario']); 
             $query->bindValue(16, '1');   
+            $query->bindValue(17, $this->getN_ficha());   
             
             $query->execute();    
             
@@ -260,6 +270,7 @@ class Paciente extends Conexao {
                         . "<td>".Auxiliar::dateToBR($row->data_nascimento)."</td>"
                         . "<td>".Auxiliar::getGenero($row->sexo)."</td>"
                         . "<td>".$row->telefone."</td>"
+                        . "<td>".$row->n_ficha."</td>"
                         . "<td>".$row->email."</td>"            
                         . "<td>".$row->rua."</td>"
                         . "<td>".$row->numero."</td>"
@@ -310,7 +321,8 @@ class Paciente extends Conexao {
                 $dados->setCidade($row->cidade);
                 $dados->setUf($row->uf);
                 $dados->setComplemento($row->complemento);
-                $dados->setObs($row->obs);                               
+                $dados->setObs($row->obs);
+                $dados->setN_ficha($row->n_ficha);
             }
                
             return $dados;       
@@ -339,18 +351,6 @@ class Paciente extends Conexao {
                         . "<td><a href='entrada.php?id_paciente=".$row->id_paciente."'>".$row->nome."</a></td>"
                         . "<td>".$row->cpf."</td>"
                         . "<td>".Auxiliar::dateToBR($row->data_nascimento)."</td>"
-//                        . "<td>".Auxiliar::getGenero($row->sexo)."</td>"
-//                        . "<td>".$row->telefone."</td>"
-//                        . "<td>".$row->email."</td>"            
-//                        . "<td>".$row->rua."</td>"
-//                        . "<td>".$row->numero."</td>"
-//                        . "<td>".$row->bairro."</td>"
-//                        . "<td>".$row->cep."</td>"
-//                        . "<td>".$row->cidade."</td>"
-//                        . "<td>".$row->uf."</td>"
-//                        . "<td>".$row->complemento."</td>"
-//                        . "<td>".$row->obs."</td>"
-//                        . "<td><a class='btn btn-primary btn-sm' href='editar_paciente.php?editar=true&id_paciente=".$row->id_paciente."' title='Editar'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></a> <a class='btn btn-default btn-sm' href='novo_orcamento.php?novo_orcamento=true&id_paciente=".$row->id_paciente."' title='Novo Orçamento'><i class='fa fa-calculator' aria-hidden='true'></i></a> <a class='btn btn-danger btn-sm' href='processa_paciente.php?btn-excluir=true&id_paciente=".$row->id_paciente."' title='Excluir' ><i class='fa fa-trash-o' aria-hidden='true'></i></a></td>"
                         . "</tr> ";                
             }
                
@@ -380,6 +380,7 @@ class Paciente extends Conexao {
                         . "<td>".Auxiliar::dateToBR($row->data_nascimento)."</td>"
                         . "<td>".Auxiliar::getGenero($row->sexo)."</td>"
                         . "<td>".$row->telefone."</td>"
+                        . "<td>".$row->n_ficha."</td>"
                         . "<td>".$row->email."</td>"            
                         . "<td>".$row->rua."</td>"
                         . "<td>".$row->numero."</td>"
@@ -443,6 +444,7 @@ class Paciente extends Conexao {
                                     . ",`uf`=?"
                                     . ",`complemento`=?"
                                     . ",`obs`=?"
+                                    . ",`n_ficha`=?"
                                     . ",`data_modificacao`=NOW()"
                                     . ",`modificado_por`=?"
                                     . " WHERE "
@@ -463,10 +465,9 @@ class Paciente extends Conexao {
             $query->bindValue(12, $this->getUf());            
             $query->bindValue(13, $this->getComplemento());
             $query->bindValue(14, $this->getObs());
-            $query->bindValue(15, $_SESSION['id_usuario']);
-            $query->bindValue(16, $this->getId_paciente());
-            
-//            print_r($query);                    
+            $query->bindValue(15, $this->getN_ficha());
+            $query->bindValue(16, $_SESSION['id_usuario']);
+            $query->bindValue(17, $this->getId_paciente());
             
             $query->execute();
                   

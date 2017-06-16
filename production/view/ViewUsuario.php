@@ -13,6 +13,7 @@
  */
 include_once './controllers/TipoUsuario.php';
 include_once './controllers/Usuario.php';
+include_once './controllers/LogAcesso.php';
 include_once './Auxiliares/Auxiliar.php';
 
 class ViewUsuario {
@@ -655,16 +656,56 @@ class ViewUsuario {
 
                                     <div class='col-md-4 col-sm-6 col-xs-12'>                                         
                                         <strong>Cidade: </strong>".$myDados->getCidade()."-".$myDados->getUf()."
-                                    </div>
-                                        
-                                </p>
-                            
+                                    </div>                                        
+                                </p>                            
                                 </div>
                             </div>
                         </div>
                     </div>
                    ";
       
+   }
+   
+   public function imprimirListaDeLogs($periodo){
+       $linhas = LogAcesso::getListaDeLogPorNumeroDeDias($periodo);
+       
+       if($linhas == "" ){
+           echo "Não encontrado registros para sua consulta! ".$linhas;
+       }else{
+           echo "<div class='col-md-12 col-sm-12 col-xs-12'>
+                <div class='x_panel'>
+                  <div class='x_title'>
+                    <h2>Tabela de Usuários</h2>                    
+                    <div class='clearfix'></div>
+                  </div>
+                  <div class='x_content'>
+                    <p class='text-muted font-13 m-b-30'>
+                      Segue a lista dos usuários cadastrados no sistema.
+                    </p>
+                     <table id='datatable-responsive' class='table table-striped table-bordered dt-responsive nowrap' cellspacing='0' width='100%'>
+                      <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Hora</th>
+                            <th>Data</th>
+                            <th>Usuario</th>
+                            <th>Login</th>
+                            <th>Ação</th>                            
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                       
+                          ".$linhas."
+                                           
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+";
+       }
+       
    }
    
 }

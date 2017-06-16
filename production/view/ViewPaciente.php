@@ -41,6 +41,10 @@ class ViewPaciente {
    public static function getQuantidadeNovosPacientes(){ 
        
        echo "<!-- top tiles -->
+           <div class='col-md-12 col-sm-12 col-xs-12'>
+                <div class='x_panel'>
+                  
+                  <div class='x_content'>
           <div class='row tile_count'>            
             <div class='col-md-4 col-sm-4 col-xs-12 tile_stats_count'>
               <span class='count_top'><i class='a fa-user'></i> Novos Pacientes Hoje</span>
@@ -57,6 +61,9 @@ class ViewPaciente {
               <div class='count red'>".Paciente::getQuantidadeNovosPacientesMes()."</div>
               <span class='count_bottom'><i class='red'><i class='fa fa-sort-asc'></i></i><a href='relatorio_novos_pacientes.php?dias=30'>Mais Delhates</a></span>
             </div>
+          </div>
+          </div>
+          </div>
           </div>
                       <!-- /top tiles -->";
    }
@@ -78,6 +85,7 @@ class ViewPaciente {
         $uf = "";
         $complemento = "";
         $obs = ""; 
+        $n_ficha = "";
                
         if($acao == "editar" && $idPaciente != ""){
             $dados = Paciente::getInformacoes($idPaciente);
@@ -95,7 +103,8 @@ class ViewPaciente {
             $cidade = $dados->getCidade();
             $uf = $dados->getUf();
             $complemento = $dados->getComplemento();
-            $obs = $dados->getObs();            
+            $obs = $dados->getObs();
+            $n_ficha = $dados->getN_ficha();
         }
        
         if($acao == "editar"){
@@ -178,7 +187,12 @@ class ViewPaciente {
                             <input type='text' class='form-control' id='telefone' placeholder='' maxlength='22' name='telefone' value='".$telefone."'  >
                         </div>
                         
-                        <div class='col-xs-9'>
+                        <div class='col-xs-3'>
+                            <label for='n_ficha'>Nº da Ficha</label>
+                            <input type='text' id='n_ficha' class='form-control' placeholder='' maxlength='8' name='n_ficha' value='".$n_ficha."'>
+                        </div>
+
+                        <div class='col-xs-6'>
                             <label for='obs'>Observações</label>
                             <input type='text' id='obs' class='form-control' placeholder='' maxlength='244' name='obs' value='".$obs."'>
                         </div>                       
@@ -337,10 +351,14 @@ class ViewPaciente {
                                     <div class='col-md-5 col-sm-6 col-xs-12'>                                         
                                         <strong>Telefone: </strong>".  $myDados->getTelefone()."
                                     </div>
-                                    
+
                                     <div class='col-md-3 col-sm-6 col-xs-12'>                                         
+                                        <strong>Nº da Ficha: </strong>". $myDados->getN_ficha()."
+                                    </div>
+
+                                    <div class='col-md-4 col-sm-6 col-xs-12'>                                         
                                         <strong>Observações: </strong>". $myDados->getObs()."
-                                    </div>   
+                                    </div>
                                     
                                 </p>
 
@@ -462,6 +480,7 @@ class ViewPaciente {
                             <th>Data de Nascimento</th>
                             <th>Gênero</th>
                             <th>Telefone</th>
+                            <th>Nº da Ficha</th>
                             <th>E-mail</th>                            
                             <th>Rua</th>
                             <th>Número</th>
@@ -543,6 +562,7 @@ class ViewPaciente {
                             <th>Data de Nascimento</th>
                             <th>Gênero</th>
                             <th>Telefone</th>
+                            <th>Nº da Ficha</th>
                             <th>E-mail</th>                            
                             <th>Rua</th>
                             <th>Número</th>

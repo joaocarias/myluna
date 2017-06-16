@@ -290,6 +290,31 @@ class Usuario extends Conexao{
         }
     }    
     
+    public static function getNomePorId($id){
+        try{
+            $pdo = parent::getDB();
+           
+            $query = $pdo->prepare("SELECT nome FROM `usuario` WHERE id_usuario = ? and status = '1'; ");
+            
+            $query->bindValue(1, $id);
+            
+            $query->execute();            
+            
+      
+            if($query->rowCount()== 1):
+                $dados = $query->fetch(PDO::FETCH_OBJ);                    
+                return $dados->nome;
+            else:
+                return "";
+            endif;
+
+            
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }
+    
+    
     public static function primeiroNome($id){        
         try{
             $pdo = parent::getDB();

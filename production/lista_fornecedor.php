@@ -13,7 +13,7 @@ include_once 'partes/header_tabelas.php';
     include_once 'partes/menu_top.php';
     
     $view = new ViewFornecedor();    
-    $view->setTitulo("Paciente");
+    $view->setTitulo("Fornecedor");
     $view->setSubTitulo("Lista de Fornecedores");
     
     

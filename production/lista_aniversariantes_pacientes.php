@@ -15,12 +15,8 @@ include_once 'partes/header_tabelas.php';
     $view = new ViewPaciente();    
     $view->setTitulo("Paciente");
     $view->setSubTitulo("Lista de Pacientes");
-    
-    
-  
+      
   ?>
-         
-
         
         <!-- page content -->
         <div class="right_col" role="main">
@@ -29,9 +25,7 @@ include_once 'partes/header_tabelas.php';
               <div class="title_left">
                 <h3><?php echo $view->getTitulo(); ?> <small><?php echo $view->getSubTitulo(); ?> </small></h3>
               </div>
-
-              
-              
+          
             </div>
 
             <div class="clearfix"></div>

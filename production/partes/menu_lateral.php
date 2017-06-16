@@ -41,6 +41,17 @@
         </ul>
       </li>
     <?php } ?>      
+      
+        
+    <?php if($_SESSION['tipo'] == 1){ ?>
+  
+      <li><a><i class="fa fa-cart-arrow-down"></i> Não Fornecido <span class="fa fa-chevron-down"></span></a>
+        <ul class="nav child_menu">          
+          <li><a href="novo_caso.php">Novo Caso</a></li>   
+          <li><a href="lista_novos_casos">Lista de Casos</a></li>                    
+        </ul>
+      </li>
+    <?php } ?>
     </ul>
   </div>
 
@@ -86,8 +97,9 @@
         <?php if($_SESSION['tipo'] == 1){ ?>
       <li><a><i class="fa fa-bug"></i> Logs <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
-          <li><a href="e_commerce.html">Acesso do dia</a></li>
-          <li><a href="projects.html">Acesso do Mês</a></li>          
+          <li><a href="lista_log_acesso.php?periodo=1">Acesso do dia</a></li>
+          <li><a href="lista_log_acesso.php?periodo=7">Acesso na Semana</a></li>
+          <li><a href="lista_log_acesso.php?periodo=30">Acesso no Mês</a></li>
         </ul>
       </li>      
       <?php } ?>
@@ -112,7 +124,7 @@
     <ul class="nav side-menu">
       <li><a><i class="fa fa-bug"></i> Login <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
-          <li><a href="e_commerce.html">E-commerce</a></li>         
+          <li><a href="lista_de_login.php">Registro de Logins</a></li>         
         </ul>
       </li>
       <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>

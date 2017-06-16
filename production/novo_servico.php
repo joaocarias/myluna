@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-  include_once 'testarLogado.php';
+include_once 'testarLogado.php';
 
 include_once 'view/ViewServico.php';
 

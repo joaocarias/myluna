@@ -8,7 +8,7 @@
 
 include_once 'Conexao.php';
 include_once './Auxiliares/Auxiliar.php';
-include_once './Auxiliares/Orcamento.php';
+include_once 'Orcamento.php';
 
 /**
  * Description of Servico
