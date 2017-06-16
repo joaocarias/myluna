@@ -1,7 +1,7 @@
     <!-- footer content -->
         <footer>
           <div class="pull-right">
-              Todos os Direitos Resevados © 2016 <?php echo Config::getClinicaNome(). " - " . Config::getClinicaNomeParte2(); ?>
+              Todos os Direitos Resevados © <?php echo Config::getAno() ." - ". Config::getClinicaNome(). " - " . Config::getClinicaNomeParte2(); ?>
           </div>
           <div class="clearfix"></div>
         </footer>

@@ -94,15 +94,18 @@
   <div class="menu_section">
     <h3>Relatórios</h3>    
     <ul class="nav side-menu">
-        <?php if($_SESSION['tipo'] == 1){ ?>
-      <li><a><i class="fa fa-bug"></i> Logs <span class="fa fa-chevron-down"></span></a>
+        
+        <?php if($_SESSION['tipo'] == 1 || $_SESSION['tipo'] == 2){ ?>
+      
+        <li><a><i class="fa fa-bug"></i> Logs <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
           <li><a href="lista_log_acesso.php?periodo=1">Acesso do dia</a></li>
           <li><a href="lista_log_acesso.php?periodo=7">Acesso na Semana</a></li>
           <li><a href="lista_log_acesso.php?periodo=30">Acesso no Mês</a></li>
         </ul>
       </li>      
-      <?php } ?>
+      
+          <?php } ?>
       
       <li><a><i class="fa fa-male"></i> Paciente <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
@@ -115,7 +118,6 @@
       
     </ul>
   </div>
-
     
     <?php if($_SESSION['tipo'] == 1){ ?>
 
