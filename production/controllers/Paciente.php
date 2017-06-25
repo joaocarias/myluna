@@ -616,5 +616,34 @@ class Paciente extends Conexao {
             return -1;
         }
     }
+    
+    public static function getLinhasTabelaPacientesAgendamento(){
+        try{
+            $pdo = parent::getDB();
+
+            $query = $pdo->prepare("SELECT * FROM `paciente` WHERE id_status = ?" );        
+
+            $query->bindValue(1, "1");
+                            
+            $query->execute();
+               
+            $linhas = "";
+                
+            while($row = $query->fetch(PDO::FETCH_OBJ)){                    
+                $linhas = $linhas . "<tr>"                            
+                            . "<td><a href='nova_visita.php?id_paciente=".$row->id_paciente."'>".$row->nome."</a></td>"
+                            . "<td>".$row->cpf."</td>"      
+                            . "<td>".$row->n_ficha."</td>"                           
+                            . "<td>".$row->cidade."</td>"
+                            . "<td>".$row->uf."</td>"                            
+                            . "<td>Selecionar</td>"
+                        . "</tr> ";                
+            }
+               
+            return $linhas;                
+        } catch (Exception $ex) {
+            return "";
+        }
+    }
         
 }

@@ -6,13 +6,9 @@ session_start();
 include_once 'testarLogado.php';
 
 include_once 'partes/header.php';
-
 include_once 'view/ViewSaida.php';
-
-include_once 'partes/profile.php';
-    
+include_once 'partes/profile.php';    
 include_once 'partes/menu_lateral.php';
-    
 include_once 'partes/menu_top.php';
     
     $view = new ViewSaida();    
@@ -23,6 +19,11 @@ $novo_fornecedor = false;
 $id_fornecedor = 0;
 $novo_servico = false;
 $id_servico = 0;
+$forma_de_pagamento = "";
+
+$n_parcela_cartao = "";
+$valor_dinheiro_receber = "";
+$valor_debito_receber = "";
 
 if(isset($_GET['novo_fornecedor'])){
     $novo_fornecedor = $_GET['novo_fornecedor'];
@@ -48,6 +49,29 @@ if(isset($_GET['id_servico'])){
     $id_servico = 0;
 }
 
+if(isset($_GET['forma_de_pagamento'])){
+    $forma_de_pagamento = $_GET['forma_de_pagamento'];    
+}else{
+    $forma_de_pagamento = "";
+}
+
+if(isset($_GET['valor_dinheiro_receber'])){
+    $valor_dinheiro_receber = $_GET['valor_dinheiro_receber'];    
+}else{
+    $valor_dinheiro_receber = "";
+}
+
+if(isset($_GET['valor_debito_receber'])){
+    $valor_debito_receber = $_GET['valor_debito_receber'];    
+}else{
+    $valor_debito_receber = "";
+}
+
+if(isset($_GET['n_parcela_cartao'])){
+    $n_parcela_cartao = $_GET['n_parcela_cartao'];    
+}else{
+    $n_parcela_cartao = "";
+}
     
 ?>
       <!-- page content -->
@@ -76,11 +100,17 @@ if(isset($_GET['id_servico'])){
                                     $view->imprimirFormServico($id_servico);                                
                             }
                             
-                            $view->imprimirListaDetalhamentoSaida($id_fornecedor);
+                            $view->imprimirListaDetalhamentoSaida($id_fornecedor, $forma_de_pagamento);
                             
-                            $view->imprimirListaDeServicosFornecedor($id_fornecedor);
-                            if($novo_servico == true){
-                                $view->imprimirFormNovoServico($id_fornecedor);                            
+                            if($forma_de_pagamento == ""){
+                                $view->imprimirListaDeServicosFornecedor($id_fornecedor);
+                                if($novo_servico == true){
+                                    $view->imprimirFormNovoServico($id_fornecedor);                            
+                                }
+                            }else if($forma_de_pagamento == "escolher"){
+                                $view->imprimirFormEscolherFomarmaDePagamento($id_fornecedor);                            
+                            }else{
+                                 $view->imprimirFormPagamento($forma_de_pagamento, $idFornecedor, $n_parcela_cartao, $valor_dinheiro_receber, $valor_debito_receber);
                             }
                         }else{                        
                             $view->imprimirListaFornecedor();
