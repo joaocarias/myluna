@@ -61,6 +61,11 @@ class Auxiliar {
             return "";
         }
     }
+    
+    public static function ImprimirCpfCaracteres($cpf){
+        $cpfcerto = substr($cpf , 0, 3).".".substr($cpf , 3, 3).".".substr($cpf , 6, 3)."-".substr($cpf , 9, 2);
+        return $cpfcerto;
+    }
 
 
     public static function convParaReal($str){

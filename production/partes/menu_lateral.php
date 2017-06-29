@@ -23,7 +23,7 @@
       <li><a><i class="fa fa-clock-o"></i> Agendamento <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">                    
             <li><a href="nova_visita.php">Agendar Visita</a></li>
-            <li><a href="tables_dynamic.html">Agenda do Dia</a></li>          
+            <li><a href="lista_agendamento.php?periodo=1">Agenda do Dia</a></li>          
           <li><a href="tables_dynamic.html">Listar por Período</a></li>
         </ul>
       </li>

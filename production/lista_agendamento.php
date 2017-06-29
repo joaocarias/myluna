@@ -4,7 +4,7 @@
 session_start(); 
 
 include_once './Auxiliares/Config.php';
-include_once 'view/ViewFornecedor.php';
+include_once 'view/ViewAgendamento.php';
 
 include_once 'partes/header_tabelas.php'; 
     include_once 'partes/profile.php';
@@ -12,10 +12,25 @@ include_once 'partes/header_tabelas.php';
     
     include_once 'partes/menu_top.php';
     
-    $view = new ViewFornecedor();    
-    $view->setTitulo("Fornecedor");
-    $view->setSubTitulo("Lista de Fornecedores");
+    $periodo = '1';
     
+    if(isset($_GET['periodo'])){
+        $periodo = $_GET['periodo'];
+    }else{
+        $periodo = '1';
+    }
+    
+    
+    $view = new ViewAgendamento();    
+    $view->setTitulo("Agendamento");
+    
+    if($periodo == '1'){
+        $subTitulo = "Lista de Agendamento do dia";
+    }else{
+        $subTitulo = "Lista de Agendamento";
+    }
+    
+    $view->setSubTitulo($subTitulo);
   ?>
          
         <!-- page content -->
@@ -26,15 +41,11 @@ include_once 'partes/header_tabelas.php';
                 <h3><?php echo $view->getTitulo(); ?> <small><?php echo $view->getSubTitulo(); ?> </small></h3>
               </div>
 
-              
-              
             </div>
 
             <div class="clearfix"></div>
 
-            
-              <?php $view->imprimirListaFornecedor(); ?>
-              
+              <?php  $view->imprimirListaAgendamento($periodo); ?>
 
           </div>
           </div>

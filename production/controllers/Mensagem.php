@@ -25,7 +25,7 @@ class Mensagem {
                     break;
                 case 2:         //aqui é possível definir os paramentros dos GET           
                     $texto = "Tem Certeza que Deseja Excluir o Cadastro?";
-                    $bt_confirmar = "<a href='".$paginaSeguinte."'><button type='button' class='btn btn-primary'>Excluir Cadastro</button></a>";
+                    $bt_confirmar = "<a href='".$paginaSeguinte."&btn_excluir=true'><button type='button' class='btn btn-primary'>Excluir Cadastro</button></a>";
                     break;
                 case 3:     //Pode definir os paramentros do GET                    
                     $texto = "Tem Certeza que Deseja Cancelar o Cadastro?";

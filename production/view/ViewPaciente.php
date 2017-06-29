@@ -507,8 +507,7 @@ class ViewPaciente {
    public function imprimirInformacoesBasicasPaciente($id){
        $myDados = Paciente::getInformacoes($id);
         
-        $imprimir = "<div class='row'>
-            <div class='col-md-12 col-sm-12 col-xs-12'>
+        $imprimir = "
                 <div class='x_panel'>
                     <div class='x_title'>
                         <h2>Dados do Paciente</h2>
@@ -531,13 +530,12 @@ class ViewPaciente {
                         </div>
 
                         <div class='col-md-4 col-sm-6 col-xs-12'>                                         
-                            <strong>CPF: </strong>".$myDados->getCpf()."
+                            <strong>CPF: </strong>".  Auxiliar::ImprimirCpfCaracteres($myDados->getCpf())."
                         </div>
 
                     </div>
                 </div>
-            </div>
-        </div>";
+            ";
         
         echo $imprimir;
    }

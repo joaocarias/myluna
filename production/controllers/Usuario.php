@@ -422,6 +422,29 @@ class Usuario extends Conexao{
         }
     }
     
+    public static function getOpcoesSelecaoDentistaSelecionar($idSelecionado){
+        try{
+             $pdo = parent::getDB();
+                $query = $pdo->prepare("SELECT nome, id_usuario "
+                        . "FROM usuario "
+                        . "WHERE "
+                        . "id_tipo = '3' AND status = '1';" );   
+                $query->execute();
+                $option = "";                
+               while($row = $query->fetch(PDO::FETCH_OBJ)){   
+                   if($row->id_usuario == $idSelecionado){
+                       $selectionar = "selected='selected'";
+                   }else{
+                       $selectionar = "";
+                   }                   
+                   $option = $option . "<option value='".$row->id_usuario."' ".$selectionar.">".$row->nome."</option>";
+               }                
+                return $option;                
+        } catch (Exception $ex) {
+            return "";
+        }
+    }
+    
     public static function getInformacoes($id){
         try{
             $dados = new Usuario();            
