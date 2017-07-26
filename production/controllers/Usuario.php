@@ -41,7 +41,16 @@ class Usuario extends Conexao{
     private $data_modificacao;
     private $modificado_por;
     private $status;
+    private $funcao_dentista;
     
+    function getFuncao_dentista() {
+        return $this->funcao_dentista;
+    }
+
+    function setFuncao_dentista($funcao_dentista) {
+        $this->funcao_dentista = $funcao_dentista;
+    }
+        
     function getId_usuario() {
         return $this->id_usuario;
     }
@@ -410,7 +419,7 @@ class Usuario extends Conexao{
                 $query = $pdo->prepare("SELECT nome, id_usuario "
                         . "FROM usuario "
                         . "WHERE "
-                        . "id_tipo = '3' AND status = '1';" );   
+                        . "funcao_dentista = '1' AND status = '1';" );   
                 $query->execute();
                 $option = "";                
                while($row = $query->fetch(PDO::FETCH_OBJ)){   
@@ -428,7 +437,7 @@ class Usuario extends Conexao{
                 $query = $pdo->prepare("SELECT nome, id_usuario "
                         . "FROM usuario "
                         . "WHERE "
-                        . "id_tipo = '3' AND status = '1';" );   
+                        . " funcao_dentista = '1' AND status = '1';" );   
                 $query->execute();
                 $option = "";                
                while($row = $query->fetch(PDO::FETCH_OBJ)){   
@@ -475,7 +484,8 @@ class Usuario extends Conexao{
                 $dados->setComplemento($row->complemento);
                 $dados->setObs($row->obs); 
                 $dados->setId_tipo($row->id_tipo);
-                $dados->setComissao($row->comissao);                
+                $dados->setComissao($row->comissao);
+                $dados->setFuncao_dentista($row->funcao_dentista);
             }
                
             return $dados;       
@@ -514,7 +524,8 @@ class Usuario extends Conexao{
                 $dados->setComplemento($row->complemento);
                 $dados->setObs($row->obs); 
                 $dados->setId_tipo($row->id_tipo);
-                $dados->setComissao($row->comissao);                
+                $dados->setComissao($row->comissao);
+                $dados->setFuncao_dentista($row->funcao_dentista);                
             }
                
             return $dados;       
@@ -552,6 +563,39 @@ class Usuario extends Conexao{
         }
     }  
     
+    function definirComoDentista($acao){
+        try {
+            $funcao = 1;
+            
+            if($acao == "remover"){
+                $funcao = 0;
+            }
+            
+            $pdo = parent::getDB();
+           
+            $query = $pdo->prepare("UPDATE `usuario` "
+                    . " SET "
+                    . " `data_modificacao`= NOW() "
+                    . ", `modificado_por`= '".$_SESSION['id_usuario']."' "
+                    . ", `funcao_dentista`= ".$funcao." "
+                    . " WHERE "
+                    . " id_usuario = '".$this->getId_usuario()."';");        
+                                   
+//            $query->bindValue(1, ;
+//            $query->bindValue(2, $funcao);            
+//            $query->bindValue(3, $this->getId_usuario());  
+            
+         //   print_r($query);
+                        
+          $query->execute();    
+            
+                        
+            return true;       
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+            
     function editar(){
         try {
             $pdo = parent::getDB();
@@ -691,6 +735,37 @@ class Usuario extends Conexao{
             
             $query->execute();
             
+            $cont = 0;
+            
+            while($row = $query->fetch(PDO::FETCH_OBJ)){
+                $cont = $row->cont;
+            }
+            
+            if($cont > 0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+    
+    public static function semFuncaoDeDentista($id){
+         try{
+            $pdo = parent::getDB();
+            $query = $pdo->prepare("SELECT COUNT(id_usuario) as cont FROM "
+                    . " usuario "
+                    . " WHERE "
+                    . " id_usuario = ? "                    
+                    . " AND funcao_dentista = ? "
+                    . " AND status = 1; ");
+            
+            $query->bindValue(1, $id);           
+            $query->bindValue(2, '0');
+            
+            $query->execute();
+//            
             $cont = 0;
             
             while($row = $query->fetch(PDO::FETCH_OBJ)){

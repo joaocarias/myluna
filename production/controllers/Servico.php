@@ -209,7 +209,7 @@ class Servico extends Conexao {
     public static function getLinhasTabelaItensOrcamento($idOrcamento, $idStatus){
         try{
             $pdo = parent::getDB();
-
+            
             $query = $pdo->prepare("SELECT i.id_servico as id_servico, s.descricao as descricao, i.valor as valor,
                     i.desconto as desconto, i.total as total, i.id_item_orcamento as id_item_orcamento
                     FROM `item_orcamento` as i, `servico` as s 
@@ -226,20 +226,20 @@ class Servico extends Conexao {
             $linhas = "";
             
             while($row = $query->fetch(PDO::FETCH_OBJ)){
-                if($idStatus == "1"){
-                    $texto = "<a href='entrada.php?id_paciente=".Orcamento::getIdPaciente($idOrcamento)."'>Receber</a>, Agendar, Feito";   
+                if($idStatus == "3"){
+                    //$texto = "<a href='entrada.php?id_paciente=".Orcamento::getIdPaciente($idOrcamento)."'>Receber</a>, Agendar, Feito";   
+                    $texto = "<td> <a href='processa_orcamento.php?novo_orcamento=true&remover_item=true&id_orcamento=".$idOrcamento."&id_item_orcamento=".$row->id_item_orcamento."'>Remover"."</a></td>";
                 }else{
                     $texto = "";
                 }  
                 
                 $linhas = $linhas . "<tr>"
-                            . "<td> <a href='processa_orcamento.php?novo_orcamento=true&remover_item=true&id_orcamento=".$idOrcamento."&id_item_orcamento=".$row->id_item_orcamento."'>Remover"."</a>, ".$texto." </td>" 
-                            . "<td>".$row->id_servico."</td>"
+                            . $texto 
+//                            . "<td>".$row->id_servico."</td>"
                             . "<td>".$row->descricao."</td>"
-                            . "<td>".$row->valor."</td>"
-                            . "<td>".$row->desconto."</td>"
-                            . "<td>".$row->total."</td>"
-                            
+                            . "<td>".  Auxiliar::convParaReal($row->valor)."</td>"
+                            . "<td>".Auxiliar::convParaReal($row->desconto)."</td>"
+                            . "<td>".Auxiliar::convParaReal($row->total)."</td>"                            
                         . "</tr> ";                
                
             }               
@@ -251,8 +251,6 @@ class Servico extends Conexao {
     
     public function getTextoReceber($idStatus){
         $texto = "";
-        
-        
         return $texto;
     }
     
@@ -270,7 +268,7 @@ class Servico extends Conexao {
                 $linhas = $linhas . "<tr>"
                         . "<td>".$row->id_servico."</td>"
                         . "<td><a href='novo_orcamento.php?novo_orcamento=true&id_orcamento=".$idOrcamento."&servico=".$row->id_servico."'>".$row->descricao."</a></td>"
-                        . "<td>".$row->valor."</td>" 
+                        . "<td>".  Auxiliar::convParaReal($row->valor)."</td>" 
                         . "</tr> ";                
             }               
             return $linhas;                
@@ -295,7 +293,7 @@ class Servico extends Conexao {
             while($row = $query->fetch(PDO::FETCH_OBJ)){                    
                 $dados->setId_servico($row->id_servico);
                 $dados->setDescricao($row->descricao);
-                $dados->setValor($row->valor); 
+                $dados->setValor(Auxiliar::convParaReal($row->valor)); 
             }
                
             return $dados;       

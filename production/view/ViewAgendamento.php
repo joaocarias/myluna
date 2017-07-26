@@ -70,6 +70,57 @@ class ViewAgendamento {
         
     }
     
+    function imprimirFormPeriodoData(){
+       $my_form = "<div class='row'>
+            <div class='col-md-12 col-sm-12 col-xs-12'>
+                <div class='x_panel'>
+                    <div class='x_title'>
+                        <h2>Informe o Período</h2>
+                        <ul class='nav navbar-right panel_toolbox'>
+                            <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
+                            </li>                      
+                            <li><a class='close-link'><i class='fa fa-close'></i></a>
+                            </li>
+                        </ul>
+                        <div class='clearfix'></div>
+                    </div>
+                    <div class='x_content'>      
+                        <form class='form-horizontal form-label-left' method='GET' action='lista_agendamento.php' name='myform' id='myform' > 
+                            <input type='hidden' id='periodo' name='periodo' value='2' />
+                        <div class='form-group'>
+                                <label class='control-label col-md-3 col-sm-3 col-xs-3'>De: </label>
+                                <div class='col-md-4 col-sm-6 col-xs-9'>
+                                    <input type='text' class='form-control' name='de' id='de' data-inputmask='\"mask\": \"99/99/9999\"'>
+                                </div>
+                            </div>
+                            
+                            <div class='form-group'>
+                                <label class='control-label col-md-3 col-sm-3 col-xs-3'>Até: </label>
+                                <div class='col-md-4 col-sm-4 col-xs-9'>
+                                    <input type='text' class='form-control' name='ate' id='ate' data-inputmask='\"mask\": \"99/99/9999\"'>
+                                </div>
+                            </div>
+                            
+
+                    <div class='form-group'>
+                        <div class='col-md-9 col-md-offset-3 '>
+                                                   
+                            <input type='submit' class='btn btn-primary' value='Buscar Relatório' />                           
+                        
+                            </div>
+                      </div>
+
+                    </form>  
+        </div>
+        </div>
+        </div>
+
+                ";
+       
+       echo $my_form;
+          
+    }
+    
     function imprimirForm($acao, $id_paciente){
        Mensagem::getMensagem(1, 1, $this->getTitulo(), "processa_agendamento.php");
        
@@ -299,12 +350,20 @@ class ViewAgendamento {
        }
    }
    
-   public function imprimirListaAgendamento($periodo){
+   public function imprimirListaAgendamento($periodo, $de = null, $ate = null){
+       
+       if($de !== null AND $ate != null){
+           $titulo_tabela = "Agendamentos do período de ".$de." até ".$ate;
+           $linhas = Agendamento::getLinhasTabela($periodo, $de, $ate);
+       }else{
+           $titulo_tabela = "Tabela Agendamentos";
+           $linhas = Agendamento::getLinhasTabela($periodo);
+       }
        
        $myLista = "<div class='col-md-12 col-sm-12 col-xs-12'>
                 <div class='x_panel'>
                   <div class='x_title'>
-                    <h2>Tabela Agendamentos</h2>                    
+                    <h2>".$titulo_tabela."</h2>                    
                     <div class='clearfix'></div>
                   </div>
                   <div class='x_content'>
@@ -324,7 +383,7 @@ class ViewAgendamento {
 
                       <tbody>
                        
-                          ".  Agendamento::getLinhasTabela($periodo)."
+                          ".  $linhas."
                                            
                       </tbody>
                     </table>

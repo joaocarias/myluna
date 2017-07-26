@@ -4,6 +4,7 @@ session_start();
 
 include_once 'controllers/Orcamento.php';
 include_once 'controllers/ItemOrcamento.php';
+include_once 'Auxiliares/Auxiliar.php';
 
 $id_paciente = "";
 $id_dentista = "";
@@ -26,15 +27,15 @@ if(isset($_POST['id_servico'])){
 }
 
 if(isset($_POST['desconto'])){
-    $desconto = $_POST['desconto'];
+    $desconto = Auxiliar::convParaDecimal($_POST['desconto']);
 }
 
 if(isset($_POST['valor'])){
-    $valor = $_POST['valor'];
+    $valor = Auxiliar::convParaDecimal($_POST['valor']);
 }
 
 if(isset($_POST['total'])){
-    $total = $_POST['total'];
+    $total = Auxiliar::convParaDecimal($_POST['total']);
 }
 
 if(isset($_POST['id_paciente'])){
@@ -61,7 +62,7 @@ if(isset($_POST['btn-selecionar-dentista'])){
     $item_orcamento->setId_orcamento($id_orcamento);
     $item_orcamento->setId_servico($id_servico);
     $item_orcamento->setValor($valor);
-    $item_orcamento->setDesconto($desconto);
+    $item_orcamento->setDesconto($valor - $total);
     $item_orcamento->setTotal($total);
     
     $retorno = $item_orcamento->inserir();
@@ -106,7 +107,7 @@ if(isset($_POST['btn-selecionar-dentista'])){
         $orcamento = new Orcamento();
         $orcamento->setId_orcamento($id_orcamento);
         $retorno = $orcamento->ativar();
-        header("Location: index.php?msg=2");
+        header("Location: page_orcamento.php?id_orcamento=".$id_orcamento);
     }
 }
 else {   

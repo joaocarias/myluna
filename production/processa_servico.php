@@ -29,7 +29,7 @@ if(isset($_POST['descricao'])){
 }
 
 if(isset($_POST['valor'])){
-    $obj->setValor($_POST['valor']);
+    $obj->setValor(Auxiliar::convParaDecimal($_POST['valor']));
 }else{
     $obj->setValor("");    
 }

@@ -98,21 +98,7 @@ include_once 'partes/menu_top.php';
                         }   
                         
                         ViewServico::getItensDoOrcamento($idOrcamento, '3');  
-                       
-                        echo "    
-                             <div class='col-xs-12'>
-                                <form method='POST' action='processa_orcamento.php'>
-                                    <label>                            
-                                        <button type='button' class='btn btn btn-danger' data-toggle='modal' data-target='.bs-example-modal-lg'>Cancelar</button>                           
-                                    </label>
-                                
-                                    <label>
-                                        <input type='hidden' id='id_orcamento' name='id_orcamento' value='".$idOrcamento."' />
-                                        <input type='submit' id='btn-salvar' name='btn-salvar' value='Salvar' class='btn btn-success' />                                                                                           
-                                    </label>
-                                </form>
-                              </div>
-                           ";                
+                                     
                     }else{
                   
                   ?>

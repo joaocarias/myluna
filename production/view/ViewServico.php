@@ -35,52 +35,69 @@ class ViewServico {
    }
    
    public static function getItensDoOrcamento($idOrcamento, $idStatus){
-       if($idStatus == "1"){
-           $textoReceber = "<th></th>";
+          
+       if($idStatus == '1'){
+           $inicio_row = "<div class='row'>";
+           $fim_row = "</div>";
+           $tamanho_tabela = "<div class='col-md-12 col-sm-12 col-xs-12'>";
+           $acao_cabecalho = "";
+           $botoes = "";           
        }else{
-           $textoReceber = "";
+           $tamanho_tabela = "<div class='col-md-6 col-sm-6 col-xs-12'>";
+           $acao_cabecalho = "<th></th>";
+           $botoes = "<div class='col-xs-12' style='text-align:right'>
+                                <form method='POST' action='processa_orcamento.php'>
+                                    <label>                            
+                                        <button type='button' class='btn btn btn-danger' data-toggle='modal' data-target='.bs-example-modal-lg'>Cancelar</button>                           
+                                    </label>
+                                
+                                    <label>
+                                        <input type='hidden' id='id_orcamento' name='id_orcamento' value='".$idOrcamento."' />
+                                        <input type='submit' id='btn-salvar' name='btn-salvar' value='Finalizar Orçamento' class='btn btn-success' />                                                                                           
+                                    </label>
+                                </form>
+                              </div>
+                              </div>
+              </div>";
+           $inicio_row = "";
+           $fim_row = "";
        }
        
-       $myLista = "<div class='clearfix'></div>
-                    <div class='row'>
-                        <div class='col-md-12 col-sm-12 col-xs-12'>
-                            <div class='x_panel'>
-                                <div class='x_title'>
-                                <h2>Lista de Serviços Selecionados</h2>
-                                <ul class='nav navbar-right panel_toolbox'>
-                                    <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
-                                        </li>                      
-                                    <li><a class='close-link'><i class='fa fa-close'></i></a>
-                                        </li>
-                                </ul>
-                                <div class='clearfix'></div>
-                            </div>
-                            <p class='text-muted font-13 m-b-30'>
-                                Lista de Serviços Selecionados para este Orçamento
-                            </p>
-                            <table id='datatable-responsive' class='table table-striped table-bordered dt-responsive nowrap' cellspacing='0' width='100%'>
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>ID Serviço</th>
-                                        <th>Descrição</th>
-                                        <th>Valor</th>                                        
-                                        <th>Desconto (%)</th>
-                                        <th>Valor Pagar (R$)</th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>                       
-                                    ".Servico::getLinhasTabelaItensOrcamento($idOrcamento, $idStatus)."                                           
-                                </tbody>
-                            </table>
-                            <p class='text-muted font-20 m-b-30'>
+       $myLista = $inicio_row . $tamanho_tabela . "
+                <div class='x_panel'>
+                  <div class='x_title'>
+                    <h2>Serviços do Orçamento <small>Selecionados</small></h2>
+                    <ul class='nav navbar-right panel_toolbox'>
+                      <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
+                      </li>
+                    </ul>
+                    <div class='clearfix'></div>
+                  </div>
+                  <div class='x_content'>
+
+                    <table class='table'>                     
+                        <thead>
+                            <tr>"
+                                 .$acao_cabecalho.                                     
+                                "<th>Descrição</th>
+                                <th>Valor</th>  
+                                <th>Desconto</th>
+                                <th>Valor Pagar<th>
+                            </tr>
+                        </thead>
+                        <tbody>                       
+                            ".Servico::getLinhasTabelaItensOrcamento($idOrcamento, $idStatus)."
+                        </tbody>
+                    </table>
+                    <p class='text-muted font-20 m-b-30'>
                                 <strong>Valor do Orcamento: R$ ".Orcamento::getValorTotalDoOrcamento($idOrcamento, $idStatus)."</strong>
-                            </p>
-                        </div>
-                    </div>
-              </div>
-";
+                    </p>
+                  </div>
+                </div>
+              
+                    ".$botoes."
+              
+              </div>" . $fim_row;
        echo $myLista;
    }
            
@@ -89,63 +106,63 @@ class ViewServico {
        
        $myForm = "<div class='clearfix'></div>
                     <div class='row'>
-                        <div class='col-md-12 col-sm-12 col-xs-12'>
+                        <div class='col-md-6 col-sm-6 col-xs-12'>
                             <div class='x_panel'>
                                 <div class='x_title'>
-                                <h2>Serviço</h2>
-                                <ul class='nav navbar-right panel_toolbox'>
-                                    <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
-                                        </li>                      
-                                    <li><a class='close-link'><i class='fa fa-close'></i></a>
+                                    <h2>Serviço<small>Confirme</h2>
+                                    <ul class='nav navbar-right panel_toolbox'>
+                                        <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
                                         </li>
-                                </ul>
-                                <div class='clearfix'></div>
-                            </div>
-                            <p class='text-muted font-13 m-b-30'>
-                                Serviço Selecionar e seus valores:
-                            </p>
+                                    </ul>
+                                    <div class='clearfix'></div>
+                                </div>
+                                <div class='x_content'>
                             
-              <form method='POST' action='processa_orcamento.php' name='myform' id='myform' >                            
-                    <div class='col-xs-3'>
-                        <label for='id_servico_'>ID Servico</label>
+
+             <form class='form-horizontal form-label-left' method='POST' action='processa_orcamento.php' name='myform' id='myform' > 
+                                   
+                    <div class='form-group'>
+                        <label class='control-label col-md-3 col-sm-3 col-xs-3'>ID Serviço: </label>
+                        <div class='col-md-4 col-sm-4 col-xs-9'>
                             <input type='text' class='form-control' id='id_servico_' name='id_servico_' value='".$idServico."' disabled='' />                            
                             <input type='hidden' id='id_servico' name='id_servico' value='".$idServico."' />  
                                  <input type='hidden' id='id_orcamento' name='id_orcamento' value='".$idOrcamento."' />  
-                    </div>                    
-                                
-                    <div class='col-xs-7'>     
-                         <label for='descricao'>Descrição *</label>
-                            <input type='text' class='form-control' id='descricao_' maxlength='100' name='descricao_' value='".$dados->getDescricao()."' disabled />
-                    </div>   
-                    
-                    <div class='col-xs-2'>
-                            <label for='valor'>Valor R$</label>
-                            <input type='text' class='form-control' id='valor' name='valor' maxlength='7' value='".$dados->getValor()."' disabled/>
-                                <input type='hidden' id='valor' name='valor' value='".$dados->getValor()."'/>
-                        </div>  
-                        
-                        <div class='col-xs-3'>
-                            <label for='valor'>Desconto(%)</label>
-                                <input type='text' class='form-control' id='desconto_' name='desconto_' maxlength='7' value='0.00' disabled/> 
-                                <input type='hidden' id='desconto' name='desconto' value='0.00'/>
-                        </div> 
-                        
-                        <div class='col-xs-3'>
-                            <label for='valor'>Valor Pagar R$</label>
-                                <input type='text' class='form-control' id='total' name='total' maxlength='7' value='".$dados->getValor()."' required/>                                
-                        </div> 
-                        
-                        <div class='col-xs-3'>
-                            <label>
-                                <input type='submit' id='btn-confirmar' name='btn-confirmar' value='Confirmar' class='btn btn-success' />                                                                                           
-                            </label>
-                        </div>
-                </form>
-
-
                         </div>
                     </div>
-              </div>
+                                
+                    <div class='form-group'>
+                        <label class='control-label col-md-3 col-sm-3 col-xs-3'>Descrição: </label>
+                        <div class='col-md-8 col-sm-8 col-xs-9'>
+                            <input type='text' class='form-control' id='descricao_' maxlength='100' name='descricao_' value='".$dados->getDescricao()."' disabled />
+                        </div>
+                    </div>
+                    
+                   <div class='form-group'>
+                        <label class='control-label col-md-3 col-sm-3 col-xs-3'>Valor: </label>
+                        <div class='col-md-4 col-sm-4 col-xs-9'>
+                            <input type='text' class='form-control' id='valor' name='valor' maxlength='7' value='".  Auxiliar::convParaReal($dados->getValor())."' disabled/>
+                                <input type='hidden' id='valor' name='valor' value='".$dados->getValor()."'/>
+                        </div>  
+                   </div>
+                   
+                    <div class='form-group'>
+                        <label class='control-label col-md-3 col-sm-3 col-xs-3'>Valor a Pagar (R$): </label>
+                        <div class='col-md-4 col-sm-4 col-xs-9'>
+                            <input type='text' class='form-control' id='total' name='total' maxlength='7' value='".  Auxiliar::convParaReal($dados->getValor())."' required/>                                
+                        </div>
+                    </div>
+                       
+                    <div class='form-group'>
+                        <div class='col-md-9 col-md-offset-3'>
+                                <input type='submit' id='btn-confirmar' name='btn-confirmar' value='Adicionar' class='btn btn-success' />                                                                                                  
+                        </div>
+                    </div>
+                </form>
+            </div>
+            </di>
+</div>
+</div>
+                
 ";
        echo $myForm;
    }
@@ -174,50 +191,50 @@ class ViewServico {
         }
                         
                         
-        $myForm = "<div class='col-lg-12'>
-            <form method='POST' action='processa_servico.php' name='myform' id='myform' >                            
-                <div class='col-sm-12'>                        
-                <div class='panel panel-primary'>
-                    <div class='panel-heading'>
-                        <h3 class='panel-title'></h3>
+        $myForm = " <div class='row'>
+            <div class='col-md-12 col-sm-12 col-xs-12'>
+                <div class='x_panel'>
+                    <div class='x_title'>
+                        <h2>Serviço</h2>
+                        <ul class='nav navbar-right panel_toolbox'>
+                            <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
+                            </li>                      
+                            <li><a class='close-link'><i class='fa fa-close'></i></a>
+                            </li>
+                        </ul>
+                        <div class='clearfix'></div>
                     </div>
-                    <div class='panel-body'>                            
-                        <div class='col-xs-4'>
-                            <label for='id_servico_'>ID Servico</label>
-                            <input type='text' class='form-control' id='id_servico_' name='id_servico_' value='".$idServico."' disabled='' />                            
+                    <div class='x_content'>          
+            <form class='form-horizontal form-label-left' method='POST' action='processa_servico.php' name='myform' id='myform' >                            
+                    
+                        <div>
                             <input type='hidden' id='id_servico' name='id_servico' value='".$idServico."' />
                         </div>                                            
-                    </div>                    
-                </div>        
-                </div>
-                <div class='col-sm-12'>                        
-                <div class='panel panel-primary'>
-                    <div class='panel-heading'>
-                        <h3 class='panel-title'>Informações Básicas</h3>
-                    </div>
-                    <div class='panel-body'>     
-                    
-                        <div class='col-xs-9'>
-                           <label for='descricao'>Descrição *</label>
-                            <input type='text' class='form-control' id='descricao' maxlength='100' name='descricao' value='".$descricao."' required />
-                        </div>
                         
-                        <div class='col-xs-3'>
-                            <label for='valor'>Valor R$</label>
-                            <input type='text' class='form-control' id='valor' name='valor' maxlength='7' value='".$valor."' required/>
-                        </div>     
+                        <div class='form-group'>
+                            <label class='control-label col-md-3 col-sm-3 col-xs-12'>Descrição: </label>
+                            <div class='col-md-8 col-sm-8 col-xs-12'>
+                                <input type='text' class='form-control' id='descricao' maxlength='100' minlength='4' name='descricao' value='".$descricao."' required />
+                            </div>
+                        </div>
+                       
+                        <div class='form-group'>
+                            <label class='control-label col-md-3 col-sm-3 col-xs-12'>Valor R$: </label>
+                            <div class='col-md-4 col-sm-4 col-xs-12'>
+                                <input type='text' class='form-control' id='valor' name='valor' maxlength='7' value='".$valor."' required/>
+                            </div>     
+                        </div>
                                                 
                     </div>                    
                 </div>          
                 
                 
-                <div>
-                    <p>
-                        <label>                            
+                <div class='form-group'>
+                        <div class='col-md-9 col-md-offset-3'>                                                                              
                             <button type='button' class='btn btn btn-danger' data-toggle='modal' data-target='.bs-example-modal-lg'>Cancelar</button>                           
-                        </label>
+                       
                         ".$btn_salvar."                         
-                    </p>
+                    </div>
                 </div>
                     
                 </div>
@@ -270,40 +287,38 @@ class ViewServico {
    }
       
    public static function imprimirListaServicosParaOrcamento($idOrcamento){
-       
-       $myLista = "<div class='clearfix'></div>
-                    <div class='row'>
-                        <div class='col-md-12 col-sm-12 col-xs-12'>
-                            <div class='x_panel'>
-                                <div class='x_title'>
-                                <h2>Lista de Serviços Selecionados</h2>
-                                <ul class='nav navbar-right panel_toolbox'>
-                                    <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
-                                        </li>                      
-                                    <li><a class='close-link'><i class='fa fa-close'></i></a>
-                                        </li>
-                                </ul>
-                                <div class='clearfix'></div>
-                            </div>
-                            <p class='text-muted font-13 m-b-30'>
-                                Lista de Serviços Selecionados para este Orçamento
-                            </p>
-                            <table id='datatable-responsive' class='table table-striped table-bordered dt-responsive nowrap' cellspacing='0' width='100%'>
-                                <thead>
-                                    <tr>
-                                        <th>Código</th>
-                                        <th>Descrição</th>
-                                        <th>Valor</th>                                        
-                                    </tr>
-                                </thead>
-                                <tbody>                       
-                                    ".Servico::getLinhasTabelaOrcamento($idOrcamento)."                                           
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-              </div>
-";
+       $myLista = "
+           <div class='clearfix'></div>
+            <div class='row'>
+                 <div class='col-md-6 col-sm-6 col-xs-12'>
+                <div class='x_panel'>
+                  <div class='x_title'>
+                    <h2>Lista de Serviços <small>Selecione o Serviço</small></h2>
+                    <ul class='nav navbar-right panel_toolbox'>
+                      <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
+                      </li>
+                    </ul>
+                    <div class='clearfix'></div>
+                  </div>
+                  <div class='x_content'>
+
+                    <table class='table'>                     
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Descrição</th>
+                                <th>Valor</th>                                        
+                            </tr>
+                        </thead>
+                        <tbody>                       
+                            ".Servico::getLinhasTabelaOrcamento($idOrcamento)."                                           
+                        </tbody>
+                    </table>
+
+                  </div>
+                </div>
+              </div>";              
+               
        echo $myLista;
    }
    

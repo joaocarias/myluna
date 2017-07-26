@@ -45,7 +45,19 @@ include_once 'partes/header_tabelas.php';
 
             <div class="clearfix"></div>
 
-              <?php  $view->imprimirListaAgendamento($periodo); ?>
+              <?php  if($periodo == '1'){
+                        $view->imprimirListaAgendamento($periodo);
+                     }else if($periodo == '2'){
+                         if(isset($_GET['de']) AND isset($_GET['ate'])){
+                            $view->imprimirListaAgendamento($periodo, $_GET['de'], $_GET['ate']);
+                         }else{
+                            $view->imprimirFormPeriodoData();
+                         }
+                     }else{
+                         $view->imprimirListaAgendamento($periodo);
+                     }
+               ?>
+            
 
           </div>
           </div>
@@ -54,7 +66,11 @@ include_once 'partes/header_tabelas.php';
 
        
    <?php
-include_once 'partes/footer_tabelas.php'; 
-    
+
+    if($periodo == '2'){
+        include_once 'partes/footer_form.php';
+    }else{
+        include_once 'partes/footer_tabelas.php'; 
+    }
     
     ?>

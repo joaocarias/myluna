@@ -48,9 +48,7 @@ if(isset($_GET['id_orcamento'])){
               
               <div class="clearfix"></div>
 
-                    <?php 
-                      
-
+                    <?php                       
                         if(isset($_GET['id_orcamento'])){
                             $idOrcamento = $_GET['id_orcamento'];
 
@@ -68,11 +66,7 @@ if(isset($_GET['id_orcamento'])){
 
                                 ViewServico::getItensDoOrcamento($idOrcamento, '1');  
                             }
-
-                        }
-                        
-                        
-                        
+                        }                        
                     ?>                    
                     
 

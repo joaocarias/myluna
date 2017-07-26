@@ -229,10 +229,12 @@ class Agendamento extends Conexao {
         }
     }  
     
-    public static function getLinhasTabela($periodo){
+    public static function getLinhasTabela($periodo, $de = null, $ate = null){
         try{
             if($periodo == 1){
                 $buscar = "and day(a.data_agendamento) = day(now()) and month(a.data_agendamento) = month(now()) and year(a.data_agendamento) = year(now())";   
+            }else if($periodo == 2){
+                $buscar = "and a.data_agendamento between '".Auxiliar::dateToUS($de)."' AND '".Auxiliar::dateToUS($ate)."' " ;   
             }else{
                 $buscar = "";
             }

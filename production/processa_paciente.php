@@ -127,12 +127,16 @@ if(isset($_POST['btn-salvar'])){
         header("Location: index.php?msg=0");
     }
 }else if(isset($_POST['btn-salvar-edicao'])){ 
+//    print_r($_POST);
     
    $retorno = $obj->editar();
-//   echo $retorno;
+   echo $retorno;
    
-    if($retorno == true){      
-        header("Location: index.php?msg=2");
+    if($retorno == true){  
+        header("Location: page_paciente.php?id_paciente=".$obj->getId_paciente()."&msg=2");
+        //header("Location: index.php?msg=2");
+//        echo $retorno;
+//        echo " - ".$obj->getId_paciente();
     }else{       
         header("Location: index.php?msg=3");
     }   

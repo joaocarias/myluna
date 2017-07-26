@@ -117,39 +117,38 @@ class ViewPaciente {
                 </label>";
         }
        
-       $myForm = "<div class='col-lg-12'>
-            <form method='POST' action='processa_paciente.php' name='myform' id='myform' >                            
-                <div class='col-sm-12'>                        
-                <div class='panel panel-primary'>
-                    <div class='panel-heading'>
-                        <h3 class='panel-title'></h3>
+       $myForm = 
+               "
+               
+           <form method='POST' action='processa_paciente.php' name='myform' id='myform' >
+               <!-- primeiro form -->
+               <div class='row'>
+            <div class='col-md-12 col-sm-12 col-xs-12'>
+                <div class='x_panel'>
+                    <div class='x_title'>
+                        <h2>Informações Básicas</h2>
+                        <ul class='nav navbar-right panel_toolbox'>
+                            <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
+                            </li>
+                        </ul>
+                        <div class='clearfix'></div>
                     </div>
-                    <div class='panel-body'>                            
-                        <div class='col-xs-4'>
-                            <label for='id_paciente'>ID Paciente</label>
-                            <input type='text' class='form-control' id='id_paciente' name='id_paciente' value='".$idPaciente."' readonly=true>    
-                            <input type='hidden' id = 'id_paciente_' name='id_paciente_' value='".$idPaciente."'>
-                        </div>                                            
-                    </div>                    
-                </div>        
-                </div>
-                <div class='col-sm-12'>                        
-                <div class='panel panel-primary'>
-                    <div class='panel-heading'>
-                        <h3 class='panel-title'>Informações Básicas</h3>
-                    </div>
-                    <div class='panel-body'>                            
-                        <div class='col-xs-3'>
+                   
+                    <div class='x_content'>      
+                                                 
+                        <input type='hidden' id = 'id_paciente' name='id_paciente' value='".$idPaciente."'>
+                                                    
+                        <div class='col-md-3 col-sm-3 col-xs-12'>
                             <label for='cpf'>CPF </label>
-                            <input type='text' class='form-control' id='cpf' placeholder='' maxlength='11' name='cpf' value='".$cpf."'>
+                            <input type='text' class='form-control' id='cpf' placeholder='' maxlength='14' data-inputmask='\"mask\": \"999.999.999-99\"' name='cpf' value='".$cpf."'>
                         </div>
                                                                              
-                        <div class='col-xs-9'>
+                        <div class='col-md-9 col-sm-9 col-xs-12'>
                             <label for='nome'>Nome *</label>
                             <input type='text' id='nome' class='form-control' placeholder='' maxlength='244' name='nome' value='".$nome."' required>
                         </div>
                              
-                        <div class='col-xs-3'>
+                        <div class='col-md-3 col-sm-3 col-xs-12'>
                             <label for='sexo'>Gênero *</label>
                             <select class='form-control' id='sexo' name='sexo'>
                                 <option value='sel'>Selecione</option>
@@ -171,72 +170,81 @@ class ViewPaciente {
                             </select>
                         </div>
                             
-                        <div class='col-xs-3'>
+                        <div class='col-md-3 col-sm-3 col-xs-12'>
                             <label for='data_nascimento'>Data de Nasc.</label>
-                            <input type='text' id='data_nascimento' name='data_nascimento' class='form-control' placeholder='' value='".Auxiliar::dateToBR($dataNascimento)."' maxlength='10'>
+                            <input type='text' id='data_nascimento' name='data_nascimento' class='form-control' placeholder='' value='".Auxiliar::dateToBR($dataNascimento)."' maxlength='10' data-inputmask='\"mask\": \"99/99/9999\"'>
                         </div>
                         
 
-                        <div class='col-xs-6'>
+                        <div class='col-md-6 col-sm-6 col-xs-12'>
                             <label for='email'>E-Mail </label>
                             <input type='email' id='email' class='form-control' placeholder='' maxlength='244' length='150' name='email' value='".$email."' >
                         </div>
                         
-                        <div class='col-xs-3'>
+                        <div class='col-md-3 col-sm-3 col-xs-12'>
                             <label for='telefone'>Telefone </label>
-                            <input type='text' class='form-control' id='telefone' placeholder='' maxlength='22' name='telefone' value='".$telefone."'  >
+                            <input type='text' class='form-control' id='telefone' placeholder='' maxlength='22' name='telefone' value='".$telefone."'  data-inputmask='\"mask\": \"(99) 9999-9999\"' >
                         </div>
                         
-                        <div class='col-xs-3'>
+                        <div class='col-md-3 col-sm-3 col-xs-12'>
                             <label for='n_ficha'>Nº da Ficha</label>
                             <input type='text' id='n_ficha' class='form-control' placeholder='' maxlength='8' name='n_ficha' value='".$n_ficha."'>
                         </div>
 
-                        <div class='col-xs-6'>
+                        <div class='col-md-6 col-sm-6 col-xs-12'>
                             <label for='obs'>Observações</label>
                             <input type='text' id='obs' class='form-control' placeholder='' maxlength='244' name='obs' value='".$obs."'>
                         </div>                       
                     </div>                    
                 </div>        
-                </div>
-                <div class='col-sm-12'>                        
-                <div class='panel panel-primary'>
-                    <div class='panel-heading'>
-                        <h3 class='panel-title'>Endereço</h3>
+               
+                <!-- fim primeiro form -->
+
+                <!-- segundo form -->
+               <div class='row'>
+            <div class='col-md-12 col-sm-12 col-xs-12'>
+                <div class='x_panel'>
+                    <div class='x_title'>
+                        <h2>Endereço</h2>
+                        <ul class='nav navbar-right panel_toolbox'>
+                            <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
+                            </li>
+                        </ul>
+                        <div class='clearfix'></div>
                     </div>
-                <div class='panel-body'>                      
+                    <div class='x_content'>                    
                 
-                    <div class='col-xs-9'>
+                    <div class='col-md-9 col-sm-9 col-xs-12'>
                         <label for='rua'>Logradouro</label>
                         <input type='text' id='rua' class='form-control' placeholder='' name='rua' value='".$rua."'>
                     </div>
                         
-                    <div class='col-xs-3'>
+                    <div class='col-md-3 col-sm-3 col-xs-12'>
                         <label for='numero'>Número</label>
                         <input type='text' class='form-control' id='numero' placeholder='' maxlength='10' name='numero' value='".$numero."'>
                     </div>
                     
-                    <div class='col-xs-6'>
+                    <div class='col-md-6 col-sm-6 col-xs-12'>
                         <label for='complemento'>Complemento</label>
                         <input type='text' id='complemento' class='form-control' placeholder='' maxlength='244' name='complemento' value='".$complemento."'>
                     </div>
                     
-                    <div class='col-xs-6'>
+                    <div class='col-md-6 col-sm-6 col-xs-12'>
                         <label for='bairro'>Bairro</label>
                         <input type='text' id='bairro' class='form-control' placeholder='' maxlength='244' name='bairro' value='".$bairro."'>
                     </div>
                           
-                    <div class='col-xs-3'>
+                    <div class='col-md-3 col-sm-3 col-xs-12'>
                         <label for='cep'>CEP</label>
-                        <input type='text' id='cep' placeholder='' class='form-control' name='cep' value='".$cep."'>                        
+                        <input type='text' id='cep' placeholder='' class='form-control' name='cep' value='".$cep."'  data-inputmask='\"mask\": \"99999-999\"' >                        
                     </div>                    
                     
-                    <div class='col-xs-6'>
+                    <div class='col-md-6 col-sm-6 col-xs-12'>
                         <label for='cidade'>Cidade</label>
                         <input type='text' class='form-control' id='cidade' placeholder='' maxlength='255' name='cidade' value='".$cidade."'>
                     </div>
                     
-                    <div class='col-xs-3'>
+                    <div class='col-md-3 col-sm-3 col-xs-12'>
                         <label for='uf'>UF</label>
                         <select class='form-control' id='uf' name='uf' >                                        
                             <option value='sel'>Selecione</option>
@@ -269,11 +277,20 @@ class ViewPaciente {
                         </select>                       
                     </div>
                 </div>                    
-                </div>
-                    
+               </div>
                 
-                
-                <div>
+               <div class='row'>
+            <div class='col-md-12 col-sm-12 col-xs-12'>
+                <div class='x_panel'>
+                    <div class='x_title'>
+                        <h2>...</h2>
+                        <ul class='nav navbar-right panel_toolbox'>
+                            <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
+                            </li>
+                        </ul>
+                        <div class='clearfix'></div>
+                    </div>
+                    <div class='x_content'>     
                     <p>
                         <label>                            
                             <button type='button' class='btn btn btn-danger' data-toggle='modal' data-target='.bs-example-modal-lg'>Cancelar</button>                           
@@ -281,12 +298,14 @@ class ViewPaciente {
                           ".$btn_salvar."                             
                     </p>
                 </div>
-                    
                 </div>
+                </div>
+                    
+                
                 
             </form>         
-        </div>
-        
+     
+     
         <!-- Fim do form -->
          
          ";
@@ -423,8 +442,16 @@ class ViewPaciente {
       
    }
    
-   public function imprimirListaOrcamentoPaciente($id){        
-       $myLista = "<div class='col-md-12 col-sm-12 col-xs-12'>
+   public function imprimirListaOrcamentoPaciente($id){      
+       
+       $lista = Orcamento::getLinhasTabelaOrcamentoPaciente($id);
+       
+       if($lista != ""){
+                   
+                   
+        echo " <div class='clearfix'></div>";
+       
+            echo "<div class='col-md-12 col-sm-12 col-xs-12'>
                 <div class='x_panel'>
                   <div class='x_title'>
                     <h2>Orçamento(s)</h2>                    
@@ -443,12 +470,13 @@ class ViewPaciente {
                             <th>Dentista</th>
                             <th>Serviços</th>
                             <th>Total R$</th>
+                            <th> </th>
                         </tr>
                       </thead>
 
                       <tbody>
                        
-                          ". Orcamento::getLinhasTabelaOrcamentoPaciente($id)."
+                          ". $lista."
                                            
                       </tbody>
                     </table>
@@ -456,7 +484,10 @@ class ViewPaciente {
                 </div>
               </div>
 ";
-       echo $myLista;     
+       }else{
+           echo "";
+       }
+           
     
    }
    

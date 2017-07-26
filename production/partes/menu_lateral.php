@@ -24,7 +24,7 @@
         <ul class="nav child_menu">                    
             <li><a href="nova_visita.php">Agendar Visita</a></li>
             <li><a href="lista_agendamento.php?periodo=1">Agenda do Dia</a></li>          
-          <li><a href="tables_dynamic.html">Listar por Período</a></li>
+          <li><a href="lista_agendamento.php?periodo=2">Listar por Período</a></li>
         </ul>
       </li>
       

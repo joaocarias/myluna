@@ -11,6 +11,12 @@
     
     include_once 'view/ViewPaciente.php';
     include_once 'view/ViewEntrada.php';
+    include_once 'controllers/Mensagem.php';
+    
+    if(isset($_GET['msg'])){
+                    $msg = $_GET['msg'];
+                    Mensagem::getMensagem(2, $msg, "Início", "");
+                }
     
     ?>
 
@@ -19,13 +25,8 @@
         
           <div class="row">
               
-              
             <?php
-                if(isset($_GET['msg'])){
-                    $msg = $_GET['msg'];
-
-                    Mensagem::getMensagem(2, $msg, "Início", "");
-                }
+                
             
                 if($_SESSION['tipo'] == 1){              
                     ViewEntrada::getUltimasEntradas();           

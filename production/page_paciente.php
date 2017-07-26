@@ -4,17 +4,18 @@ session_start();
 include_once 'testarLogado.php';
 
 include_once 'view/ViewPaciente.php';
-
 include_once 'partes/header.php';
-
-include_once 'partes/profile.php';
-    
-include_once 'partes/menu_lateral.php';
-    
-//include_once 'partes/footer_buttons.php';
-    
+include_once 'partes/profile.php';    
+include_once 'partes/menu_lateral.php';      
 include_once 'partes/menu_top.php';
 
+
+include_once 'controllers/Mensagem.php';
+    
+    if(isset($_GET['msg'])){
+                    $msg = $_GET['msg'];
+                    Mensagem::getMensagem(2, $msg, "Início", "");
+                }
 $id = "";
 
 if(isset($_GET['id_paciente'])){
@@ -48,10 +49,22 @@ if(isset($_GET['id_paciente'])){
                 </div>
 
                 <div class="clearfix"></div>
-              </div>
+                    
                 <?php if($_SESSION['tipo'] == 1){ ?>
-                 <div class="col-md-12 col-sm-12 col-xs-12">    
-                    <div class='row text-right'>
+
+                
+            <div class='col-md-12 col-sm-12 col-xs-12'>
+                <div class='x_panel'>
+                    <div class='x_title'>
+                        <h2>...</h2>
+                        <ul class='nav navbar-right panel_toolbox'>
+                            <li><a class='collapse-link'><i class='fa fa-chevron-up'></i></a>
+                            </li>
+                        </ul>
+                        <div class='clearfix'></div>
+                    </div>
+                    <div class='x_content'>  
+                
                         <a href='editar_paciente.php?editar=true&id_paciente=<?php echo $id; ?>' title='Editar'><button type="button" class="btn btn-primary btn-small">
                           <span class="fa fa-pencil-square-o" aria-hidden="true"></span> Editar
                             </button></a>
@@ -61,30 +74,20 @@ if(isset($_GET['id_paciente'])){
                             </button></a>           
                     </div>
                  </div>
+            </div>
                 
                 
-                <?php } ?>
-                  
-                <?php if($_SESSION['tipo'] == 1){ ?>    
+                
+                <?php } 
+                
+                if($_SESSION['tipo'] == 1){ ?>    
                  
-                <div class="dashboard_graph">
+               
              
-                   
-                <div class="row x_title">
-                  <div class="col-md-6">
-                    <h3>Orçamento <small>Cadastros referente ao Paciente</small></h3>
-
-                  </div>                  
-                </div>
-                    
-
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                  <div class="clearfix"></div>
-                    <?php 
+                    <?php
                         $view->imprimirListaOrcamentoPaciente($id);                        
                     ?>                    
                     
-                </div>
                     
 
                 <div class="clearfix"></div>

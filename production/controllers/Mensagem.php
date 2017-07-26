@@ -63,6 +63,21 @@ class Mensagem {
                     $bt_confirmar = "";
                     break;
             endswitch;            
+        }else if($tipo == 3){
+             switch ($idMensagem):
+                case 1:                    
+                    $texto = "Tem Certeza que Deseja Cadastrar o Usuário como Dentista?";
+                    $bt_confirmar = "<a href='".$paginaSeguinte."&btn-cadastrar-dentista=true'><button type='button' class='btn btn-primary'>Confirmar</button></a>";
+                    break;   
+                case 2:                    
+                    $texto = "Tem Certeza que Deseja Remover Funcionalidade Dentista do Usuário?";
+                    $bt_confirmar = "<a href='".$paginaSeguinte."&btn-remover-dentista=true'><button type='button' class='btn btn-primary'>Confirmar</button></a>";
+                    break; 
+                default :
+                    $texto = "[ERRO] Ação não Identificada!";
+                    $bt_confirmar = "";
+                    break;
+            endswitch;    
         }
         
         echo "<div class='modal fade bs-example-modal-lg' tabindex='-1' role='dialog' "

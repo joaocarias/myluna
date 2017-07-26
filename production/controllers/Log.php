@@ -76,8 +76,33 @@ class Log {
         $this->id_status = $id_status;
     }
 
-    public static function inserirLog($descricao, $tabela, $id_tabela){
-        
-    }
-
+    public static function inserirLog($descricao, $tabela, $id_tabela){                       
+        try {
+            $pdo = parent::getDB();
+           
+            $query = $pdo->prepare("INSERT INTO `agendamento`("
+                    . "`id_paciente`"
+                    . ", `id_dentista`"
+                    . ", `data_agendamento`"
+                    . ", `hora_agendamento`"
+                    . ", `id_pai`" 
+                    . ", `id_status`) "
+                    . "VALUES "
+                    . "(?,?,?,?,?,?)");        
+//                        
+            $query->bindValue(1, $this->getId_paciente());
+            $query->bindValue(2, $this->getId_dentista());  
+            $query->bindValue(3, Auxiliar::dateToUS($this->getData()));
+            $query->bindValue(4, $this->getHora());            
+            $query->bindValue(5, $_SESSION['id_usuario']);        
+            $query->bindValue(6, '1');
+            
+            $query->execute();    
+            
+            return $pdo->lastInsertId();
+          
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }  
 }

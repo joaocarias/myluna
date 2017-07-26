@@ -64,7 +64,7 @@ class ViewUsuario {
                         </div>
 
                         <div class='col-md-4 col-sm-6 col-xs-12'>                                         
-                            <strong>CPF: </strong>".$dadosDentista->getCpf()."
+                            <strong>CPF: </strong>".  Auxiliar::ImprimirCpfCaracteres($dadosDentista->getCpf())."
                         </div>
                     </div>
                 </div>
@@ -535,6 +535,12 @@ class ViewUsuario {
    public function informacoesBasicas($id){        
         $myDados = Usuario::getInformacoes($id);
        
+        $dentista = "NÃO";
+        
+        if($myDados->getFuncao_dentista() == '1'){
+            $dentista = "SIM";
+        }
+        
         echo "<div class='clearfix'></div>
 
                     <div class='row'>
@@ -561,7 +567,7 @@ class ViewUsuario {
                                     </div>
                                     
                                     <div class='col-md-4 col-sm-6 col-xs-12'>                                         
-                                        <strong>CPF: </strong>".$myDados->getCpf()."
+                                        <strong>CPF: </strong>".  Auxiliar::ImprimirCpfCaracteres($myDados->getCpf())."
                                     </div>
 
                                     
@@ -605,9 +611,11 @@ class ViewUsuario {
                                     <div class='col-md-5 col-sm-6 col-xs-12'>                                         
                                         <strong>Comissão: </strong>".  $myDados->getComissao()."%
                                     </div>
+                                    
+                                    <div class='col-md-3 col-sm-6 col-xs-12'>                                         
+                                        <strong>Dentista: </strong>". $dentista."                                            
+                                    </div>
                                 </p>
-
-
                                 </div>
                             </div>
                         </div>
@@ -706,6 +714,20 @@ class ViewUsuario {
 ";
        }
        
+   }
+   
+   public function imprimirBotaoDefinirFuncaoDentista($id){
+        Mensagem::getMensagem(3, 1, $this->getTitulo(), "processa_usuario.php?id_usuario=".$id);
+        echo "            
+            <button type='button' class='btn btn btn-primary' data-toggle='modal' data-target='.bs-example-modal-lg'>Definir Como Dentista</button>
+        ";
+   }
+   
+   public function imprimirBotaoExcluirFuncaoDentista($id){
+        Mensagem::getMensagem(3, 2, $this->getTitulo(), "processa_usuario.php?id_usuario=".$id);
+        echo "            
+            <button type='button' class='btn btn btn-primary' data-toggle='modal' data-target='.bs-example-modal-lg'>Remover Funcionalidade Dentista</button>
+        ";
    }
    
 }

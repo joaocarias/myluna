@@ -213,9 +213,9 @@ class Orcamento extends Conexao{
                 $valorTotal = $row->soma;
             }
                     
-            return $valorTotal;
+            return Auxiliar::convParaReal($valorTotal);
         } catch (Exception $ex) {
-            return 0;
+            return Auxiliar::convParaReal(0);
         }
     }
     
@@ -333,7 +333,8 @@ class Orcamento extends Conexao{
                     //    . "<td><a href='page_paciente.php?id_paciente=".$row->id_paciente."'>".$row->paciente."</a></td>"
                         . "<td>".$row->dentista."</td>"
                         . "<td>".ItemOrcamento::getListaItensOrcamento($row->id_orcamento, '1')."</td>" 
-                        . "<td>".self::getValorTotalDoOrcamento($row->id_orcamento, '1')."</td> "                       
+                        . "<td>".self::getValorTotalDoOrcamento($row->id_orcamento, '1')."</td> "
+                        . "<td><a href='page_orcamento.php?id_orcamento=".$row->id_orcamento."'>Mais Detalhes</a></td>"                       
                         . "</tr> ";                
             }
                

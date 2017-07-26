@@ -145,6 +145,37 @@ if(isset($_POST['btn-salvar'])){
     }else{       
         header("Location: index.php?msg=0");
     }
+}else if(isset($_GET['btn-cadastrar-dentista'])){
+   // print_r($_GET);
+    if(isset($_GET['id_usuario'])){
+        $obj->setId_usuario($_GET['id_usuario']);   
+    }else{
+        $obj->setId_usuario("");
+    }    
+    
+   // print_r($obj);
+    
+    $retorno = $obj->definirComoDentista("inserir");
+   
+    if($retorno == true){      
+        header("Location: page_usuario.php?id_usuario=".$obj->getId_usuario()."&msg=2");
+    }else{       
+        header("Location: page_usuario.php?id_usuario=".$obj->getId_usuario()."&msg=0");
+    }
+}else if(isset($_GET['btn-remover-dentista'])){
+    if(isset($_GET['id_usuario'])){
+        $obj->setId_usuario($_GET['id_usuario']);        
+    }else{
+        $obj->setId_usuario("");
+    }    
+    
+    $retorno = $obj->definirComoDentista("remover");
+   
+    if($retorno == true){      
+        header("Location: page_usuario.php?id_usuario=".$obj->getId_usuario()."&msg=2");
+    }else{       
+        header("Location: page_usuario.php?id_usuario=".$obj->getId_usuario()."&msg=0");
+    }
 }else if(isset($_POST['btn-salvar-edicao'])){ 
     
    $retorno = $obj->editar();
