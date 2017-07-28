@@ -81,8 +81,7 @@ if(isset($_GET['n_parcela_cartao'])){
               <div class="title_left">
                 <h3><?php echo $view->getTitulo(); ?> <small><?php echo $view->getSubTitulo(); ?> </small></h3>
               </div>
-       
-              
+                    
             </div>
 
             <div class="clearfix"></div>

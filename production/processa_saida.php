@@ -110,13 +110,13 @@ if(isset($_POST['btn-salvar_selecionar_servico'])){
     
     $id_saida = $nova_saida->inserir();
     echo "id: ".$id_saida;
-//    
-//    if($id_saida > 0){
-//        header("Location: page_saida.php?id_saida=".$id_saida);
-//    }else{
-////        echo $id_saida;
-//        header("Location: inxdex.php?msg=3");
-//    }
+    
+    if($id_saida > 0){
+        header("Location: page_saida.php?id_saida=".$id_saida);
+    }else{
+//        echo $id_saida;
+        header("Location: inxdex.php?msg=3");
+    }
 }else {
     header("Location: index.php?msg=0");
 }

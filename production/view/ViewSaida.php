@@ -148,8 +148,8 @@ class ViewSaida {
                                 <div class='clearfix'></div>
                             </div>
                             <div class='x_content'>
-                                <form method='GET' action='entrada.php' name='myform' id='myform'>
-                                    <input type='hidden' name='id_paciente' value='".$id_paciente."'>
+                                <form method='GET' action='nova_saida.php' name='myform' id='myform'>
+                                    <input type='hidden' name='id_fornecedor' value='".$id_fornecedor."'>
                                     <input type='hidden' name='forma_de_pagamento' value='".$forma_de_pagamento."'>
                                 
                                     <div class='col-xs-4'>                                        
@@ -165,10 +165,7 @@ class ViewSaida {
                                 </form>
                             </div>
                         </div>";
-                    }                    
-            
-                    
-                    
+                    }                                        
             }else if($forma_de_pagamento == 3){                                
                     $formaEscolhida = new FormaPagamento();
                     $formaEscolhida->gerarFormaDePagamento("DEBITO");
@@ -194,8 +191,8 @@ class ViewSaida {
                                 <div class='clearfix'></div>
                             </div>
                             <div class='x_content'>
-                                <form method='GET' action='entrada.php' name='myform' id='myform'>
-                                    <input type='hidden' name='id_paciente' value='".$id_paciente."'>
+                                <form method='GET' action='nova_saida.php' name='myform' id='myform'>
+                                    <input type='hidden' name='id_fornecedor' value='".$id_fornecedor."'>
                                     <input type='hidden' name='forma_de_pagamento' value='".$forma_de_pagamento."'>
                                 
                                     <div class='col-xs-4'>                                        
@@ -230,8 +227,8 @@ class ViewSaida {
                                 <div class='clearfix'></div>
                             </div>
                             <div class='x_content'>
-                                <form method='GET' action='entrada.php' name='myform' id='myform'>
-                                    <input type='hidden' name='id_paciente' value='".$id_paciente."'>
+                                <form method='GET' action='nova_saida.php' name='myform' id='myform'>
+                                    <input type='hidden' name='id_fornecedor' value='".$id_fornecedor."'>
                                     <input type='hidden' name='forma_de_pagamento' value='".$forma_de_pagamento."'>
                                     <input type='hidden' name='valor_dinheiro_receber' value='".$valor_dinheiro_receber."'>
                                 
@@ -280,8 +277,8 @@ class ViewSaida {
                                 <div class='clearfix'></div>
                             </div>
                             <div class='x_content'>
-                                <form method='GET' action='entrada.php' name='myform' id='myform'>
-                                    <input type='hidden' name='id_paciente' value='".$id_paciente."'>
+                                <form method='GET' action='nova_saida.php' name='myform' id='myform'>
+                                    <input type='hidden' name='id_fornecedor' value='".$id_fornecedor."'>
                                     <input type='hidden' name='forma_de_pagamento' value='".$forma_de_pagamento."'>
                                 
                                     <div class='col-xs-4'>                                        
@@ -327,8 +324,8 @@ class ViewSaida {
                                 <div class='clearfix'></div>
                             </div>
                             <div class='x_content'>
-                                <form method='GET' action='entrada.php' name='myform' id='myform'>
-                                    <input type='hidden' name='id_paciente' value='".$id_paciente."'>
+                                <form method='GET' action='nova_saida.php' name='myform' id='myform'>
+                                    <input type='hidden' name='id_fornecedor' value='".$id_fornecedor."'>
                                     <input type='hidden' name='forma_de_pagamento' value='".$forma_de_pagamento."'>
                                 
                                     <div class='col-xs-4'>                                        
@@ -361,8 +358,8 @@ class ViewSaida {
                                 <div class='clearfix'></div>
                             </div>
                             <div class='x_content'>
-                                <form method='GET' action='entrada.php' name='myform' id='myform'>
-                                    <input type='hidden' name='id_paciente' value='".$id_paciente."'>
+                                <form method='GET' action='nova_saida.php' name='myform' id='myform'>
+                                    <input type='hidden' name='id_fornecedor' value='".$id_fornecedor."'>
                                     <input type='hidden' name='forma_de_pagamento' value='".$forma_de_pagamento."'>
                                     <input type='hidden' name='valor_debito_receber' value='".$valor_debito_receber."'>
                                 
@@ -410,8 +407,8 @@ class ViewSaida {
                                 <div class='clearfix'></div>
                             </div>
                             <div class='x_content'>
-                                <form method='GET' action='entrada.php' name='myform' id='myform'>
-                                    <input type='hidden' name='id_paciente' value='".$id_paciente."'>
+                                <form method='GET' action='nova_saida.php' name='myform' id='myform'>
+                                    <input type='hidden' name='id_fornecedor' value='".$id_fornecedor."'>
                                     <input type='hidden' name='forma_de_pagamento' value='".$forma_de_pagamento."'>
                                 
                                     <div class='col-xs-4'>                                        
@@ -444,8 +441,8 @@ class ViewSaida {
                                 <div class='clearfix'></div>
                             </div>
                             <div class='x_content'>
-                                <form method='GET' action='entrada.php' name='myform' id='myform'>
-                                    <input type='hidden' name='id_paciente' value='".$id_paciente."'>
+                                <form method='GET' action='nova_saida.php' name='myform' id='myform'>
+                                    <input type='hidden' name='id_fornecedor' value='".$id_fornecedor."'>
                                     <input type='hidden' name='forma_de_pagamento' value='".$forma_de_pagamento."'>
                                          <input type='hidden' name='valor_dinheiro_receber' value='".$valor_dinheiro_receber."'>
                                 
@@ -491,8 +488,8 @@ class ViewSaida {
                                 <div class='clearfix'></div>
                             </div>
                             <div class='x_content'>
-                                <form method='GET' action='entrada.php' name='myform' id='myform'>
-                                    <input type='hidden' name='id_paciente' value='".$id_paciente."'>
+                                <form method='GET' action='nova_saida.php' name='myform' id='myform'>
+                                    <input type='hidden' name='id_fornecedor' value='".$id_fornecedor."'>
                                     <input type='hidden' name='forma_de_pagamento' value='".$forma_de_pagamento."'>
                                     <input type='hidden' name='valor_debito_receber' value='".$valor_debito_receber."'>
                                     <input type='hidden' name='valor_dinheiro_receber' value='".$valor_dinheiro_receber."'>
