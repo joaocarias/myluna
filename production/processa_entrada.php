@@ -87,7 +87,7 @@ if($acao == "receber"){
         header("Location: page_entrada.php?id_entrada=".$id_entrada);
     }else{
         
-        echo $id_entrada;
-     //   header("Location: inxdex.php?msg=2");
+ //       echo $id_entrada;
+        header("Location: inxdex.php?msg=3");
     }
 }

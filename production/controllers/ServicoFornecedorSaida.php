@@ -25,7 +25,26 @@ class ServicoFornecedorSaida extends Conexao{
     private $modificado_por;
     private $data_modificacao;
     private $id_status;
+    private $id_saida;
+    private $id_fornecedor;
     
+    function getId_saida() {
+        return $this->id_saida;
+    }
+
+    function getId_fornecedor() {
+        return $this->id_fornecedor;
+    }
+
+    function setId_saida($id_saida) {
+        $this->id_saida = $id_saida;
+    }
+
+    function setId_fornecedor($id_fornecedor) {
+        $this->id_fornecedor = $id_fornecedor;
+    }
+
+        
     
     function getId_servico_fornecedor_saida() {
         return $this->id_servico_fornecedor_saida;
@@ -119,15 +138,17 @@ class ServicoFornecedorSaida extends Conexao{
                     . ", valor_unitario"
                     . ", valor_pago"
                     . ", id_pai"
+                    . ", id_fornecedor "
                     . ") "
                     . " VALUES "
-                    . "(?, ?, ?, ?, ?);");        
+                    . "(?, ?, ?, ?, ?, ?);");        
             
             $query->bindValue(1, $this->getId_servico_fornecedor());
             $query->bindValue(2, $this->getQuantidade());  
             $query->bindValue(3, Auxiliar::convParaDecimal($this->getValor_unitario()));            
             $query->bindValue(4, Auxiliar::convParaDecimal($this->getValor_pago())); 
             $query->bindValue(5, $_SESSION['id_usuario']);
+            $query->bindValue(6, $this->getId_fornecedor());
             
             $query->execute();    
             
@@ -203,6 +224,60 @@ class ServicoFornecedorSaida extends Conexao{
             return $lista;
                     
         } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }
+    
+    public static function getTotalSaida($id_fornecedor){
+        try{
+            $pdo = parent::getDB();
+            $query = $pdo->prepare("select 	
+                                 SUM(valor_pago) as valor_pago 	
+                            from servico_fornecedor_saida as sfs
+                            inner join servico_fornecedor as sf on sf.id_servico = sfs.id_servico_fornecedor AND sf.id_fornecedor = ?  
+                            where 
+                                sfs.id_status = '3' 
+                                ;
+                            ;");
+           
+            $query->bindValue(1, $id_fornecedor);
+                                               
+            $lista = "0,00";
+            
+            $query->execute();               
+                           
+            while($row = $query->fetch(PDO::FETCH_OBJ)){                          
+                $lista = $row->valor_pago;
+            }
+                
+            return $lista;
+                    
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }
+    
+    public static function finalizarSaida($IdFornecedor, $idSaida){
+         try{            
+            $pdo = parent::getDB();
+            $query = $pdo->prepare(" UPDATE servico_fornecedor_saida "
+                    . " SET id_status = 7 "                    
+                    . ", data_modificacao = NOW() "
+                    . ", modificado_por = ? "
+                    . ", id_saida = ? "
+                    . " WHERE "
+                    . " id_status = 3 "
+                    . " AND id_fornecedor = ?;");
+            
+            $query->bindValue(1, $_SESSION['id_usuario']);
+            $query->bindValue(2, $idSaida);
+            $query->bindValue(3, $IdFornecedor);
+            
+            $query->execute();
+            
+            return 1;
+        } catch (Exception $ex) {
+           // echo $ex->getMessage();
             return $ex->getMessage();
         }
     }

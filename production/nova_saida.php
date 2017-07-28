@@ -110,7 +110,7 @@ if(isset($_GET['n_parcela_cartao'])){
                             }else if($forma_de_pagamento == "escolher"){
                                 $view->imprimirFormEscolherFomarmaDePagamento($id_fornecedor);                            
                             }else{
-                                 $view->imprimirFormPagamento($forma_de_pagamento, $idFornecedor, $n_parcela_cartao, $valor_dinheiro_receber, $valor_debito_receber);
+                                 $view->imprimirFormPagamento($forma_de_pagamento, $id_fornecedor, $n_parcela_cartao, $valor_dinheiro_receber, $valor_debito_receber);
                             }
                         }else{                        
                             $view->imprimirListaFornecedor();

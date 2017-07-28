@@ -83,6 +83,7 @@ class ViewSaida {
                                                 echo "
                                               </tbody>
                                             </table>
+                                    <p>Total do Valor: ".Auxiliar::convParaReal(ServicoFornecedorSaida::getTotalSaida($id_fornecedor))."</p>
                                 </div>
                             </div>
                         </div>
@@ -95,11 +96,13 @@ class ViewSaida {
                         <a href='nova_saida.php?id_fornecedor=".$id_fornecedor."&forma_de_pagamento=escolher'><button type='button' class='btn btn btn-primary'>Escolher Forma de Pagamento</button></a>                           
                     </label>";
                 }
+                
+                
         }
    }
    
-   public function imprimirFormPagamento($forma_de_pagamento, $id_paciente, $n_parcela_cartao, $valor_dinheiro_receber, $valor_debito_receber) {
-        $valor_total = Orcamento::getValorReceber($id_paciente);
+   public function imprimirFormPagamento($forma_de_pagamento, $id_fornecedor, $n_parcela_cartao, $valor_dinheiro_receber, $valor_debito_receber) {
+        $valor_total = ServicoFornecedorSaida::getTotalSaida($id_fornecedor);
         $rows = "";
         
         if($forma_de_pagamento != "ESCOLHER" && $forma_de_pagamento != ""){
@@ -581,8 +584,8 @@ class ViewSaida {
 
                 echo $myTable;
                 
-                echo "<form method='GET' action='processa_entrada.php' name='myform' id='myform'>
-                                <input type='hidden' name='id_paciente' value='".$id_paciente."'>
+                echo "<form method='GET' action='processa_saida.php' name='myform' id='myform'>
+                                <input type='hidden' name='id_fornecedor' value='".$id_fornecedor."'>
                                 <input type='hidden' name='forma_de_pagamento' value='".$forma_de_pagamento."'>
                                 <input type='hidden' name='valor_debito_receber' value='".$valor_debito_receber."'>
                                 <input type='hidden' name='valor_dinheiro_receber' value='".$valor_dinheiro_receber."'>
@@ -611,7 +614,7 @@ class ViewSaida {
                         <div class='clearfix'></div>
                     </div>
                     <div class='x_content'>      
-                        <form method='GET' action='entrada.php' name='myform' id='myform' >
+                        <form method='GET' action='nova_saida.php' name='myform' id='myform' >
                        
                             <input type='hidden' name='id_fornecedor' value='".$id_fornecedor."'>
                             <div class='col-xs-4'>                                
@@ -985,6 +988,7 @@ class ViewSaida {
                                         <label for='descricao_servico'>Descrição</label>
                                         <input type='text' class='form-control' id='descricao_servico' name='descricao_servico' value='".$dados_servicos->getDescricao()."' disabled=''>  
                                         <input type='hidden' id = 'id_servico' name='id_servico' value='".$id_servico."'>
+                                            <input type='hidden' id = 'id_fornecedor' name='id_fornecedor' value='".$dados_servicos->getId_fornecedor()."'>
                                     </div>
 
                                     <div class='col-xs-2'>     
