@@ -70,12 +70,16 @@
         </ul>
       </li>
 
+       <?php if($_SESSION['tipo'] == 1) { ?>
+      
       <li><a><i class="fa fa-truck"></i> Fornecedor <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
           <li><a href="novo_fornecedor.php">Novo Fornecedor</a></li>
           <li><a href="lista_fornecedor.php">Lista de Fornecedor</a></li>
         </ul>
       </li>
+      
+       <?php } ?>
       
       <li><a><i class="fa fa-users"></i> Usuários <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">

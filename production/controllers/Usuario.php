@@ -323,7 +323,6 @@ class Usuario extends Conexao{
         }
     }
     
-    
     public static function primeiroNome($id){        
         try{
             $pdo = parent::getDB();

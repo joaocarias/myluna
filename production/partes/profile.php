@@ -19,7 +19,17 @@
             <!-- menu profile quick info -->
             <div class="profile">
               <div class="profile_pic">
-                <img src="images/user.png" alt="..." class="img-circle profile_img">
+                  
+                  <?php 
+                  
+                    if($_SESSION['sexo'] == 'F'){
+                        $imagem = 'female_user.png';
+                    }else{
+                        $imagem = 'man_user.png';
+                    }
+                  ?>
+                  
+                <img src="images/<?php echo $imagem; ?>" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Olá,</span>

@@ -50,9 +50,6 @@ if(isset($_GET['id_paciente'])){
 
                 <div class="clearfix"></div>
                     
-                <?php if($_SESSION['tipo'] == 1){ ?>
-
-                
             <div class='col-md-12 col-sm-12 col-xs-12'>
                 <div class='x_panel'>
                     <div class='x_title'>
@@ -68,17 +65,26 @@ if(isset($_GET['id_paciente'])){
                         <a href='editar_paciente.php?editar=true&id_paciente=<?php echo $id; ?>' title='Editar'><button type="button" class="btn btn-primary btn-small">
                           <span class="fa fa-pencil-square-o" aria-hidden="true"></span> Editar
                             </button></a>
+                        
+                         <a href='processa_paciente.php?btn-excluir=true&id_paciente=<?php echo $id; ?>' title='Excluir'><button type="button" class="btn btn-danger btn-small">
+                          <span class="fa fa-pencil-square-o" aria-hidden="true"></span> Excluir
+                            </button></a>
 
+                        <?php if($_SESSION['tipo'] == 1){ ?>
+                        
                         <a href='novo_orcamento.php?novo_orcamento=true&id_paciente=<?php echo $id; ?>' title='Novo Orçamento''><button type="button" class="btn btn-default btn-small">
                           <span class="fa fa-calculator" aria-hidden="true"></span> Novo Orçamento
-                            </button></a>           
+                            </button></a> 
+                      
+                        <?php } ?>
+                        
                     </div>
                  </div>
             </div>
                 
                 
                 
-                <?php } 
+                <?php 
                 
                 if($_SESSION['tipo'] == 1){ ?>    
                  

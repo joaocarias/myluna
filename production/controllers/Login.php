@@ -40,6 +40,7 @@ class Login extends Conexao  {
                     $_SESSION['login'] = $dados->login;
                     $_SESSION['tipo'] = $dados->id_tipo;                    
                     $_SESSION['logado'] = 1;
+                    $_SESSION['sexo'] = $dados->sexo;
                 else:
                     $_SESSION['logado'] = 0;
                 endif;

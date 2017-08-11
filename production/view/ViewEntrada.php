@@ -755,8 +755,6 @@ class ViewEntrada {
                     </div>";
         
         $viewPaciente->imprimirInformacoesBasicasPaciente($myDados->getIdPaciente());
-       
-       
         
         echo "<div class='clearfix'></div>
 

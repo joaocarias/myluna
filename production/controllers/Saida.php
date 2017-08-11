@@ -189,6 +189,73 @@ class Saida extends Conexao{
         }        
     }
 
+     public static function getInformacoes($id){
+        try{
+            $dados = new Saida(1, 1, 1, 1, 1);           
+            
+            $pdo = parent::getDB();
+//
+            $query = $pdo->prepare("SELECT s.*, date_format(s.data_cadastro, '%d/%m/%Y %H:%i:%s') as data_cadastro
+             FROM `saida` as s WHERE s.id_status = ? AND s.id_saida = ?" );        
+
+            $query->bindValue(1, "1");
+            $query->bindValue(2, $id);
+                            
+            $query->execute();               
+//                           
+            while($row = $query->fetch(PDO::FETCH_OBJ)){    
+                $dados->setIdSaida($row->id_saida);
+                $dados->setIdFornecedor($row->id_fornecedor);
+                $dados->setValorDinheiro($row->valor_dinheiro);
+                $dados->setParcelaDinheiro($row->parcela_dinheiro);
+                $dados->setValorCartao($row->valor_cartao);
+                $dados->setParcelaCartao($row->parcela_cartao);
+                $dados->setValorDebito($row->valor_debito);
+                $dados->setParcelaDebito($row->parcela_debito);
+                $dados->setIdPai($row->id_pai);
+                $dados->setIdStatus($row->id_status);
+                $dados->setDataCadastro($row->data_cadastro);
+                $dados->setDataModificacao($row->data_modificacao);
+                $dados->setModificadoPor($row->modificado_por); 
+                                
+            }
+               
+            return $dados;       
+        } catch (Exception $ex) {
+            return $ex;
+        }
+    }
     
+    public static function getLinhasServicosSaidas($id_saida){
+        try{
+            
+            $pdo = parent::getDB();
+            $query = $pdo->prepare("select s.*, sf.descricao as descricao "
+                    . " from servico_fornecedor_saida as s "
+                    . " INNER JOIN servico_fornecedor as sf ON sf.id_servico = s.id_servico_fornecedor "
+                    . " WHERE s.id_saida = ?");
+            $query->bindValue(1, $id_saida);
+            
+            $query->execute();
+                        
+            $i = 1;
+            $linhas = "";
+            while($row = $query->fetch(PDO::FETCH_OBJ)){
+                $linhas = $linhas . ""
+                        . "<tr>
+                              <th scope='row'>".$row->descricao."</th>
+                              <td>".$row->quantidade."</td>
+                              <td>".Auxiliar::convParaReal($row->valor_unitario)."</td>
+                              <td>".Auxiliar::convParaReal((2*($row->valor_unitario))-($row->valor_pago))."</td>
+                              <td>".Auxiliar::convParaReal($row->valor_pago)."</td>                              
+                           </tr>";
+                $i++;
+            }
+
+            return $linhas;
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
+    }
     
 }
