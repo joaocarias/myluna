@@ -20,6 +20,9 @@ class Config {
     private static $ano = "2017";
     private static $desenvolvido_por = "João Carias de França";
     private static $email = "joaocariasdefranca@gmail.com";
+    private static $enderecoClinica = "Rua Antônio Vigário Montenegro, 186 - Centro - Goianinha - RN. ";
+    private static $telefonesClinica = "WhatSapp (TIM): 99842-0405 (OI) 98634-9265 (CLARO) 99195-7680";
+    private static $pageWeb = "http://luanda.000webhostapp.com/site/";
     
     static function getTitulo() {
         return self::$titulo;
@@ -86,6 +89,32 @@ class Config {
     static function setEmail($email) {
         self::$email = $email;
     }
+    
+    static function getEnderecoClinica() {
+        return self::$enderecoClinica;
+    }
+
+    static function getTelefonesClinica() {
+        return self::$telefonesClinica;
+    }
+
+    static function getPageWeb() {
+        return self::$pageWeb;
+    }
+
+    static function setEnderecoClinica($enderecoClinica) {
+        self::$enderecoClinica = $enderecoClinica;
+    }
+
+    static function setTelefonesClinica($telefonesClinica) {
+        self::$telefonesClinica = $telefonesClinica;
+    }
+
+    static function setPageWeb($pageWeb) {
+        self::$pageWeb = $pageWeb;
+    }
+
+
 
 
 

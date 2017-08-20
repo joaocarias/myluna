@@ -1,7 +1,7 @@
-<!DOCTYPE html>
-
 <?php
 session_start(); 
+
+include_once 'testarLogado.php';
 
 include_once './Auxiliares/Config.php';
 include_once 'view/ViewOrcamento.php';

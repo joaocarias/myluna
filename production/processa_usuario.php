@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-session_start();
+//session_start();
 
 include_once 'controllers/Usuario.php';
 

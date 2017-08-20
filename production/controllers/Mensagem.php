@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of Mensagem
  *
@@ -14,7 +8,7 @@
 class Mensagem {
     
     public static function getMensagem($tipo, $idMensagem, $tituloPagina, $paginaSeguinte){
-        $tituloModal = "";
+       
         $texto = "";
                 
         if($tipo == 1){    //Se tipo igual a 1, então é um questionamento      

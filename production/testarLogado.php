@@ -1,7 +1,5 @@
 <?php
 
-
-    
    if($_SESSION['logado'] == 1){
        
    }else{

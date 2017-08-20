@@ -1,8 +1,7 @@
 <?php 
+//session_start();
 
     include_once './controllers/Usuario.php';
-    
-    //session_start();
     
 ?>
   <body class="nav-md">

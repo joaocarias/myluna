@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/var/www/html/myluna/production/view/ViewEntrada.php</file>
-            <file>file:/var/www/html/myluna/production/page_entrada.php</file>
-            <file>file:/var/www/html/myluna/production/controllers/Saida.php</file>
-            <file>file:/var/www/html/myluna/production/page_saida.php</file>
-            <file>file:/var/www/html/myluna/production/view/ViewSaida.php</file>
-            <file>file:/var/www/html/myluna/production/controllers/Entrada.php</file>
+            <file>file:/var/www/html/myluna/production/relatorio_pacientes_pdf.php</file>
+            <file>file:/var/www/html/myluna/production/controllers/GeradorDePDF.php</file>
+            <file>file:/var/www/html/myluna/production/lista_paciente.php</file>
+            <file>file:/var/www/html/myluna/production/Auxiliares/Config.php</file>
         </group>
     </open-files>
 </project-private>

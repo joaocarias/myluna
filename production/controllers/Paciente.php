@@ -626,6 +626,38 @@ class Paciente extends Conexao {
         }
     }
     
+    public static function getLinhasTabelaRelatorioPaciente(){
+         try{
+            $pdo = parent::getDB();
+
+            $query = $pdo->prepare("SELECT * FROM `paciente` WHERE id_status = ? order by nome" );        
+
+            $query->bindValue(1, "1");
+                            
+            $query->execute();
+               
+            $linhas = "";
+                
+            while($row = $query->fetch(PDO::FETCH_OBJ)){                    
+                $linhas = $linhas . "<tr>"       
+                            . "<td>".$row->id_paciente."</td>"                     
+                            . "<td>".$row->nome."</td>"
+                            . "<td>".$row->cpf."</td>"
+                            . "<td>".$row->sexo."</td>"
+                            . "<td>".$row->telefone."</td>"                              
+                            . "<td>".$row->n_ficha."</td>"                           
+                            . "<td>".$row->cidade."-".$row->uf."</td>"
+                                                     
+                            
+                        . "</tr> ";                
+            }
+               
+            return $linhas;                
+        } catch (Exception $ex) {
+            return "";
+        }
+    }
+    
     public static function getLinhasTabelaPacientesAgendamento(){
         try{
             $pdo = parent::getDB();

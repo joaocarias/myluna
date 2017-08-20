@@ -2,15 +2,15 @@
 
     session_start();
 
-    include_once 'testarLogado.php';
+    include 'testarLogado.php';
    
-    include_once 'partes/header.php';   
-    include_once 'partes/profile.php';
-    include_once 'partes/menu_lateral.php';
-    include_once 'partes/menu_top.php'; 
+    include 'partes/header.php';   
+    include 'partes/profile.php';
+    include 'partes/menu_lateral.php';
+    include 'partes/menu_top.php'; 
     
-    include_once 'view/ViewPaciente.php';
-    include_once 'view/ViewEntrada.php';
+    include 'view/ViewPaciente.php';
+    include 'view/ViewEntrada.php';
     include_once 'controllers/Mensagem.php';
     
     if(isset($_GET['msg'])){

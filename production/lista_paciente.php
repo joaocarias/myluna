@@ -1,8 +1,8 @@
-<!DOCTYPE html>
-
 <?php
 session_start(); 
 
+include_once 'testarLogado.php';
+ 
 include_once './Auxiliares/Config.php';
 include_once 'view/ViewPaciente.php';
 
@@ -32,7 +32,10 @@ include_once 'partes/header_tabelas.php';
 
             
               <?php $view->imprimirListaPacientes(); ?>
-              
+           
+            <div style="text-align: right">
+                <a href="relatorio_pacientes_pdf.php" target="_blank"><button class="btn btn-primary">Relatório em PDF</button></a>
+              </div>
 
           </div>
           </div>
